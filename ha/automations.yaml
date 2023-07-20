@@ -1,0 +1,357 @@
+# AUTOMATIONS.YAML
+# AUTHOR: kito129
+
+
+# TIME AUTOMATION
+
+# INVERTER
+- id: '1680534622159'
+  alias: 1700inverterOFF
+  description: ''
+  trigger:
+  - platform: time
+    at: '17:00:00'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 5ba4557ff747bdc01d9581d5c8f35b5e
+    entity_id: switch.ininverter
+    domain: switch
+  mode: single
+- id: '1680553556124'
+  alias: 1000inverterON
+  description: ''
+  trigger:
+  - platform: time
+    at: '10:00:00'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 5ba4557ff747bdc01d9581d5c8f35b5e
+    entity_id: switch.ininverter
+    domain: switch
+  mode: single
+
+# BOILER
+
+# ON
+- id: '1680553694304'
+  alias: 0830boilerON
+  description: ''
+  trigger:
+  - platform: time
+    at: 08:30:00
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 3ad97e1daf95913698b7b1acb69a32d8
+    entity_id: switch.boiler
+    domain: switch
+  mode: single
+
+# OFF
+- id: '1680560017036'
+  alias: 1700boilerOFF
+  description: ''
+  trigger:
+  - platform: time
+    at: '17:00:00'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 3ad97e1daf95913698b7b1acb69a32d8
+    entity_id: switch.boiler
+    domain: switch
+  mode: single
+
+- id: '1684437586690'
+  alias: 1830boilerOFF
+  description: ''
+  trigger:
+  - platform: time
+    at: '18:30:00'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 3ad97e1daf95913698b7b1acb69a32d8
+    entity_id: switch.boiler
+    domain: switch
+  mode: single
+
+# FAN
+
+# OFF
+- id: '1680604801268'
+  alias: 1730stufettaOFF
+  description: ''
+  trigger:
+  - platform: time
+    at: '17:30:00'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 1ca0200ea5167c03991934fb8e457480
+    entity_id: switch.fan
+    domain: switch
+  mode: single
+
+# SWITCH
+
+# ON
+- id: '1681398761673'
+  alias: 1740switchON
+  description: ''
+  trigger:
+  - platform: time
+    at: '17:40:00'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: e5c9f23f4ba4b34e7a163f258d5493c9
+    entity_id: switch.switch
+    domain: switch
+  mode: single
+
+- id: '1684445840657'
+  alias: 1830switchON
+  description: ''
+  trigger:
+  - platform: time
+    at: '18:30:00'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: e5c9f23f4ba4b34e7a163f258d5493c9
+    entity_id: switch.switch
+    domain: switch
+  mode: single
+
+# OFF
+- id: '1681398791168'
+  alias: 0920switchOFF
+  description: ''
+  trigger:
+  - platform: time
+    at: 09:20:00
+  condition: []
+  action:
+  - type: turn_off
+    device_id: e5c9f23f4ba4b34e7a163f258d5493c9
+    entity_id: switch.switch
+    domain: switch
+  mode: single
+
+
+# INVERTER
+
+# ON 
+- id: '1681821025047'
+  alias: 1500inverterON
+  description: ''
+  trigger:
+  - platform: time
+    at: '15:00:00'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 5ba4557ff747bdc01d9581d5c8f35b5e
+    entity_id: switch.ininverter
+    domain: switch
+  mode: single
+
+# OFF
+- id: '1684767951778'
+  alias: 1300inverterOFF
+  description: ''
+  trigger:
+  - platform: time
+    at: '13:00:00'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 5ba4557ff747bdc01d9581d5c8f35b5e
+    entity_id: switch.ininverter
+    domain: switch
+  mode: single
+
+# LED OUT SUNSET
+- id: '1684422694124'
+  alias: sunSetLedON
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 0fd83799c9d1f093e3684d436c4614cb
+    entity_id: switch.ledout
+    domain: switch
+  mode: single
+
+- id: '1684508590238'
+  alias: sunset1hledOFF
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 01:00
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 0fd83799c9d1f093e3684d436c4614cb
+    entity_id: switch.ledout
+    domain: switch
+  mode: single
+
+
+# BOILER TIMER INPUT
+
+# BOILER TIMER ON
+- id: '1688424518679'
+  alias: boilerStart
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.boiler_start
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 3ad97e1daf95913698b7b1acb69a32d8
+    entity_id: switch.boiler
+    domain: switch
+  mode: single
+
+# BOILER TIMER OFF
+- id: '1688424544929'
+  alias: boilerOff
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.boiler_stop
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 3ad97e1daf95913698b7b1acb69a32d8
+    entity_id: switch.boiler
+    domain: switch
+  mode: single
+
+# AUTO BOILER ON
+- id: '1689597287797'
+  alias: AUTOboilerON
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.oven_power
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 3ad97e1daf95913698b7b1acb69a32d8
+    entity_id: switch.boiler
+    domain: switch
+  mode: single
+
+# AUTO BOILER OFF
+- id: '1689597312837'
+  alias: AUTOboilerOFF
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.oven_power
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 3ad97e1daf95913698b7b1acb69a32d8
+    entity_id: switch.boiler
+    domain: switch
+  mode: single
+
+
+# LOCATIONS
+
+# MUM NOTIFY
+- id: '1684411816150'
+  alias: mum
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.enrica_s_phone
+    zone: zone.home
+    event: enter
+  condition: []
+  action:
+  - device_id: 69087beaa9402f84b5280c5a705f7621
+    domain: mobile_app
+    type: notify
+    message: Mum
+  - device_id: ca685c3b3eef896822f021d3153787f6
+    domain: mobile_app
+    type: notify
+    message: Mum
+  mode: single
+
+  # DAD NOTIFY
+- id: '1684443772730'
+  alias: dad
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.adriano_s_phone
+    zone: zone.home
+    event: enter
+  condition:
+  - condition: zone
+    entity_id: device_tracker.adriano_s_phone
+    zone: zone.home
+  action:
+  - device_id: 69087beaa9402f84b5280c5a705f7621
+    domain: mobile_app
+    type: notify
+    message: Dad
+    title: Dad
+  - device_id: ca685c3b3eef896822f021d3153787f6
+    domain: mobile_app
+    type: notify
+    message: Dad
+  mode: single
+
+# DEVICES
+
+# IPAD
+- id: '1688768628459'
+  alias: EnricaiPadCharge
+  description: ''
+  trigger:
+  - type: battery_level
+    platform: device
+    device_id: ede330a4d1d8b3aa4ce2a3f7fbf86bb2
+    entity_id: sensor.ipad_di_enrica_battery_level
+    domain: sensor
+    below: 15
+  condition: []
+  action:
+  - device_id: 69087beaa9402f84b5280c5a705f7621
+    domain: mobile_app
+    type: notify
+    message: iPad mum charge
+  - device_id: ca685c3b3eef896822f021d3153787f6
+    domain: mobile_app
+    type: notify
+    message: iPad mum charge
+  mode: single
