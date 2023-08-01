@@ -1,0 +1,68 @@
+# FRIGATE.YAML
+# AUTHOR: kito129
+
+database:
+  path: /media/frigate/frigate.db
+
+
+birdseye:
+  enabled: True
+  mode: continuous
+
+detectors:
+  cpu:
+    type: cpu
+
+  
+cameras:
+  entrance:
+    enabled: True
+    ffmpeg:
+      inputs:
+        - path: rtsp://----
+          roles:
+                - detect
+                - record
+                - rtmp
+    detect:
+      width: 1920
+      height: 1080
+    record:
+      enabled: True
+      events:
+        retain:
+          default: 2
+  back:
+    enabled: True
+    ffmpeg:
+      inputs:
+        - path: rtsp://---
+          roles:
+                - detect
+                - record
+                - rtmp
+    detect:
+      width: 1920
+      height: 1080
+    record:
+      enabled: True
+      events:
+        retain:
+          default: 2
+  garden:
+    enabled: True
+    ffmpeg:
+      inputs:
+        - path: rtsp://---
+          roles:
+                - detect
+                - record
+                - rtmp
+    detect:
+      width: 1920
+      height: 1080
+    record:
+      enabled: True
+      events:
+        retain:
+          default: 2

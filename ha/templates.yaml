@@ -4,6 +4,7 @@
 # SENSORS
 - sensor:
     # HOME TOTAL
+    # POWER
     - name: "home_total_power"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-623518c3497h"
       device_class: power
@@ -12,6 +13,8 @@
       icon: mdi:lightning-bolt
       state: >-
         {{ ( float(states('sensor.enel_power')) + float(states('sensor.solar_power'))) | round(2) }}
+
+    # ENERGY
     - name: "home_total_energy"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-606518c3497a"
       device_class: energy
@@ -21,17 +24,8 @@
       state: >-
         {{ ( float(states('sensor.enel_energy')) + float(states('sensor.solar_energy')) - float(states('sensor.enel_energy_returned'))) | round(2) }}
 
-    # ENEL NET
-    - name: "enel_net_energy"
-      unique_id: "0a7476cc-d6c1-40ba-8ae1-606458c3497h"
-      device_class: energy
-      state_class: total_increasing
-      unit_of_measurement: "kWh"
-      icon: mdi:transmission-tower
-      state: >-
-        {{ ( float(states('sensor.enel_energy')) - float(states('sensor.enel_energy_returned'))) | round(2) }}
-
     # OTHER LOADS
+    # POWER
     - name: "home_other_loads_power"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-607618c3497h"
       device_class: power
@@ -39,8 +33,9 @@
       unit_of_measurement: "W"
       icon: mdi:meter-electric
       state: >-
-        {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.monitor_power'))) | round(2) }}
+        {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.monitor_power')) - float(states('sensor.battery_in')) ) | round(2) }}
 
+    # HOME
     - name: "home_other_loads_energy"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-606518c3497c"
       device_class: energy
@@ -50,9 +45,19 @@
       state: >-
         {{ ( float(states('sensor.home_energy')) - float(states('sensor.kitchen_energy'))) | round(2) }}
 
+    # ENEL NET ENERGY
+    - name: "enel_net_energy"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-606458c3497h"
+      device_class: energy
+      state_class: total_increasing
+      unit_of_measurement: "kWh"
+      icon: mdi:transmission-tower
+      state: >-
+        {{ ( float(states('sensor.enel_energy')) - float(states('sensor.enel_energy_returned'))) | round(2) }}
+
     # BATTERY
 
-    # BATTERY IN
+    # BATTERY IN POWER
     - name: "battery_in_power"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-606518c3497h"
       device_class: power
@@ -66,7 +71,7 @@
           0
         {%- endif %}
 
-    # BATTERY OUT
+    # BATTERY OUT POWER
     - name: "battery_out_power"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-604518c3497h"
       device_class: power
@@ -118,8 +123,8 @@
             {{ ( float(states('sensor.kitchen_power')) / 1000) | round(2) }}
           {%- else -%}
             {{ ( float(0) | round(2)) }}
-            {%- endif %}
           {%- endif %}
+        {%- endif %}
 
     # OVEN & FRIGO POWER
     - name: "oven_power"
@@ -143,22 +148,22 @@
       state: >-
         {{ ( float(states('sensor.upnp_igd_uptime')) / float((60*60*24*1000)) ) | round(2) }}
 
-    # INTERNET IN TRAFIC
+    # INTERNET IN TRAFFIC
     - name: "upnp_gb_received"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-6758768"
       device_class: data_rate
       state_class: total
-      unit_of_measurement: "GB/s"
+      unit_of_measurement: "GBit"
       icon: mdi:hart-donut
       state: >-
         {{ ( float(states('sensor.upnp_igd_b_received')) /(8*1000000000) ) | round(2) }}
 
-    # INTERNET OUT TRAFIC
+    # INTERNET OUT TRAFFIC
     - name: "upnp_gb_sent"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-8886587"
       device_class: data_rate
       state_class: total
-      unit_of_measurement: "GB/s"
+      unit_of_measurement: "GBit"
       icon: mdi:chart-donut
       state: >-
         {{ ( float(states('sensor.upnp_igd_b_sent')) /(8*1000000000) ) | round(2) }}
@@ -179,4 +184,6 @@
       device_class: power
       icon: mdi:sun-compass
       state: >-
-        {{ ( states('binary_sensor.eneltres') and states('binary_sensor.solar_power_treshold') ) }}
+        {{  states('binary_sensor.minus_05_kw_enel') and states('binary_sensor.plus_1_kw_solar')  }}
+
+    

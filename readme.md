@@ -1,9 +1,16 @@
 # homeAutomation project
     author: kito129
-    date: 2021/03/01
-    last update: 2021/20
-    version: v2023.7.1.0
+    date: 2023/03/01
+    last update: 2023/08/01
+    version: v2023.8.0.1
     docVersion: 1.0
+
+
+## Change Log:
+
+[Changelogs page](https://github.com/kito129/homeAssistantKito/blob/main/changelogs.md)
+
+## Description
 
 ## Description
 
@@ -127,5 +134,21 @@ Shelly Charts
 
 
 
+# to install frigrate docker
 
-
+    docker run -d \
+    --name frigate \
+    --restart=unless-stopped \
+    --mount type=tmpfs,target=/tmp/cache,tmpfs-size=1000000000 \
+    --device /dev/bus/usb:/dev/bus/usb \
+    --device /dev/dri/renderD128 \
+    --shm-size=64m \
+    -v /path/to/your/storage:/mnt/d/frigrate \
+    -v /path/to/your/config.yml:/mnt/d/frigrate/config/config.yml \
+    -v /etc/localtime:/etc/localtime:ro \
+    -e FRIGATE_RTSP_PASSWORD='kito65255842639' \
+    -p 5000:5000 \
+    -p 8554:8554 \
+    -p 8555:8555/tcp \
+    -p 8555:8555/udp \
+    ghcr.io/blakeblackshear/frigate:stable

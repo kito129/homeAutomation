@@ -59,6 +59,26 @@
   unit_time: h
   round: 2
 
+# INTERNET
+
+  # DATA IN INTERNET Mbps
+- platform: integration
+  unique_id: "0a7476cc-245654-2456-8ae1-28452"
+  method: "left"
+  source: sensor.upnp_igd_kib_s_received
+  name: internet_data_in_integral
+  unit_time: h
+  round: 2
+  
+  # DATA OUT INTERNET Mbps
+- platform: integration
+  unique_id: "0a7476cc-245654-2456-8ae1-28453"
+  method: "left"
+  source: sensor.upnp_igd_kib_s_sent
+  name: internet_data_out_integral
+  unit_time: h
+  round: 2
+
 
 # BATTERY
 
@@ -97,59 +117,59 @@
   # POWER
 - platform: average
   unique_id: "0a7476cc-d6c1-40ba-8ae1-888282852"
-  name: "solarPowerAvg10min"
+  name: "solarPowerAvg"
   duration:
-    minutes: 10
+    minutes: 20
   entities:
     - sensor.solar_power
 
 - platform: average
-  name: "enelPowerAvg10min"
+  name: "enelPowerAvg"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-888282825"
   duration:
-    minutes: 10
+    minutes: 20
   entities:
     - sensor.enel_power
 
 - platform: average
-  name: "homePowerAvg10min"
+  name: "homePowerAvg"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-888282821875"
   duration:
-    minutes: 10
+    minutes: 20
   entities:
     - sensor.home_power
 
 # POWER DERIVATE
 - platform: average
-  name: "enelDerivateAverage10min"
+  name: "enelDerivateAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-888282966"
   duration:
-    minutes: 10
+    minutes: 20
   entities:
     - sensor.enelDerivate
 
 - platform: average
-  name: "solarDerivateAverage10min"
+  name: "solarDerivateAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-88828288582"
   duration:
-    minutes: 10
+    minutes: 20
   entities:
     - sensor.solarDerivate
 
 - platform: average
-  name: "homeDerivateAverage10min"
+  name: "homeDerivateAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-88828282545"
   duration:
-    minutes: 10
+    minutes: 20
   entities:
-    - sensor.homederivate
+    - sensor.homeDerivate
 
 # TEMPERATURE
 - platform: average
   name: "outTempAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-8882824565"
   duration:
-    minutes: 10
+    minutes: 20
   entities:
     - sensor.temperature1
 

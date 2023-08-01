@@ -245,7 +245,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.oven_power
+    - binary_sensor.combo_minus05_enel_plus1_solar
     from: 'off'
     to: 'on'
     for:
@@ -267,7 +267,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.oven_power
+    - binary_sensor.combo_minus05_enel_plus1_solar
     from: 'on'
     to: 'off'
     for:
