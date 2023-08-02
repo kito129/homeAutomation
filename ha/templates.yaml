@@ -33,7 +33,13 @@
       unit_of_measurement: "W"
       icon: mdi:meter-electric
       state: >-
-        {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.monitor_power')) - float(states('sensor.battery_in')) ) | round(2) }}
+        {% if is_state('switch.ininverter', "on") -%} 
+          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.battery_in_power')) - float(states('sensor.monitor_power')) ) | round(2) }}
+        {%- else -%}
+         {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.monitor_power')) ) | round(2) }}
+        {%- endif %}
+
+
 
     # HOME
     - name: "home_other_loads_energy"

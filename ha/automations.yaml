@@ -1,10 +1,3 @@
-# AUTOMATIONS.YAML
-# AUTHOR: kito129
-
-
-# TIME AUTOMATION
-
-# INVERTER
 - id: '1680534622159'
   alias: 1700inverterOFF
   description: ''
@@ -31,10 +24,6 @@
     entity_id: switch.ininverter
     domain: switch
   mode: single
-
-# BOILER
-
-# ON
 - id: '1680553694304'
   alias: 0830boilerON
   description: ''
@@ -48,8 +37,6 @@
     entity_id: switch.boiler
     domain: switch
   mode: single
-
-# OFF
 - id: '1680560017036'
   alias: 1700boilerOFF
   description: ''
@@ -63,7 +50,6 @@
     entity_id: switch.boiler
     domain: switch
   mode: single
-
 - id: '1684437586690'
   alias: 1830boilerOFF
   description: ''
@@ -77,10 +63,6 @@
     entity_id: switch.boiler
     domain: switch
   mode: single
-
-# FAN
-
-# OFF
 - id: '1680604801268'
   alias: 1730stufettaOFF
   description: ''
@@ -94,10 +76,6 @@
     entity_id: switch.fan
     domain: switch
   mode: single
-
-# SWITCH
-
-# ON
 - id: '1681398761673'
   alias: 1740switchON
   description: ''
@@ -111,7 +89,6 @@
     entity_id: switch.switch
     domain: switch
   mode: single
-
 - id: '1684445840657'
   alias: 1830switchON
   description: ''
@@ -125,8 +102,6 @@
     entity_id: switch.switch
     domain: switch
   mode: single
-
-# OFF
 - id: '1681398791168'
   alias: 0920switchOFF
   description: ''
@@ -140,11 +115,6 @@
     entity_id: switch.switch
     domain: switch
   mode: single
-
-
-# INVERTER
-
-# ON 
 - id: '1681821025047'
   alias: 1500inverterON
   description: ''
@@ -158,8 +128,6 @@
     entity_id: switch.ininverter
     domain: switch
   mode: single
-
-# OFF
 - id: '1684767951778'
   alias: 1300inverterOFF
   description: ''
@@ -173,8 +141,6 @@
     entity_id: switch.ininverter
     domain: switch
   mode: single
-
-# LED OUT SUNSET
 - id: '1684422694124'
   alias: sunSetLedON
   description: ''
@@ -189,14 +155,13 @@
     entity_id: switch.ledout
     domain: switch
   mode: single
-
 - id: '1684508590238'
-  alias: sunset1hledOFF
+  alias: sunset1.30hledOFF
   description: ''
   trigger:
   - platform: sun
     event: sunset
-    offset: 01:00
+    offset: 01:30
   condition: []
   action:
   - type: turn_off
@@ -204,11 +169,6 @@
     entity_id: switch.ledout
     domain: switch
   mode: single
-
-
-# BOILER TIMER INPUT
-
-# BOILER TIMER ON
 - id: '1688424518679'
   alias: boilerStart
   description: ''
@@ -222,8 +182,6 @@
     entity_id: switch.boiler
     domain: switch
   mode: single
-
-# BOILER TIMER OFF
 - id: '1688424544929'
   alias: boilerOff
   description: ''
@@ -237,8 +195,6 @@
     entity_id: switch.boiler
     domain: switch
   mode: single
-
-# AUTO BOILER ON
 - id: '1689597287797'
   alias: AUTOboilerON
   description: ''
@@ -259,8 +215,6 @@
     entity_id: switch.boiler
     domain: switch
   mode: single
-
-# AUTO BOILER OFF
 - id: '1689597312837'
   alias: AUTOboilerOFF
   description: ''
@@ -281,11 +235,6 @@
     entity_id: switch.boiler
     domain: switch
   mode: single
-
-
-# LOCATIONS
-
-# MUM NOTIFY
 - id: '1684411816150'
   alias: mum
   description: ''
@@ -305,8 +254,6 @@
     type: notify
     message: Mum
   mode: single
-
-  # DAD NOTIFY
 - id: '1684443772730'
   alias: dad
   description: ''
@@ -330,10 +277,6 @@
     type: notify
     message: Dad
   mode: single
-
-# DEVICES
-
-# IPAD
 - id: '1688768628459'
   alias: EnricaiPadCharge
   description: ''
@@ -355,3 +298,56 @@
     type: notify
     message: iPad mum charge
   mode: single
+- id: '16887686284585882'
+- id: 610d6ea4f5fa42fab13e2e18ee4a2be2
+  alias: ZZZSecurity_Frigate_Notifications
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: frigate/events
+    payload: new
+    value_template: '{{ value_json.type }}'
+  action:
+  - service: notify.mobile_app_kitos_iphone12
+    data:
+      message: A {{trigger.payload_json["after"]["label"]}} was detected.
+      data:
+        image: https://xc5oo1paki2zabddex3se0s8lcrq40ho.ui.nabu.casa/{{trigger.payload_json["after"]["id"]}}/thumbnail.jpg
+        tag: '{{trigger.payload_json["after"]["id"]}}'
+        when: '{{trigger.payload_json["after"]["start_time"]|int}}'
+        entity_id: camera.{{trigger.payload_json["after"]["camera"] | replace("-","_")
+          | lower}}
+  mode: single
+- id: '1690972141415'
+  alias: ZZZtestGarden
+  description: ''
+  use_blueprint:
+    path: SgtBatten/Stable.yaml
+    input:
+      camera: camera.back
+      notify_device: 69087beaa9402f84b5280c5a705f7621
+      base_url: https://xc5oo1paki2zabddex3se0s8lcrq40ho.ui.nabu.casa/
+      color: indigo
+- id: '1690972168264'
+  alias: ZZZentranceTest
+  description: ''
+  use_blueprint:
+    path: SgtBatten/Stable.yaml
+    input:
+      camera: camera.entrance
+      notify_device: 69087beaa9402f84b5280c5a705f7621
+      base_url: https://xc5oo1paki2zabddex3se0s8lcrq40ho.ui.nabu.casa/
+      color: indigo
+      ios_live_view: true
+      debug: true
+- id: '1690972181427'
+  alias: ZZZtestGarden
+  description: ''
+  use_blueprint:
+    path: SgtBatten/Stable.yaml
+    input:
+      camera: camera.garden
+      notify_device: 69087beaa9402f84b5280c5a705f7621
+      base_url: https://xc5oo1paki2zabddex3se0s8lcrq40ho.ui.nabu.casa/
+      color: indigo
+      alert_once: true

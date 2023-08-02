@@ -78,3 +78,16 @@ mqtt:
       unit_of_measurement: °C
       value_template: "{{ value_json.temp_2 }}"
 
+
+
+# for frigate
+ios:
+  push:
+    categories:
+      - name: camera
+        identifier: 'camera'
+        actions:
+          - identifier: 'SENDSTILLANDCLIP'
+            title: 'Send still and video clip'
+            authenticationRequired: false
+

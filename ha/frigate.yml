@@ -4,6 +4,12 @@
 database:
   path: /media/frigate/frigate.db
 
+mqtt:
+  host: 192.168.0.14
+  port: 1883
+  topic_prefix: frigate
+  user: "---"
+  password: "---"
 
 birdseye:
   enabled: True
@@ -19,7 +25,7 @@ cameras:
     enabled: True
     ffmpeg:
       inputs:
-        - path: rtsp://----
+        - path: ----
           roles:
                 - detect
                 - record
@@ -36,7 +42,7 @@ cameras:
     enabled: True
     ffmpeg:
       inputs:
-        - path: rtsp://---
+        - path: ----
           roles:
                 - detect
                 - record
@@ -53,7 +59,7 @@ cameras:
     enabled: True
     ffmpeg:
       inputs:
-        - path: rtsp://---
+        - path: ---
           roles:
                 - detect
                 - record

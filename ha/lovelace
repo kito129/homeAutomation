@@ -1,0 +1,3943 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace",
+  "data": {
+    "config": {
+      "title": "SelvaHome",
+      "views": [
+        {
+          "theme": "Backend-selected",
+          "title": "Home",
+          "path": "home",
+          "icon": "mdi:home",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "custom:power-flow-card-plus",
+                  "entities": {
+                    "home": {
+                      "entity": "sensor.home_total_power_2",
+                      "color_icon": "blue"
+                    },
+                    "battery": {
+                      "entity": {
+                        "consumption": "sensor.battery_out_power",
+                        "production": "sensor.battery_in_power"
+                      }
+                    },
+                    "grid": {
+                      "name": "Enel",
+                      "entity": "sensor.enel_power"
+                    },
+                    "solar": {
+                      "entity": "sensor.solar_power",
+                      "display_zero_state": true
+                    }
+                  },
+                  "w_decimals": 0,
+                  "kw_decimals": 2,
+                  "min_flow_rate": 0.9,
+                  "max_flow_rate": 10,
+                  "watt_threshold": 1000,
+                  "clickable_entities": true
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "card_mod": {
+                    "style": ":host {\n  heigt: 200%;\n}\n"
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Loads",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "stacked": true,
+                  "series": [
+                    {
+                      "entity": "sensor.boiler_power",
+                      "name": "Boiler",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.washmachine_power",
+                      "name": "Lavatrice",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.washdisher_power",
+                      "name": "Lavastoviglie",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.ininverter_power",
+                      "name": "Inverter",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.oven_power",
+                      "name": "Oven & frigo",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.monitor_power",
+                      "color": "withe",
+                      "name": "Monitor",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.home_other_loads_power",
+                      "name": "Other",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "energy-solar-graph"
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "Boiler: {{states.sensor.boiler_power.state|float(0)}} W",
+                      "secondary": "Power: {{states.switch.boiler.state}}",
+                      "icon": "mdi:water-boiler",
+                      "icon_color": "{{ (states(\"sensor.boiler_power\")|float(0) > 0) | iif(\"blue\", \"\") }}\n",
+                      "entity": "switch.boiler",
+                      "layout": "vertical",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": ""
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "Lavatrice: {{states.sensor.washmachine_power.state}} W",
+                      "secondary": "State: {{states.switch.washmachine.state}}",
+                      "icon": "mdi:washing-machine",
+                      "icon_color": "{{ (states(\"sensor.washmachine_power\")|float(0) > 0) | iif(\"green\", \"\") }}\n",
+                      "entity": "switch.washmachine",
+                      "layout": "vertical",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": false
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "Frigo & Forno: {{states.sensor.washmachine_power.state}} W",
+                      "secondary": "",
+                      "icon": "mdi:washing-machine",
+                      "icon_color": "{{ (states(\"sensor.oven_power\")|float(0) > 0) | iif(\"red\", \"\") }}\n",
+                      "entity": "sensor.oven_power",
+                      "layout": "vertical",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "Lavastoviglie: {{states.sensor.washdisher_power.state}} W",
+                      "secondary": "State: {{states.switch.dishwasher_power.state}}",
+                      "icon": "mdi:dishwasher",
+                      "icon_color": "{{ (states(\"sensor.washmachine_power\")|float(0) > 0) | iif(\"yellow\", \"\") }}\n",
+                      "entity": "sensor.washdisher_power",
+                      "layout": "vertical",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": false
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "AC Sala: {{states.sensor.acsala_power.state}} W",
+                      "secondary": "State: {{states.switch.acsala.state}}",
+                      "icon": "mdi:air-conditioner",
+                      "icon_color": "{{ (states(\"sensor.acsala_power\")|float(0) > 0) | iif(\"red\", \"\") }}\n",
+                      "entity": "switch.acsala",
+                      "layout": "vertical",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": false
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "AC Scala: {{states.sensor.acscala_power.state}} W",
+                      "secondary": "State: {{states.switch.acscala.state}}",
+                      "icon": "mdi:air-conditioner",
+                      "icon_color": "{{ (states(\"sensor.acsala_power\")|float(0) > 0) | iif(\"red\", \"\") }}\n",
+                      "entity": "switch.acscala",
+                      "layout": "vertical",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": false
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "Other Home: {{states.sensor.home_other_loads_power.state}} W",
+                      "secondary": "",
+                      "icon": "mdi:home",
+                      "icon_color": "{{ (states(\"sensor.home_other_loads_power\")|float(0) > 0) | iif(\"orange\", \"\") }}\n",
+                      "entity": "sensor.home_other_loads_power",
+                      "layout": "vertical",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "Monitor: {{states.sensor.monitor_power.state}} W",
+                      "secondary": "State: {{states.switch.monitor.state}}",
+                      "icon": "mdi:monitor-dashboard",
+                      "icon_color": "{{ (states(\"sensor.monitor_power\")|float(0) > 0) | iif(\"yellow\", \"\") }}\n",
+                      "entity": "switch.monitor",
+                      "layout": "vertical",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": false
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "Battery In: {{states.sensor.ininverter_power.state}} W",
+                      "secondary": "State: {{states.switch.ininverter.state}}",
+                      "icon": "mdi:battery-arrow-up",
+                      "icon_color": "{{ (states(\"sensor.ininverter_power\")|float(0) > 0) | iif(\"green\", \"\") }}\n",
+                      "entity": "switch.ininverter",
+                      "layout": "vertical",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": false
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "Battery Out: {{states.sensor.battery_out_power.state}} W",
+                      "secondary": "State: {{states.switch.switch.state}}",
+                      "icon": "mdi:battery-arrow-down",
+                      "icon_color": "{{ (states(\"sensor.battery_out_power\")|float(0) > 0) | iif(\"reed\", \"\") }}\n",
+                      "entity": "sensor.battery_out_power",
+                      "layout": "vertical",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": false
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "Switch: {{states.sensor.switch_power.state}} W",
+                      "secondary": "State: {{states.switch.switch.state}}",
+                      "icon": "mdi:electric-switch",
+                      "icon_color": "{{ (states(\"sensor.battery_out_power\")|float(0) > 0) | iif(\"purple\", \"\") }}\n",
+                      "entity": "switch.switch",
+                      "layout": "vertical",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": false
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "Led Out: {{states.sensor.ledout_power.state}} W",
+                      "secondary": "State: {{states.switch.ledout.state}}",
+                      "icon": "mdi:led-on",
+                      "icon_color": "{{ (states(\"sensor.ledout_power\")|float(0) > 0) | iif(\"yellow\", \"\") }}\n",
+                      "entity": "switch.ledout",
+                      "layout": "vertical",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": false
+                    }
+                  ],
+                  "columns": 2
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "energy-usage-graph"
+                },
+                {
+                  "type": "energy-distribution",
+                  "link_dashboard": true
+                },
+                {
+                  "type": "energy-devices-graph"
+                },
+                {
+                  "type": "energy-solar-consumed-gauge"
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "grid",
+                  "columns": 2,
+                  "square": false,
+                  "cards": [
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.boiler_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "icon": "mdi:water-boiler",
+                      "name": "Boiler"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.washmachine_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "icon": "mdi:washing-machine",
+                      "name": "Lavatrice"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.lavastoviglie_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "icon": "mdi:dishwasher",
+                      "name": "Lavastoviglie"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.frigo_forno_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "icon": "mdi:fridge",
+                      "name": "Frigo & Forno"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.acsala_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "icon": "mdi:air-conditioner",
+                      "name": "AcSala"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.acscala_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "AcScala",
+                      "icon": "mdi:air-conditioner"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.battery_in_energy_integral",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "icon": "mdi:meter-electric-outline",
+                      "name": "Battery In"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.battery_out_energy_integral",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "icon": "mdi:meter-electric-outline",
+                      "name": "Battery Out"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.fan_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Stufetta",
+                      "icon": "mdi:air-filter"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.ledout_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "LedOut",
+                      "icon": "mdi:led-on"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.monitor_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Monitor",
+                      "icon": "mdi:monitor"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.kitchen_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Kitchen Total",
+                      "icon": "mdi:countertop-outline"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.home_other_loads_energy_2",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "icon": "mdi:home-analytics",
+                      "name": "Home Oher"
+                    }
+                  ]
+                },
+                {
+                  "type": "vertical-stack",
+                  "title": "Monthly enel",
+                  "cards": [
+                    {
+                      "type": "horizontal-stack",
+                      "cards": [
+                        {
+                          "type": "statistic",
+                          "entity": "sensor.enel_energy",
+                          "period": {
+                            "calendar": {
+                              "period": "month"
+                            }
+                          },
+                          "stat_type": "change",
+                          "name": "buy",
+                          "icon": "mdi:transmission-tower-export"
+                        },
+                        {
+                          "type": "statistic",
+                          "entity": "sensor.enel_energy_returned",
+                          "period": {
+                            "calendar": {
+                              "period": "month"
+                            }
+                          },
+                          "stat_type": "change",
+                          "name": "sell",
+                          "icon": "mdi:transmission-tower-import"
+                        },
+                        {
+                          "type": "statistic",
+                          "entity": "sensor.enel_net_energy_2",
+                          "period": {
+                            "calendar": {
+                              "period": "month"
+                            }
+                          },
+                          "stat_type": "change",
+                          "name": "net",
+                          "icon": "mdi:transmission-tower"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "custom:apexcharts-card",
+                      "header": {
+                        "show": true,
+                        "title": "Net Enel (1d)",
+                        "show_states": true,
+                        "colorize_states": true
+                      },
+                      "graph_span": "30d",
+                      "series": [
+                        {
+                          "entity": "sensor.enel_net_energy_2",
+                          "name": "enel net",
+                          "type": "column",
+                          "group_by": {
+                            "func": "avg",
+                            "duration": "1d"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Frigrate",
+          "path": "frigrate",
+          "icon": "mdi:cctv",
+          "type": "sidebar",
+          "badges": [],
+          "cards": [
+            {
+              "square": false,
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:mushroom-template-card",
+                  "primary": "Frigate",
+                  "secondary": "",
+                  "icon": "mdi:cctv",
+                  "icon_color": "yellow",
+                  "tap_action": {
+                    "action": "url",
+                    "url_path": "https://xc5oo1paki2zabddex3se0s8lcrq40ho.ui.nabu.casa/ccab4aaf_frigate-fa/ingress"
+                  },
+                  "fill_container": true,
+                  "multiline_secondary": true,
+                  "layout": "vertical"
+                },
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "input_boolean.person_notification",
+                  "icon_color": "primary",
+                  "fill_container": false,
+                  "layout": "vertical",
+                  "name": "Notification",
+                  "view_layout": {
+                    "position": "sidebar"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-template-card",
+                  "primary": "Setup",
+                  "secondary": "",
+                  "icon": "mdi:file-settings",
+                  "icon_color": "green",
+                  "tap_action": {
+                    "action": "url",
+                    "url_path": "https://xc5oo1paki2zabddex3se0s8lcrq40ho.ui.nabu.casa/hassio/addon/ccab4aaf_frigate-fa/info"
+                  },
+                  "fill_container": true,
+                  "multiline_secondary": true,
+                  "layout": "vertical"
+                }
+              ],
+              "columns": 3,
+              "view_layout": {
+                "position": "sidebar"
+              }
+            },
+            {
+              "type": "custom:apexcharts-card",
+              "experimental": {
+                "color_threshold": true
+              },
+              "header": {
+                "show": true,
+                "show_states": true,
+                "colorize_states": true
+              },
+              "graph_span": "24h",
+              "stacked": true,
+              "apex_config": {
+                "legend": {
+                  "show": true
+                }
+              },
+              "series": [
+                {
+                  "entity": "sensor.entrance_ffmpeg_cpu_usage",
+                  "name": "Entrance",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "30min"
+                  }
+                },
+                {
+                  "entity": "sensor.back_ffmpeg_cpu_usage",
+                  "name": "Back",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "30min"
+                  }
+                },
+                {
+                  "entity": "sensor.garden_ffmpeg_cpu_usage",
+                  "name": "Garden",
+                  "color": "green",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "30min"
+                  }
+                }
+              ],
+              "view_layout": {
+                "position": "sidebar"
+              }
+            },
+            {
+              "type": "custom:frigate-card",
+              "cameras": [
+                {
+                  "camera_entity": "camera.entrance"
+                },
+                {
+                  "camera_entity": "camera.garden"
+                },
+                {
+                  "camera_entity": "camera.back"
+                }
+              ],
+              "view": {
+                "scan": {
+                  "enabled": true
+                }
+              },
+              "performance": {
+                "profile": "high",
+                "style": {
+                  "border_radius": false,
+                  "box_shadow": false
+                }
+              }
+            },
+            {
+              "type": "custom:apexcharts-card",
+              "experimental": {
+                "color_threshold": true
+              },
+              "header": {
+                "show": true,
+                "show_states": true,
+                "colorize_states": true
+              },
+              "graph_span": "24h",
+              "apex_config": {
+                "legend": {
+                  "show": true
+                }
+              },
+              "series": [
+                {
+                  "entity": "sensor.frigate_cpu_inference_speed",
+                  "show": {
+                    "extremas": true
+                  },
+                  "name": "Speed",
+                  "type": "line",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "30min"
+                  }
+                },
+                {
+                  "entity": "sensor.frigate_full_access_cpu_percent",
+                  "show": {
+                    "extremas": true
+                  },
+                  "name": "CPU",
+                  "type": "line",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "30min"
+                  }
+                }
+              ],
+              "view_layout": {
+                "position": "sidebar"
+              }
+            },
+            {
+              "square": true,
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "apex_config": {
+                    "legend": {
+                      "show": true
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.disk_use",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "Disk Use",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    }
+                  ],
+                  "view_layout": {
+                    "position": "sidebar"
+                  }
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "apex_config": {
+                    "legend": {
+                      "show": true
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.frigate_full_access_memory_percent",
+                      "name": "Memory",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.frigate_detection_fps",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    }
+                  ],
+                  "view_layout": {
+                    "position": "sidebar"
+                  }
+                }
+              ],
+              "columns": 2
+            }
+          ]
+        },
+        {
+          "title": "Appliances",
+          "path": "appliances",
+          "icon": "mdi:connection",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "title": "Boiler",
+              "cards": [
+                {
+                  "type": "sensor",
+                  "graph": "line",
+                  "entity": "sensor.boiler_power",
+                  "detail": 2,
+                  "name": "Boiler",
+                  "icon": "mdi:water-boiler",
+                  "hours_to_show": 24
+                },
+                {
+                  "chart_type": "bar",
+                  "period": "hour",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.boiler_energy"
+                  ],
+                  "days_to_show": 1,
+                  "title": "Energy",
+                  "stat_types": [
+                    "change"
+                  ],
+                  "hide_legend": true
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.boiler_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Today"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.boiler_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "week"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Week"
+                    }
+                  ]
+                },
+                {
+                  "type": "history-graph",
+                  "hours_to_show": 24,
+                  "entities": [
+                    {
+                      "entity": "switch.boiler"
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.boiler",
+                      "secondary_info": "last-updated",
+                      "name": "power",
+                      "icon": "mdi:power"
+                    },
+                    {
+                      "entity": "sensor.boiler_current",
+                      "name": "Current"
+                    },
+                    {
+                      "entity": "sensor.boiler_voltage",
+                      "name": "Voltage"
+                    },
+                    {
+                      "entity": "automation.autoboileron"
+                    },
+                    {
+                      "entity": "automation.autoboileroff"
+                    },
+                    {
+                      "entity": "input_datetime.boiler_start"
+                    },
+                    {
+                      "entity": "input_datetime.boiler_stop"
+                    },
+                    {
+                      "entity": "automation.boilerstart"
+                    },
+                    {
+                      "entity": "automation.boileroff"
+                    }
+                  ],
+                  "title": "State",
+                  "state_color": true,
+                  "show_header_toggle": false
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Lavastoviglie",
+              "cards": [
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.washdisher_power",
+                  "detail": 2,
+                  "icon": "mdi:dishwasher",
+                  "hours_to_show": 24,
+                  "name": "Lavastoviglie"
+                },
+                {
+                  "chart_type": "bar",
+                  "period": "hour",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.lavastoviglie_energy"
+                  ],
+                  "days_to_show": 1,
+                  "title": "Energy",
+                  "hide_legend": true,
+                  "stat_types": [
+                    "change"
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.lavastoviglie_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Today",
+                      "icon": "mdi:dishwasher"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.lavastoviglie_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "week"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Week",
+                      "icon": "mdi:dishwasher"
+                    }
+                  ]
+                },
+                {
+                  "type": "history-graph",
+                  "hours_to_show": 24,
+                  "entities": [
+                    {
+                      "entity": "switch.dishwasher_power",
+                      "name": "power"
+                    },
+                    {
+                      "entity": "binary_sensor.dishwasher_door",
+                      "name": "door"
+                    },
+                    {
+                      "entity": "sensor.dishwasher_operation_state"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:button-card",
+                  "entity": "sensor.washer_end_time",
+                  "name": "End Time",
+                  "show_icon": false,
+                  "show_label": false,
+                  "show_name": true,
+                  "show_state": true,
+                  "styles": {
+                    "state": [
+                      {
+                        "font-size": "2.5em"
+                      },
+                      {
+                        "font-weight": "bold"
+                      },
+                      {
+                        "text-transform": "uppercase"
+                      }
+                    ],
+                    "card": [
+                      {
+                        "border": "0px solid rgb(0, 0, 0)"
+                      },
+                      {
+                        "height": "130px"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "custom:bar-card",
+                  "entities": [
+                    {
+                      "entity": "sensor.dishwasher_program_progress"
+                    }
+                  ],
+                  "title": "Progress",
+                  "icon": "mdi:dishwasher",
+                  "height": "1200",
+                  "min": "0",
+                  "max": "100"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.dishwasher_power",
+                      "name": "Power",
+                      "icon": "mdi:power",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.dishwasher_operation_state",
+                      "name": "State",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "entity": "binary_sensor.dishwasher_door",
+                      "name": "Door",
+                      "icon": "mdi:doorbell",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.dishwasher_program_progress",
+                      "name": "Progress"
+                    },
+                    {
+                      "entity": "sensor.dishwasher_remaining_program_time",
+                      "name": "Remain"
+                    },
+                    {
+                      "entity": "binary_sensor.dishwasher_remote_control",
+                      "name": "Remote Control"
+                    },
+                    {
+                      "entity": "binary_sensor.dishwasher_remote_start",
+                      "name": "Remote Start"
+                    }
+                  ],
+                  "title": "State",
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "switch.dishwasher_program_auto2",
+                      "name": "auto"
+                    },
+                    {
+                      "entity": "switch.dishwasher_program_prerinse",
+                      "name": "rinse"
+                    },
+                    {
+                      "entity": "switch.dishwasher_program_intensiv70",
+                      "name": "intensive"
+                    },
+                    {
+                      "entity": "switch.dishwasher_program_eco50",
+                      "name": "eco50"
+                    },
+                    {
+                      "entity": "switch.dishwasher_program_quick65",
+                      "name": "quick65"
+                    }
+                  ],
+                  "hours_to_show": 24,
+                  "title": "Program "
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Lavatrice",
+              "cards": [
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.washmachine_power",
+                  "detail": 2,
+                  "icon": "mdi:washing-machine",
+                  "hours_to_show": 24,
+                  "name": "Lavatrice"
+                },
+                {
+                  "chart_type": "bar",
+                  "period": "hour",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.washmachine_energy"
+                  ],
+                  "days_to_show": 1,
+                  "title": "Energy",
+                  "stat_types": [
+                    "change"
+                  ],
+                  "hide_legend": true
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.washmachine_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Today"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.washmachine_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "week"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Week"
+                    }
+                  ]
+                },
+                {
+                  "type": "history-graph",
+                  "hours_to_show": 24,
+                  "entities": [
+                    {
+                      "entity": "sensor.front_load_washer",
+                      "name": "power"
+                    },
+                    {
+                      "entity": "binary_sensor.front_load_washer_door_lock",
+                      "name": "door"
+                    },
+                    {
+                      "entity": "sensor.front_load_washer_tub_clean_counter",
+                      "name": "cycle"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:button-card",
+                  "entity": "sensor.front_load_washer_remaining_time",
+                  "name": "Remain",
+                  "show_icon": false,
+                  "show_label": false,
+                  "show_name": true,
+                  "show_state": true,
+                  "styles": {
+                    "state": [
+                      {
+                        "font-size": "2.5em"
+                      },
+                      {
+                        "font-weight": "bold"
+                      },
+                      {
+                        "text-transform": "uppercase"
+                      }
+                    ],
+                    "card": [
+                      {
+                        "border": "0px solid rgb(0, 0, 0)"
+                      },
+                      {
+                        "height": "130px"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.washmachine",
+                      "name": "Energy",
+                      "icon": "mdi:lightning-bolt",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "switch.front_load_washer_power",
+                      "name": "Power",
+                      "icon": "mdi:power"
+                    },
+                    {
+                      "entity": "sensor.front_load_washer_run_state",
+                      "name": "Stato",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "binary_sensor.front_load_washer_wash_completed",
+                      "name": "Lavaggio OK",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "binary_sensor.front_load_washer_door_lock",
+                      "name": "Lock Door"
+                    },
+                    {
+                      "entity": "binary_sensor.front_load_washer_remote_start",
+                      "name": "Remote start"
+                    },
+                    {
+                      "entity": "binary_sensor.front_load_washer_standby",
+                      "name": "Standby"
+                    },
+                    {
+                      "entity": "sensor.front_load_washer_tub_clean_counter",
+                      "name": "Cicli"
+                    }
+                  ],
+                  "title": "State",
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.front_load_washer_current_course",
+                      "name": "Programs",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.front_load_washer_remaining_time",
+                      "name": "Remain"
+                    },
+                    {
+                      "entity": "sensor.front_load_washer_rinse_mode",
+                      "name": "Rinse"
+                    },
+                    {
+                      "entity": "sensor.front_load_washer_water_temp",
+                      "name": "Temp",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.front_load_washer_spin_speed",
+                      "name": "Speed"
+                    }
+                  ],
+                  "state_color": true,
+                  "title": "Programs"
+                },
+                {
+                  "type": "history-graph",
+                  "hours_to_show": 24,
+                  "entities": [
+                    {
+                      "entity": "sensor.front_load_washer_water_temp",
+                      "name": "temp"
+                    },
+                    {
+                      "entity": "sensor.front_load_washer_spin_speed",
+                      "name": "speed"
+                    },
+                    {
+                      "entity": "sensor.front_load_washer_current_course"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Oven & Frigo",
+              "cards": [
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.oven_power",
+                  "detail": 2,
+                  "icon": "mdi:stove",
+                  "hours_to_show": 24,
+                  "name": "Oven & Frigo"
+                },
+                {
+                  "chart_type": "bar",
+                  "period": "hour",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.frigo_forno_energy"
+                  ],
+                  "days_to_show": 1,
+                  "title": "Energy",
+                  "hide_legend": true,
+                  "stat_types": [
+                    "change"
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.frigo_forno_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Today"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.frigo_forno_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "week"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Week"
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.home_voltage",
+                      "name": "Voltage"
+                    }
+                  ],
+                  "title": "State",
+                  "state_color": true,
+                  "show_header_toggle": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "theme": "Backend-selected",
+          "title": "Weather",
+          "path": "weather",
+          "icon": "mdi:weather-partly-cloudy",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "title": "Previsioni",
+              "cards": [
+                {
+                  "type": "iframe",
+                  "url": "https://meteo.search.ch/widget/Camedo.it.html?bgcolor=dedede&amp;fgcolor=000000&amp;days=1",
+                  "aspect_ratio": "120%"
+                },
+                {
+                  "type": "picture",
+                  "image": "https://meteo.search.ch/images/meteosat.png",
+                  "tap_action": {
+                    "action": "url",
+                    "url_path": "https://www.meteoswiss.admin.ch/local-forecasts/camedo/6659.html#forecast-tab=detail-view"
+                  },
+                  "hold_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Attuale",
+              "cards": [
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1.5d",
+                  "header": {
+                    "show": true,
+                    "title": "Temperature",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.temperature1",
+                      "name": "Today",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      },
+                      "show": {
+                        "extremas": true
+                      }
+                    },
+                    {
+                      "entity": "sensor.temperature1",
+                      "offset": "-1d",
+                      "name": "Yesterday",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      },
+                      "show": {
+                        "extremas": true
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "iframe",
+                  "url": "https://swissmetnet-display.ch/otl/it",
+                  "aspect_ratio": "200%",
+                  "title": "Meteo Swiss"
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Charts",
+              "cards": [
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "7d",
+                  "header": {
+                    "show": true,
+                    "title": "Precipitation",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.selvahome_precipitation",
+                      "type": "area",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "4h"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "7d",
+                  "header": {
+                    "show": true,
+                    "title": "Cloud",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.selvahome_cloud_cover",
+                      "type": "area",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "4h"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "7d",
+                  "header": {
+                    "show": true,
+                    "title": "Solar",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.selvahome_solar_irradiance_day_0d",
+                      "type": "area",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "4h"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "theme": "Backend-selected",
+          "title": "Network",
+          "path": "network",
+          "icon": "mdi:lan",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "title": "Internet Speed",
+              "cards": [
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.speedtest_download",
+                      "layout": "vertical",
+                      "primary_info": "state",
+                      "secondary_info": "name"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.speedtest_upload",
+                      "layout": "vertical",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon": "mdi:speedometer-medium",
+                      "icon_color": "pink"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1d",
+                  "header": {
+                    "show": true,
+                    "title": "Speed",
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.speedtest_download",
+                      "show": {
+                        "extremas": true
+                      },
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.speedtest_upload",
+                      "show": {
+                        "extremas": true
+                      },
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.speedtest_ping",
+                      "layout": "vertical",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon": "mdi:camera-timer",
+                      "icon_color": "yellow"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.network_throughput_in_eth0",
+                      "layout": "vertical",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "green",
+                      "icon": "mdi:relation-one-to-one-or-many",
+                      "name": "Rate"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1d",
+                  "header": {
+                    "show": true,
+                    "title": "Ping",
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.speedtest_ping",
+                      "show": {
+                        "extremas": true
+                      },
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "5min"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Internet Band",
+              "cards": [
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.upnp_igd_kib_s_sent",
+                      "layout": "vertical",
+                      "name": "Sent",
+                      "icon": "mdi:upload-network",
+                      "icon_color": "primary",
+                      "primary_info": "state",
+                      "secondary_info": "name"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.upnp_igd_kib_s_received",
+                      "name": "Received",
+                      "icon": "mdi:download-network",
+                      "layout": "vertical",
+                      "primary_info": "state",
+                      "secondary_info": "name"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1d",
+                  "yaxis": [
+                    {
+                      "id": "first",
+                      "decimals": 0,
+                      "apex_config": {
+                        "tickAmount": 5
+                      }
+                    },
+                    {
+                      "id": "second",
+                      "opposite": true,
+                      "decimals": 0,
+                      "apex_config": {
+                        "tickAmount": 5
+                      }
+                    }
+                  ],
+                  "header": {
+                    "show": true,
+                    "title": "Traffic",
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.upnp_igd_kib_s_sent",
+                      "show": {
+                        "extremas": true
+                      },
+                      "yaxis_id": "first",
+                      "type": "line",
+                      "group_by": {
+                        "func": "max",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.upnp_igd_kib_s_received",
+                      "show": {
+                        "extremas": true
+                      },
+                      "yaxis_id": "second",
+                      "type": "line",
+                      "group_by": {
+                        "func": "max",
+                        "duration": "30min"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.internet_data_in_integral",
+                      "name": "Data IN",
+                      "icon": "mdi:download",
+                      "layout": "vertical",
+                      "primary_info": "state",
+                      "secondary_info": "name"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.internet_data_out_integral",
+                      "layout": "vertical",
+                      "name": "Data OUT",
+                      "icon": "mdi:upload",
+                      "icon_color": "primary",
+                      "primary_info": "state",
+                      "secondary_info": "name"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1d",
+                  "yaxis": [
+                    {
+                      "id": "first",
+                      "decimals": 0,
+                      "apex_config": {
+                        "tickAmount": 5
+                      }
+                    },
+                    {
+                      "id": "second",
+                      "opposite": true,
+                      "decimals": 0,
+                      "apex_config": {
+                        "tickAmount": 5
+                      }
+                    }
+                  ],
+                  "header": {
+                    "show": true,
+                    "title": "Data",
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.internet_data_in_integral",
+                      "yaxis_id": "first",
+                      "group_by": {
+                        "func": "max",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.internet_data_out_integral",
+                      "yaxis_id": "second",
+                      "group_by": {
+                        "func": "max",
+                        "duration": "15min"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Network",
+              "cards": [
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "binary_sensor.upnp_igd_wan_status",
+                      "name": "Internet",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "fill_container": true,
+                      "layout": "vertical"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.fiber_uptime",
+                      "name": "UpTime",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "amber",
+                      "fill_container": true,
+                      "layout": "vertical"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.upnp_igd_external_ip",
+                      "name": "Ip",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "green",
+                      "layout": "vertical"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.network_in_eth0",
+                      "name": "Eth0",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "deep-orange",
+                      "icon": "mdi:cable-data",
+                      "layout": "vertical"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.upnp_igd_wan_status",
+                      "name": "Internet"
+                    }
+                  ],
+                  "hours_to_show": 25
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "show_state": true,
+                  "type": "glance",
+                  "entities": [
+                    {
+                      "entity": "device_tracker.floor00_deco",
+                      "name": "Floor 00",
+                      "icon": "mdi:router-wireless-settings"
+                    },
+                    {
+                      "entity": "device_tracker.floor01_deco",
+                      "name": "Floor 01",
+                      "icon": "mdi:router-wireless-settings"
+                    },
+                    {
+                      "entity": "device_tracker.floor02_deco",
+                      "name": "Floor 02",
+                      "icon": "mdi:router-wireless-settings"
+                    },
+                    {
+                      "entity": "device_tracker.nonna_deco",
+                      "name": "Nonna",
+                      "icon": "mdi:router-wireless-settings"
+                    },
+                    {
+                      "entity": "device_tracker.switchnorth_deco",
+                      "name": "North",
+                      "icon": "mdi:router-wireless"
+                    }
+                  ]
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "device_tracker.5_pro2pm_1f8_eth",
+                      "name": "AC eth"
+                    },
+                    {
+                      "entity": "device_tracker.5_pro2pm_1f8_wifi",
+                      "name": "AC"
+                    },
+                    {
+                      "entity": "device_tracker.7_pm1_76c",
+                      "name": "InInverter"
+                    },
+                    {
+                      "entity": "device_tracker.8_pm_c7a",
+                      "name": "SWitch"
+                    },
+                    {
+                      "entity": "device_tracker.9_pm1_500",
+                      "name": "LedOut"
+                    },
+                    {
+                      "entity": "device_tracker.11_plug_99c",
+                      "name": "Fan"
+                    },
+                    {
+                      "entity": "device_tracker.12_plug_815",
+                      "name": "Monitor"
+                    },
+                    {
+                      "entity": "device_tracker.14_em_01b",
+                      "name": "Home"
+                    },
+                    {
+                      "entity": "device_tracker.chromecast",
+                      "name": "Chromecast"
+                    },
+                    {
+                      "entity": "device_tracker.invertersolarb",
+                      "name": "Inverter"
+                    },
+                    {
+                      "entity": "device_tracker.bosch_dishwasher",
+                      "name": "Lavastoviglie"
+                    },
+                    {
+                      "entity": "device_tracker.unknown_5",
+                      "name": "Lavatrice"
+                    },
+                    {
+                      "entity": "device_tracker.ipcam_4"
+                    },
+                    {
+                      "entity": "device_tracker.ipcam_2"
+                    },
+                    {
+                      "entity": "device_tracker.camera4_2"
+                    }
+                  ],
+                  "hours_to_show": 36
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Workstation",
+          "path": "workstation",
+          "icon": "mdi:desktop-classic",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "title": "Workstation",
+              "cards": [
+                {
+                  "square": true,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "gauge",
+                      "entity": "sensor.load_1m",
+                      "unit": "%",
+                      "max": 5,
+                      "min": 1,
+                      "needle": true,
+                      "severity": {
+                        "green": 0,
+                        "yellow": 2,
+                        "red": 3.5
+                      }
+                    },
+                    {
+                      "type": "gauge",
+                      "entity": "sensor.load_5m",
+                      "unit": "%",
+                      "max": 5,
+                      "min": 1,
+                      "needle": true,
+                      "severity": {
+                        "green": 0,
+                        "yellow": 2,
+                        "red": 3.5
+                      }
+                    },
+                    {
+                      "type": "gauge",
+                      "entity": "sensor.load_15m",
+                      "unit": "%",
+                      "max": 5,
+                      "min": 1,
+                      "needle": true,
+                      "severity": {
+                        "green": 0,
+                        "yellow": 2,
+                        "red": 3.5
+                      }
+                    }
+                  ],
+                  "columns": 3
+                },
+                {
+                  "type": "custom:bar-card",
+                  "entities": [
+                    {
+                      "entity": "sensor.processor_use"
+                    },
+                    {
+                      "entity": "sensor.memory_use_percent"
+                    },
+                    {
+                      "entity": "sensor.memory_use",
+                      "min": "0",
+                      "max": "8000"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:mushroom-template-card",
+                  "primary": "Last Boot: {{states('sensor.last_boot') | as_datetime()  | as_local()}} ",
+                  "secondary": "",
+                  "icon": "mdi:timelapse",
+                  "entity": "sensor.last_boot",
+                  "tap_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "device_tracker.workstationeth",
+                      "name": "Lan"
+                    },
+                    {
+                      "entity": "binary_sensor.upnp_igd_wan_status",
+                      "name": "Internet"
+                    }
+                  ],
+                  "hours_to_show": 24
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Charts",
+              "cards": [
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Workstation",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.processor_use",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "CPU",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.memory_use_percent",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "RAM",
+                      "type": "area",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.disk_use_percent_config",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "Disk Use",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "square": false,
+                  "type": "grid",
+                  "title": "Services",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.glances_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "icon_color": "cyan",
+                      "icon": "mdi:speedometer"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.grafana_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "icon_color": "primary",
+                      "icon": "mdi:chart-line"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.mariadb_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "icon_color": "yellow",
+                      "icon": "mdi:database"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.influxdb_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "icon": "mdi:data-matrix-plus"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.node_red_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "icon_color": "pink",
+                      "icon": "mdi:resistor-nodes"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.samba_share_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "icon_color": "green",
+                      "icon": "mdi:check-network"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.spotify_connect_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "icon_color": "teal",
+                      "icon": "mdi:spotify"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.mosquitto_broker_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "icon_color": "white",
+                      "icon": "mdi:radio-tower"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.studio_code_server_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "icon_color": "light-blue",
+                      "icon": "mdi:microsoft-visual-studio"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.home_assistant_core_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "name": "Core",
+                      "icon": "mdi:cpu-64-bit"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.frigate_full_access_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "icon_color": "brown",
+                      "name": "Figate",
+                      "icon": "mdi:cctv"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.home_assistant_supervisor_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "name": "Supervisor"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.home_assistant_google_drive_backup_cpu_percent",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "layout": "horizontal",
+                      "name": "Backup",
+                      "icon": "mdi:cloud"
+                    }
+                  ],
+                  "columns": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "charts",
+          "icon": "mdi:periodic-table",
+          "title": "Charts",
+          "type": "sidebar",
+          "badges": [],
+          "cards": [
+            {
+              "type": "custom:apexcharts-card",
+              "experimental": {
+                "color_threshold": true
+              },
+              "header": {
+                "show": true,
+                "title": "Home Power",
+                "show_states": true,
+                "colorize_states": true
+              },
+              "graph_span": "36h",
+              "stacked": true,
+              "apex_config": {
+                "legend": {
+                  "show": true
+                }
+              },
+              "series": [
+                {
+                  "entity": "sensor.solar_power",
+                  "show": {
+                    "extremas": true
+                  },
+                  "color_threshold": [
+                    {
+                      "value": 1000,
+                      "color": "fcf803",
+                      "opacity": 0.7
+                    },
+                    {
+                      "value": 2000,
+                      "color": "fc8c03",
+                      "opacity": 0.7
+                    },
+                    {
+                      "value": 3000,
+                      "color": "fc3103",
+                      "opacity": 0.7
+                    }
+                  ],
+                  "name": "Solar",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "15min"
+                  }
+                },
+                {
+                  "entity": "sensor.enel_power",
+                  "show": {
+                    "extremas": true
+                  },
+                  "name": "Enel",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "15min"
+                  }
+                },
+                {
+                  "entity": "sensor.home_total_power_2",
+                  "color": "green",
+                  "show": {
+                    "extremas": true
+                  },
+                  "name": "Home",
+                  "type": "line",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "15min"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "custom:apexcharts-card",
+              "header": {
+                "show": true,
+                "title": "Power Loads",
+                "show_states": true,
+                "colorize_states": true
+              },
+              "graph_span": "36h",
+              "stacked": true,
+              "series": [
+                {
+                  "entity": "sensor.boiler_power",
+                  "name": "boiler",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "15min"
+                  }
+                },
+                {
+                  "entity": "sensor.washmachine_power",
+                  "name": "lavatrice",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "15min"
+                  }
+                },
+                {
+                  "entity": "sensor.acsala_power",
+                  "name": "sala",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "15min"
+                  }
+                },
+                {
+                  "entity": "sensor.acscala_power",
+                  "name": "scala",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "15min"
+                  }
+                },
+                {
+                  "entity": "sensor.ininverter_power",
+                  "name": "inverter",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "15min"
+                  }
+                },
+                {
+                  "entity": "sensor.fan_power",
+                  "name": "stufetta",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "15min"
+                  }
+                },
+                {
+                  "entity": "sensor.washdisher_power",
+                  "name": "Lavastoviglie",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "15min"
+                  }
+                },
+                {
+                  "entity": "sensor.oven_power",
+                  "name": "oven & frigo",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "15min"
+                  }
+                },
+                {
+                  "entity": "sensor.monitor_power",
+                  "name": "monitor",
+                  "type": "column",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "15min"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "custom:apexcharts-card",
+              "graph_span": "1.5d",
+              "header": {
+                "show": true,
+                "title": "Temp Compare",
+                "show_states": true,
+                "colorize_states": true
+              },
+              "series": [
+                {
+                  "entity": "sensor.temperature1",
+                  "name": "Today",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "1h"
+                  },
+                  "show": {
+                    "extremas": true
+                  }
+                },
+                {
+                  "entity": "sensor.temperature1",
+                  "offset": "-1d",
+                  "name": "Yesterday",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "1h"
+                  },
+                  "show": {
+                    "extremas": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "theme": "Backend-selected",
+          "title": "Devices",
+          "path": "devices",
+          "icon": "mdi:devices",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "title": "Kito",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "device_tracker.kitos_ipad"
+                    },
+                    {
+                      "entity": "sensor.kitos_ipad_battery_level",
+                      "name": "Battery"
+                    },
+                    {
+                      "entity": "sensor.kitos_ipad_battery_state",
+                      "icon": "mdi:battery-unknown",
+                      "name": "State"
+                    },
+                    {
+                      "entity": "sensor.kitos_ipad_connection_type",
+                      "name": "Connection"
+                    },
+                    {
+                      "entity": "sensor.kitos_ipad_ssid",
+                      "name": "WiFi"
+                    }
+                  ],
+                  "state_color": true,
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.kitos_ipad_battery_level",
+                    "detail": 2
+                  },
+                  "title": "iPad",
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "device_tracker.kitosiphonemain"
+                    },
+                    {
+                      "entity": "sensor.kitos_iphone3_battery_level"
+                    },
+                    {
+                      "entity": "sensor.kitos_iphone3_battery_state"
+                    },
+                    {
+                      "entity": "sensor.kitos_iphone3_connection_type"
+                    },
+                    {
+                      "entity": "sensor.kitos_iphone3_ssid"
+                    }
+                  ],
+                  "title": "iPhone",
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.kitos_iphone3_battery_level"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Enrica",
+              "cards": [
+                {
+                  "type": "entities",
+                  "title": "Phone",
+                  "entities": [
+                    {
+                      "entity": "device_tracker.enrica_s_phone"
+                    },
+                    {
+                      "entity": "sensor.enrica_s_phone_battery_level"
+                    },
+                    {
+                      "entity": "sensor.enrica_s_phone_battery_state"
+                    },
+                    {
+                      "entity": "binary_sensor.enrica_s_phone_is_charging"
+                    },
+                    {
+                      "entity": "sensor.enrica_s_phone_wifi_connection"
+                    }
+                  ],
+                  "state_color": true,
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.enrica_s_phone_battery_level",
+                    "detail": 2
+                  },
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "device_tracker.enricas_ipad"
+                    },
+                    {
+                      "entity": "sensor.ipad_di_enrica_battery_level"
+                    },
+                    {
+                      "entity": "sensor.ipad_di_enrica_battery_state"
+                    },
+                    {
+                      "entity": "sensor.ipad_di_enrica_geocoded_location"
+                    },
+                    {
+                      "entity": "sensor.ipad_di_enrica_ssid"
+                    },
+                    {
+                      "entity": "sensor.ipad_di_enrica_storage"
+                    }
+                  ],
+                  "state_color": true,
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.ipad_di_enrica_battery_level",
+                    "detail": 2
+                  },
+                  "title": "iPad"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "device_tracker.iphone_di_enrica"
+                    },
+                    {
+                      "entity": "sensor.iphone_di_enrica_battery_state",
+                      "name": "Battery State"
+                    },
+                    {
+                      "entity": "sensor.iphone_di_enrica_battery_level"
+                    },
+                    {
+                      "entity": "sensor.iphone_di_enrica_connection_type",
+                      "name": "Connection Type"
+                    },
+                    {
+                      "entity": "sensor.iphone_di_enrica_ssid",
+                      "name": "SSID"
+                    },
+                    {
+                      "entity": "sensor.iphone_di_enrica_storage",
+                      "name": "Storage"
+                    }
+                  ],
+                  "title": "iPhone",
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.iphone_di_enrica_battery_level"
+                  },
+                  "state_color": true,
+                  "show_header_toggle": false
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Adriano",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "device_tracker.adrianos_phone"
+                    },
+                    {
+                      "entity": "sensor.adriano_battery_level",
+                      "name": "Battery"
+                    },
+                    {
+                      "entity": "sensor.adriano_battery_state",
+                      "icon": "mdi:battery-unknown",
+                      "name": "State"
+                    },
+                    {
+                      "entity": "sensor.adriano_network_type",
+                      "name": "Connection"
+                    },
+                    {
+                      "entity": "sensor.adriano_wifi_connection",
+                      "name": "WiFi"
+                    }
+                  ],
+                  "state_color": true,
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.adriano_battery_level",
+                    "detail": 2
+                  },
+                  "title": "Phone",
+                  "show_header_toggle": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "icon": "mdi:nintendo-switch",
+          "title": "Shelly",
+          "path": "shelly",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "title": "AC & Boiler",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.acsala",
+                      "name": "Sala",
+                      "icon": "mdi:power",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.acsala_power",
+                      "name": "Sala"
+                    },
+                    {
+                      "entity": "switch.acscala",
+                      "name": "Scala",
+                      "icon": "mdi:power"
+                    },
+                    {
+                      "entity": "sensor.acscala_power",
+                      "name": "Scala"
+                    },
+                    {
+                      "entity": "sensor.acsala_voltage",
+                      "name": "Voltage"
+                    },
+                    {
+                      "entity": "update.ac_firmware_update",
+                      "name": "Update"
+                    },
+                    {
+                      "entity": "binary_sensor.ac_cloud",
+                      "name": "Cloud"
+                    },
+                    {
+                      "entity": "sensor.ac_rssi",
+                      "name": "WiFi"
+                    },
+                    {
+                      "entity": "sensor.ac_uptime",
+                      "name": "Uptime"
+                    },
+                    {
+                      "entity": "sensor.acsala_device_temperature",
+                      "name": "Temp"
+                    },
+                    {
+                      "entity": "button.ac_reboot",
+                      "name": "Reboot"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "ac",
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.acsala_power",
+                    "detail": 2
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.boiler",
+                      "name": "Boiler",
+                      "icon": "mdi:power",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.boiler_power",
+                      "name": "Power"
+                    },
+                    {
+                      "entity": "switch.washmachine",
+                      "name": "Lavatrice",
+                      "icon": "mdi:power"
+                    },
+                    {
+                      "entity": "sensor.washmachine_power",
+                      "name": "Power"
+                    },
+                    {
+                      "entity": "sensor.boiler_voltage",
+                      "name": "Voltage"
+                    },
+                    {
+                      "entity": "update.boilerroom_firmware_update",
+                      "name": "Update"
+                    },
+                    {
+                      "entity": "binary_sensor.boilerroom_cloud",
+                      "name": "Cloud"
+                    },
+                    {
+                      "entity": "sensor.boilerroom_rssi",
+                      "name": "WiFi"
+                    },
+                    {
+                      "entity": "sensor.ac_uptime",
+                      "name": "Uptime"
+                    },
+                    {
+                      "entity": "sensor.boiler_device_temperature",
+                      "name": "Temp"
+                    },
+                    {
+                      "entity": "button.ac_reboot",
+                      "name": "Reboot"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "boiler",
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.acsala_power",
+                    "detail": 2
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Enel & SwBox",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.enel_power",
+                      "name": "Enel",
+                      "icon": "mdi:transmission-tower"
+                    },
+                    {
+                      "entity": "sensor.solar_power",
+                      "name": "Solar",
+                      "icon": "mdi:solar-power"
+                    },
+                    {
+                      "entity": "sensor.enel_voltage",
+                      "name": "Voltage"
+                    },
+                    {
+                      "entity": "update.enel_firmware_update",
+                      "name": "Update"
+                    },
+                    {
+                      "entity": "binary_sensor.enel_cloud",
+                      "name": "Cloud"
+                    },
+                    {
+                      "entity": "sensor.enel_rssi",
+                      "name": "WiFi"
+                    },
+                    {
+                      "entity": "sensor.enel_uptime",
+                      "name": "Uptime"
+                    },
+                    {
+                      "entity": "button.enel_reboot",
+                      "name": "Reboot"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "Enel",
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.acsala_power",
+                    "detail": 2
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.ininverter",
+                      "icon": "mdi:power",
+                      "secondary_info": "last-changed",
+                      "name": "Inverter"
+                    },
+                    {
+                      "entity": "sensor.ininverter_power",
+                      "name": "Power"
+                    },
+                    {
+                      "entity": "update.ininverter_firmware_update",
+                      "name": "Update"
+                    },
+                    {
+                      "entity": "binary_sensor.ininverter_cloud",
+                      "name": "Cloud"
+                    },
+                    {
+                      "entity": "sensor.ininverter_rssi",
+                      "name": "WiFi"
+                    },
+                    {
+                      "entity": "sensor.ininverter_uptime",
+                      "name": "Uptime"
+                    },
+                    {
+                      "entity": "sensor.ininverter_device_temperature",
+                      "name": "Temp"
+                    },
+                    {
+                      "entity": "button.ininverter_reboot",
+                      "name": "Reboot"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "Inverter",
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.ininverter_power",
+                    "detail": 2
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.switch",
+                      "name": "Switch",
+                      "icon": "mdi:power",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.switch_power",
+                      "name": "Power"
+                    },
+                    {
+                      "entity": "update.switch_firmware_update",
+                      "name": "Update"
+                    },
+                    {
+                      "entity": "binary_sensor.switch_cloud",
+                      "name": "Cloud"
+                    },
+                    {
+                      "entity": "sensor.switch_rssi",
+                      "name": "WiFi"
+                    },
+                    {
+                      "entity": "sensor.switch_uptime",
+                      "name": "Uptime"
+                    },
+                    {
+                      "entity": "sensor.switch_device_temperature",
+                      "name": "Temp"
+                    },
+                    {
+                      "entity": "button.switch_reboot",
+                      "name": "Reboot"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "Switch",
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.acsala_power",
+                    "detail": 2
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Loads",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.fan",
+                      "name": "Fan",
+                      "icon": "mdi:power",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.fan_power",
+                      "name": "Power"
+                    },
+                    {
+                      "entity": "update.fan_firmware_update",
+                      "name": "Update"
+                    },
+                    {
+                      "entity": "binary_sensor.fan_cloud",
+                      "name": "Cloud"
+                    },
+                    {
+                      "entity": "sensor.fan_rssi",
+                      "name": "WiFi"
+                    },
+                    {
+                      "entity": "sensor.fan_uptime",
+                      "name": "Uptime"
+                    },
+                    {
+                      "entity": "sensor.fan_device_temperature",
+                      "name": "Temp"
+                    },
+                    {
+                      "entity": "button.fan_reboot",
+                      "name": "Reboot"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "Fan",
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.fan_power",
+                    "detail": 2
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.monitor",
+                      "name": "Monitor",
+                      "icon": "mdi:power",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.monitor_power",
+                      "name": "Power"
+                    },
+                    {
+                      "entity": "update.monitor_firmware_update",
+                      "name": "Update"
+                    },
+                    {
+                      "entity": "binary_sensor.monitor_cloud"
+                    },
+                    {
+                      "entity": "sensor.monitor_rssi",
+                      "name": "WiFi"
+                    },
+                    {
+                      "entity": "sensor.monitor_uptime",
+                      "name": "Uptime"
+                    },
+                    {
+                      "entity": "sensor.monitor_device_temperature",
+                      "name": "Temp"
+                    },
+                    {
+                      "entity": "button.monitor_reboot",
+                      "name": "Reboot"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "Monitor",
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.monitor_power",
+                    "detail": 2
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.ledout",
+                      "name": "Led",
+                      "icon": "mdi:power",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "sensor.ledout_power",
+                      "name": "Power"
+                    },
+                    {
+                      "entity": "update.ledout_firmware_update",
+                      "name": "Update"
+                    },
+                    {
+                      "entity": "binary_sensor.ledout_cloud",
+                      "name": "Cloud"
+                    },
+                    {
+                      "entity": "sensor.ledout_rssi",
+                      "name": "WiFi"
+                    },
+                    {
+                      "entity": "sensor.ledout_uptime",
+                      "name": "Uptime"
+                    },
+                    {
+                      "entity": "sensor.ledout_device_temperature",
+                      "name": "Temp"
+                    },
+                    {
+                      "entity": "button.ledout_reboot",
+                      "name": "Reboot"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "Led",
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.ledout_power",
+                    "detail": 2
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.home",
+                      "icon": "mdi:power",
+                      "secondary_info": "last-changed",
+                      "name": "Home"
+                    },
+                    {
+                      "entity": "sensor.home_power",
+                      "name": "Power"
+                    },
+                    {
+                      "entity": "update.home_firmware_update",
+                      "name": "Update"
+                    },
+                    {
+                      "entity": "binary_sensor.home_cloud",
+                      "name": "Cloud"
+                    },
+                    {
+                      "entity": "sensor.home_rssi",
+                      "name": "WiFi"
+                    },
+                    {
+                      "entity": "sensor.home_uptime",
+                      "name": "Uptime"
+                    },
+                    {
+                      "entity": "button.home_reboot",
+                      "name": "Reboot"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "Home",
+                  "footer": {
+                    "type": "graph",
+                    "entity": "sensor.home_power",
+                    "detail": 2
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Shelly Tables",
+          "path": "shelly-tables",
+          "icon": "mdi:file-table-box-multiple-outline",
+          "type": "sidebar",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "title": "Tables",
+              "cards": [
+                {
+                  "type": "custom:auto-entities",
+                  "filter": {
+                    "include": [
+                      {
+                        "entity_id": "/sensor.*_rssi(_[0-9]+)?/"
+                      }
+                    ]
+                  },
+                  "card": {
+                    "type": "custom:flex-table-card",
+                    "title": "Wifi Power",
+                    "clickable": true,
+                    "columns": [
+                      {
+                        "data": "friendly_name",
+                        "name": "Friendly Name"
+                      },
+                      {
+                        "data": "state",
+                        "name": "State"
+                      }
+                    ],
+                    "css": {
+                      "table+": "padding-top: 5px;",
+                      "tbody tr:nth-child(even)": "background-color: #a2542f6;",
+                      "td.left": "padding: 10px 10px 10px 10px",
+                      "th.left": "padding: 0px 0px 10px 3px",
+                      "th.left:nth-child(1)": "width: 33%;",
+                      "th.left:nth-child(2)": "width: 33%;",
+                      "th.left:nth-child(3)": "width: 33%;"
+                    }
+                  },
+                  "sort": {
+                    "method": "state",
+                    "numeric": true,
+                    "reverse": true
+                  }
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "2d",
+                  "header": {
+                    "show": true,
+                    "title": "WiFi",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.ac_rssi",
+                      "name": "ac",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.fan_rssi",
+                      "name": "fan",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.enel_rssi",
+                      "name": "enel",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.home_rssi",
+                      "name": "home",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.ledout_rssi",
+                      "name": "led",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.switch_rssi",
+                      "name": "switch",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.boilerroom_rssi",
+                      "name": "boiler",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.monitor_rssi",
+                      "name": "monitor",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.ininverter_rssi",
+                      "name": "inverter",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:auto-entities",
+                  "filter": {
+                    "include": [
+                      {
+                        "entity_id": "/sensor.*_temperature(_[0-9]+)?/",
+                        "area": "Shelly"
+                      }
+                    ],
+                    "exclude": [
+                      {
+                        "entity_id": "/sensor.SelvaHome*/"
+                      }
+                    ]
+                  },
+                  "card": {
+                    "type": "custom:flex-table-card",
+                    "title": "Temperature",
+                    "clickable": true,
+                    "columns": [
+                      {
+                        "data": "friendly_name",
+                        "name": "Name"
+                      },
+                      {
+                        "data": "state",
+                        "name": "State"
+                      }
+                    ],
+                    "css": {
+                      "table+": "padding-top: 5px;",
+                      "tbody tr:nth-child(even)": "background-color: #a2542f6;",
+                      "td.left": "padding: 10px 10px 10px 10px",
+                      "th.left": "padding: 0px 0px 10px 3px",
+                      "th.left:nth-child(1)": "width: 33%;",
+                      "th.left:nth-child(2)": "width: 33%;",
+                      "th.left:nth-child(3)": "width: 33%;"
+                    }
+                  },
+                  "sort": {
+                    "method": "state",
+                    "reverse": false,
+                    "numeric": true
+                  }
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "2d",
+                  "header": {
+                    "show": true,
+                    "title": "Temp",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.acsala_device_temperature",
+                      "name": "ac",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.fan_device_temperature",
+                      "name": "fan",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.ledout_device_temperature",
+                      "name": "led",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.switch_device_temperature",
+                      "name": "switch",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.monitor_device_temperature",
+                      "name": "monitor",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.boiler_device_temperature",
+                      "name": "boiler",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.ininverter_device_temperature",
+                      "name": "inverter",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:auto-entities",
+                  "filter": {
+                    "include": [
+                      {
+                        "entity_id": "/sensor.*_power/",
+                        "area": "Shelly"
+                      }
+                    ]
+                  },
+                  "card": {
+                    "type": "custom:flex-table-card",
+                    "title": "Power",
+                    "clickable": true,
+                    "columns": [
+                      {
+                        "data": "friendly_name",
+                        "name": "Friendly Name"
+                      },
+                      {
+                        "data": "state",
+                        "name": "State"
+                      }
+                    ],
+                    "css": {
+                      "table+": "padding-top: 5px;",
+                      "tbody tr:nth-child(even)": "background-color: #a2542f6;",
+                      "td.left": "padding: 8px 8px 8px 8px"
+                    }
+                  },
+                  "sort": {
+                    "method": "state",
+                    "numeric": true,
+                    "reverse": true
+                  }
+                },
+                {
+                  "type": "custom:auto-entities",
+                  "filter": {
+                    "include": [
+                      {
+                        "entity_id": "/sensor.*_energy/",
+                        "area": "Shelly"
+                      }
+                    ]
+                  },
+                  "card": {
+                    "type": "custom:flex-table-card",
+                    "title": "Energy",
+                    "clickable": true,
+                    "columns": [
+                      {
+                        "data": "friendly_name",
+                        "name": "Friendly Name"
+                      },
+                      {
+                        "data": "state",
+                        "name": "State"
+                      }
+                    ],
+                    "css": {
+                      "table+": "padding-top: 5px;",
+                      "tbody tr:nth-child(even)": "background-color: #a2542f6;",
+                      "td.left": "padding: 8px 8px 8px 8px"
+                    }
+                  },
+                  "sort": {
+                    "method": "state",
+                    "numeric": true,
+                    "reverse": true
+                  }
+                },
+                {
+                  "type": "custom:auto-entities",
+                  "filter": {
+                    "include": [
+                      {
+                        "entity_id": "/sensor.*_uptime/",
+                        "area": "Shelly"
+                      }
+                    ]
+                  },
+                  "card": {
+                    "type": "custom:flex-table-card",
+                    "title": "UpTime",
+                    "clickable": true,
+                    "columns": [
+                      {
+                        "data": "friendly_name",
+                        "name": "Friendly Name"
+                      },
+                      {
+                        "data": "state",
+                        "name": "State"
+                      }
+                    ],
+                    "css": {
+                      "table+": "padding-top: 5px;",
+                      "tbody tr:nth-child(even)": "background-color: #a2542f6;",
+                      "td.left": "padding: 8px 8px 8px 8px"
+                    }
+                  },
+                  "sort": {
+                    "method": "state",
+                    "numeric": true,
+                    "reverse": true
+                  }
+                },
+                {
+                  "type": "custom:auto-entities",
+                  "filter": {
+                    "include": [
+                      {
+                        "entity_id": "/sensor.*_uptime/",
+                        "area": "Shelly"
+                      }
+                    ]
+                  },
+                  "card": {
+                    "type": "history-graph",
+                    "hours_to_show": 24
+                  }
+                },
+                {
+                  "type": "custom:auto-entities",
+                  "filter": {
+                    "include": [
+                      {
+                        "entity_id": "/sensor.*_cloud/",
+                        "area": "Shelly"
+                      }
+                    ]
+                  },
+                  "card": {
+                    "type": "custom:flex-table-card",
+                    "title": "Cloud",
+                    "clickable": true,
+                    "columns": [
+                      {
+                        "data": "friendly_name",
+                        "name": "Friendly Name"
+                      },
+                      {
+                        "data": "state",
+                        "name": "State"
+                      }
+                    ],
+                    "css": {
+                      "table+": "padding-top: 5px;",
+                      "tbody tr:nth-child(even)": "background-color: #a2542f6;",
+                      "td.left": "padding: 8px 8px 8px 8px"
+                    }
+                  },
+                  "sort": {
+                    "method": "state",
+                    "numeric": true,
+                    "reverse": true
+                  }
+                },
+                {
+                  "type": "custom:auto-entities",
+                  "filter": {
+                    "include": [
+                      {
+                        "entity_id": "/sensor.*_cloud/",
+                        "area": "Shelly"
+                      }
+                    ]
+                  },
+                  "card": {
+                    "type": "history-graph",
+                    "hours_to_show": 24
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Automations",
+          "path": "automations",
+          "icon": "mdi:file-tree",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "title": "On Automations",
+              "cards": [
+                {
+                  "type": "vertical-stack",
+                  "title": "Boiler Automation",
+                  "cards": [
+                    {
+                      "type": "entities",
+                      "title": "Time",
+                      "entities": [
+                        {
+                          "entity": "input_datetime.boiler_start"
+                        },
+                        {
+                          "entity": "automation.boilerstart"
+                        },
+                        {
+                          "entity": "input_datetime.boiler_stop"
+                        },
+                        {
+                          "entity": "automation.boileroff"
+                        }
+                      ],
+                      "state_color": true,
+                      "show_header_toggle": false
+                    },
+                    {
+                      "type": "history-graph",
+                      "entities": [
+                        {
+                          "entity": "switch.boiler"
+                        }
+                      ],
+                      "hours_to_show": 24
+                    }
+                  ]
+                },
+                {
+                  "type": "vertical-stack",
+                  "title": "LedOut automation",
+                  "cards": [
+                    {
+                      "type": "entities",
+                      "entities": [
+                        {
+                          "entity": "switch.ledout"
+                        },
+                        {
+                          "entity": "automation.sunsetledon"
+                        },
+                        {
+                          "entity": "automation.sunset1hledoff"
+                        }
+                      ],
+                      "state_color": true,
+                      "show_header_toggle": false
+                    },
+                    {
+                      "type": "history-graph",
+                      "entities": [
+                        {
+                          "entity": "switch.ledout"
+                        },
+                        {
+                          "entity": "sun.sun"
+                        }
+                      ],
+                      "hours_to_show": 24
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Automation Test",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.minus_1_kw_enel"
+                    },
+                    {
+                      "entity": "binary_sensor.minus_2_kw_enel"
+                    },
+                    {
+                      "entity": "binary_sensor.minus_3_kw_enel"
+                    },
+                    {
+                      "entity": "binary_sensor.plus_1_kw_enel"
+                    },
+                    {
+                      "entity": "binary_sensor.plus_2_kw_enel"
+                    },
+                    {
+                      "entity": "binary_sensor.combo_minus05_enel_plus1_solar"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "Enel"
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.minus_1_kw_enel"
+                    },
+                    {
+                      "entity": "binary_sensor.minus_2_kw_enel"
+                    },
+                    {
+                      "entity": "binary_sensor.minus_3_kw_enel"
+                    },
+                    {
+                      "entity": "binary_sensor.plus_1_kw_enel"
+                    },
+                    {
+                      "entity": "binary_sensor.plus_2_kw_enel"
+                    },
+                    {
+                      "entity": "binary_sensor.combo_minus05_enel_plus1_solar"
+                    }
+                  ],
+                  "title": "Enel",
+                  "hours_to_show": 24
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.plus_05_kw_solar"
+                    },
+                    {
+                      "entity": "binary_sensor.plus_1_kw_solar"
+                    },
+                    {
+                      "entity": "binary_sensor.plus_2_kw_solar"
+                    },
+                    {
+                      "entity": "binary_sensor.plus_3_kw_solar"
+                    },
+                    {
+                      "entity": "binary_sensor.plus_4_kw_solar"
+                    }
+                  ],
+                  "state_color": true,
+                  "show_header_toggle": false,
+                  "title": "Solar"
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.plus_05_kw_solar"
+                    },
+                    {
+                      "entity": "binary_sensor.plus_1_kw_solar"
+                    },
+                    {
+                      "entity": "binary_sensor.plus_2_kw_solar"
+                    },
+                    {
+                      "entity": "binary_sensor.plus_3_kw_solar"
+                    },
+                    {
+                      "entity": "binary_sensor.plus_4_kw_solar"
+                    }
+                  ],
+                  "title": "Solar",
+                  "hours_to_show": 24
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Power Derivate 10min",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "apex_config": {
+                    "legend": {
+                      "show": true
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.enelderivateaverage10min",
+                      "type": "line"
+                    },
+                    {
+                      "entity": "sensor.solarderivateaverage10min",
+                      "type": "line"
+                    },
+                    {
+                      "entity": "sensor.homederivateaverage10min",
+                      "type": "line"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Power Avg 10min",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "apex_config": {
+                    "legend": {
+                      "show": true
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.solarpoweravg10min",
+                      "type": "line"
+                    },
+                    {
+                      "entity": "sensor.enelpoweravg10min",
+                      "type": "line"
+                    },
+                    {
+                      "entity": "sensor.homepoweravg10min_2",
+                      "type": "line"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Automations",
+              "cards": [
+                {
+                  "type": "custom:auto-entities",
+                  "card": {
+                    "type": "entities",
+                    "state_color": true
+                  },
+                  "filter": {
+                    "include": [
+                      {
+                        "entity_id": "automation*"
+                      }
+                    ]
+                  },
+                  "sort": {
+                    "method": "friendly_name"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Tools",
+          "path": "tools",
+          "icon": "mdi:tools",
+          "badges": [],
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                "counter.a"
+              ],
+              "state_color": true
+            },
+            {
+              "type": "history-graph",
+              "entities": [
+                {
+                  "entity": "counter.a"
+                }
+              ],
+              "hours_to_show": 24
+            },
+            {
+              "type": "history-graph",
+              "entities": [
+                "sensor.energy_next_hour",
+                "sensor.energy_production_today_remaining",
+                "sensor.energy_current_hour",
+                "sensor.energy_production_today",
+                "sensor.energy_production_tomorrow",
+                "sensor.power_production_next_12hours",
+                "sensor.power_production_next_24hours",
+                "sensor.power_production_next_hour",
+                "sensor.power_production_now",
+                "sensor.power_highest_peak_time_today",
+                "sensor.power_highest_peak_time_tomorrow"
+              ]
+            },
+            {
+              "type": "history-graph",
+              "entities": [
+                "sensor.sun_next_dawn",
+                "sensor.sun_next_dusk",
+                "sensor.sun_next_midnight",
+                "sensor.sun_next_noon",
+                "sensor.sun_next_rising",
+                "sensor.sun_next_setting",
+                "sensor.sun_solar_azimuth",
+                "sensor.sun_solar_elevation"
+              ],
+              "title": "Sun"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.moon_phase",
+                  "name": "Phase"
+                }
+              ],
+              "title": "Moon"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

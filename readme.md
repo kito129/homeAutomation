@@ -1,8 +1,8 @@
 # homeAutomation project
     author: kito129
     date: 2023/03/01
-    last update: 2023/08/01
-    version: v2023.8.0.1
+    last update: 2023/08/02
+    version: v2023.8.0.2
     docVersion: 1.0
 
 
@@ -23,10 +23,10 @@ My current setup is:
 Versioning is based on the Home Assistant versioning. The last number is the version of the project.
 
 ### Code Base
-    Home Assistant 2023.6.3
+    Home Assistant 2023.7.3
     Supervisor 2023.07.1
     Operating System 10.3
-    Frontend 20230608.0 - latest
+    Frontend 20230705.1 - latest
 
 ## Network
 
