@@ -8,6 +8,7 @@
     - new theme schema and heavy use of mushroom card and grid card
 - Frigate notification with node red to iphone test
 - some minor fix @ template ane sensor
+- upload new images in readme
 
 #### Changed
 

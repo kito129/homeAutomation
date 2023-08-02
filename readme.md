@@ -109,46 +109,40 @@ all wired via CAT7 cables
 | 1 | Bosch  |  Dishwasher |  SMV4EVX14E |
 | 2 |  LG |  Washing Machine | F4WV510S0E  |
 | 3 | Hisense  | Tv  | 43" UHD 4K 2022 43A6FG  |
+| 4 |  Ariston Lydos  | HeatPump Boiler  |  Hybrid 80 litri  |
 
-## Dashboard
-Home
-![home](./doc/images/home.png "Dashboard")
+# Dashboard
 
-Appliances
-![Appliances](./doc/images/appliances.png "Appliances")
-
-Network
-![Network](./doc/images/network.png "Network")
-
-Weather
-![Weather](./doc/images/weather.png "Weather")
-
-Automation
-![Automation](./doc/images/automations.png "Automation")
-
-Charts
-![Charts](./doc/images/charts.jpg "Charts")
-
-Shelly Charts
-![Charts](./doc/images/shellycharts.png "Shelly Charts")
+Dashboard lovelace screenshots
 
 
+### Home
+![home](./doc/images/home2.png "Dashboard")
 
-# to install frigrate docker
+### CCTV
+![CCTV](./doc/images/cctv2.png "Appliances")
 
-    docker run -d \
-    --name frigate \
-    --restart=unless-stopped \
-    --mount type=tmpfs,target=/tmp/cache,tmpfs-size=1000000000 \
-    --device /dev/bus/usb:/dev/bus/usb \
-    --device /dev/dri/renderD128 \
-    --shm-size=64m \
-    -v /path/to/your/storage:/mnt/d/frigrate \
-    -v /path/to/your/config.yml:/mnt/d/frigrate/config/config.yml \
-    -v /etc/localtime:/etc/localtime:ro \
-    -e FRIGATE_RTSP_PASSWORD='kito65255842639' \
-    -p 5000:5000 \
-    -p 8554:8554 \
-    -p 8555:8555/tcp \
-    -p 8555:8555/udp \
-    ghcr.io/blakeblackshear/frigate:stable
+### Appliances
+![Appliances](./doc/images/appliances2.png "Appliances")
+
+### Network
+![Network](./doc/images/network2.png "Network")
+
+### Weather
+![Weather](./doc/images/weather2.png "Weather")
+
+### Automation
+![Automation](./doc/images/automations2.png "Automation")
+
+### Charts
+![Charts](./doc/images/charts2.png "Charts")
+
+### Shelly
+![Shelly](./doc/images/shellys2.png "Shelly Charts")
+
+### Shelly Charts
+![Charts](./doc/images/shellycharts2.png "Shelly Charts")
+
+### Tools
+![Shellys](./doc/images/tools2.png "Shelly Charts")
+
