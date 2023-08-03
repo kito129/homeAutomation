@@ -51,6 +51,7 @@ influxdb:
 #  - url: /local/apexcharts-card.js?v=2.0.2
 #    type: module
 
+
 # Logger configuration
 logger:
   default: warning

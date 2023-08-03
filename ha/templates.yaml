@@ -192,4 +192,37 @@
       state: >-
         {{  states('binary_sensor.minus_05_kw_enel') and states('binary_sensor.plus_1_kw_solar')  }}
 
-    
+
+     # COMBO 1kSolar AND -1kW enel Power
+    - name: "internet_status"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-284852"
+      icon: mdi:web
+      state: >-
+        {% if states('binary_sensor.upnp_igd_wan_status') == "on" -%}
+          "ok"
+        {%- else -%}
+          "ko"
+        {%- endif %}
+
+    # oven status based on power
+    - name: "oven_status"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-28466528"
+      icon: mdi:stove
+      state: >-
+        {% if states('sensor.oven_power')|float(0) > 10 -%}
+          'on'
+        {%- else -%}
+          'off'
+        {%- endif %}
+
+    # oven status based on power
+    - name: "rain_weather_status"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-17848485"
+      icon: mdi:rain
+      state: >-
+        {% if states('sensor.selvahome_precipitation')|float(0) > 0.1 -%}
+          'on'
+        {%- else -%}
+          'off'
+        {%- endif %}
+

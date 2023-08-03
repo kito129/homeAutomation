@@ -47,8 +47,59 @@
                 },
                 {
                   "type": "custom:apexcharts-card",
-                  "card_mod": {
-                    "style": ":host {\n  heigt: 200%;\n}\n"
+                  "header": {
+                    "show": true,
+                    "title": "Home Power",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "stacked": true,
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.solar_power",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "Solar",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.enel_power",
+                      "name": "Enel",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.home_total_power_2",
+                      "color": "green",
+                      "name": "Home",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
                   },
                   "header": {
                     "show": true,
@@ -124,9 +175,6 @@
                       }
                     }
                   ]
-                },
-                {
-                  "type": "energy-solar-graph"
                 }
               ]
             },
@@ -139,41 +187,25 @@
                   "cards": [
                     {
                       "type": "custom:mushroom-template-card",
-                      "primary": "Boiler: {{states.sensor.boiler_power.state|float(0)}} W",
-                      "secondary": "Power: {{states.switch.boiler.state}}",
+                      "primary": "{{states.sensor.boiler_power.state|float(0)}} W",
+                      "secondary": "Boiler: {{states.switch.boiler.state}}",
                       "icon": "mdi:water-boiler",
                       "icon_color": "{{ (states(\"sensor.boiler_power\")|float(0) > 0) | iif(\"blue\", \"\") }}\n",
                       "entity": "switch.boiler",
-                      "layout": "vertical",
                       "multiline_secondary": true,
                       "tap_action": {
                         "action": "more-info"
                       },
-                      "badge_icon": ""
+                      "badge_icon": "",
+                      "fill_container": true
                     },
                     {
                       "type": "custom:mushroom-template-card",
-                      "primary": "Lavatrice: {{states.sensor.washmachine_power.state}} W",
-                      "secondary": "State: {{states.switch.washmachine.state}}",
+                      "primary": "{{states.sensor.washmachine_power.state}} W",
+                      "secondary": "Lavatrice: {{states.switch.washmachine.state}}",
                       "icon": "mdi:washing-machine",
                       "icon_color": "{{ (states(\"sensor.washmachine_power\")|float(0) > 0) | iif(\"green\", \"\") }}\n",
                       "entity": "switch.washmachine",
-                      "layout": "vertical",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": false
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "Frigo & Forno: {{states.sensor.washmachine_power.state}} W",
-                      "secondary": "",
-                      "icon": "mdi:washing-machine",
-                      "icon_color": "{{ (states(\"sensor.oven_power\")|float(0) > 0) | iif(\"red\", \"\") }}\n",
-                      "entity": "sensor.oven_power",
-                      "layout": "vertical",
                       "multiline_secondary": true,
                       "tap_action": {
                         "action": "more-info"
@@ -183,57 +215,39 @@
                     },
                     {
                       "type": "custom:mushroom-template-card",
-                      "primary": "Lavastoviglie: {{states.sensor.washdisher_power.state}} W",
-                      "secondary": "State: {{states.switch.dishwasher_power.state}}",
-                      "icon": "mdi:dishwasher",
-                      "icon_color": "{{ (states(\"sensor.washmachine_power\")|float(0) > 0) | iif(\"yellow\", \"\") }}\n",
-                      "entity": "sensor.washdisher_power",
-                      "layout": "vertical",
+                      "primary": "{{states.sensor.oven_power.state}} W",
+                      "secondary": "Frigo & Forno",
+                      "icon": "mdi:fridge",
+                      "icon_color": "{{ (states(\"sensor.oven_power\")|float(0) > 0) | iif(\"red\", \"\") }}\n",
+                      "entity": "sensor.oven_power",
                       "multiline_secondary": true,
                       "tap_action": {
                         "action": "more-info"
                       },
                       "badge_icon": "",
-                      "fill_container": false
+                      "fill_container": true
                     },
                     {
                       "type": "custom:mushroom-template-card",
-                      "primary": "AC Sala: {{states.sensor.acsala_power.state}} W",
-                      "secondary": "State: {{states.switch.acsala.state}}",
+                      "primary": "{{states.sensor.washdisher_power.state}} W",
+                      "secondary": "Lavastoviglie: {{states.switch.dishwasher_power.state}}",
+                      "icon": "mdi:dishwasher",
+                      "icon_color": "{{ (states(\"sensor.washdisher_power\")|float(0) > 0) | iif(\"yellow\", \"\") }}\n",
+                      "entity": "sensor.washdisher_power",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states.sensor.acsala_power.state}} W",
+                      "secondary": "acSala: {{states.switch.acsala.state}}",
                       "icon": "mdi:air-conditioner",
                       "icon_color": "{{ (states(\"sensor.acsala_power\")|float(0) > 0) | iif(\"red\", \"\") }}\n",
                       "entity": "switch.acsala",
-                      "layout": "vertical",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": false
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "AC Scala: {{states.sensor.acscala_power.state}} W",
-                      "secondary": "State: {{states.switch.acscala.state}}",
-                      "icon": "mdi:air-conditioner",
-                      "icon_color": "{{ (states(\"sensor.acsala_power\")|float(0) > 0) | iif(\"red\", \"\") }}\n",
-                      "entity": "switch.acscala",
-                      "layout": "vertical",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": false
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "Other Home: {{states.sensor.home_other_loads_power.state}} W",
-                      "secondary": "",
-                      "icon": "mdi:home",
-                      "icon_color": "{{ (states(\"sensor.home_other_loads_power\")|float(0) > 0) | iif(\"orange\", \"\") }}\n",
-                      "entity": "sensor.home_other_loads_power",
-                      "layout": "vertical",
                       "multiline_secondary": true,
                       "tap_action": {
                         "action": "more-info"
@@ -243,27 +257,53 @@
                     },
                     {
                       "type": "custom:mushroom-template-card",
-                      "primary": "Monitor: {{states.sensor.monitor_power.state}} W",
-                      "secondary": "State: {{states.switch.monitor.state}}",
+                      "primary": "{{states.sensor.acscala_power.state}} W",
+                      "secondary": "acScala: {{states.switch.acscala.state}}",
+                      "icon": "mdi:air-conditioner",
+                      "icon_color": "{{ (states(\"sensor.acsala_power\")|float(0) > 0) | iif(\"red\", \"\") }}\n",
+                      "entity": "switch.acscala",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states.sensor.home_other_loads_power.state}} W",
+                      "secondary": "Other Home",
+                      "icon": "mdi:home",
+                      "icon_color": "{{ (states(\"sensor.home_other_loads_power\")|float(0) > 0) | iif(\"orange\", \"\") }}\n",
+                      "entity": "sensor.home_other_loads_power",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states.sensor.monitor_power.state}} W",
+                      "secondary": "Monitor: {{states.switch.monitor.state}}",
                       "icon": "mdi:monitor-dashboard",
                       "icon_color": "{{ (states(\"sensor.monitor_power\")|float(0) > 0) | iif(\"yellow\", \"\") }}\n",
                       "entity": "switch.monitor",
-                      "layout": "vertical",
                       "multiline_secondary": true,
                       "tap_action": {
                         "action": "more-info"
                       },
                       "badge_icon": "",
-                      "fill_container": false
+                      "fill_container": true
                     },
                     {
                       "type": "custom:mushroom-template-card",
-                      "primary": "Battery In: {{states.sensor.ininverter_power.state}} W",
-                      "secondary": "State: {{states.switch.ininverter.state}}",
+                      "primary": "{{states.sensor.ininverter_power.state}} W",
+                      "secondary": "Battery In: {{states.switch.ininverter.state}}",
                       "icon": "mdi:battery-arrow-up",
                       "icon_color": "{{ (states(\"sensor.ininverter_power\")|float(0) > 0) | iif(\"green\", \"\") }}\n",
                       "entity": "switch.ininverter",
-                      "layout": "vertical",
                       "multiline_secondary": true,
                       "tap_action": {
                         "action": "more-info"
@@ -273,60 +313,60 @@
                     },
                     {
                       "type": "custom:mushroom-template-card",
-                      "primary": "Battery Out: {{states.sensor.battery_out_power.state}} W",
-                      "secondary": "State: {{states.switch.switch.state}}",
+                      "primary": "{{states.sensor.battery_out_power.state}} W",
+                      "secondary": "Battery Out: {{states.switch.switch.state}}",
                       "icon": "mdi:battery-arrow-down",
                       "icon_color": "{{ (states(\"sensor.battery_out_power\")|float(0) > 0) | iif(\"reed\", \"\") }}\n",
                       "entity": "sensor.battery_out_power",
-                      "layout": "vertical",
                       "multiline_secondary": true,
                       "tap_action": {
                         "action": "more-info"
                       },
                       "badge_icon": "",
-                      "fill_container": false
+                      "fill_container": true
                     },
                     {
                       "type": "custom:mushroom-template-card",
-                      "primary": "Switch: {{states.sensor.switch_power.state}} W",
-                      "secondary": "State: {{states.switch.switch.state}}",
+                      "primary": "{{states.sensor.switch_power.state}} W",
+                      "secondary": "Switch: {{states.switch.switch.state}}",
                       "icon": "mdi:electric-switch",
                       "icon_color": "{{ (states(\"sensor.battery_out_power\")|float(0) > 0) | iif(\"purple\", \"\") }}\n",
                       "entity": "switch.switch",
-                      "layout": "vertical",
                       "multiline_secondary": true,
                       "tap_action": {
                         "action": "more-info"
                       },
                       "badge_icon": "",
-                      "fill_container": false
+                      "fill_container": true
                     },
                     {
                       "type": "custom:mushroom-template-card",
-                      "primary": "Led Out: {{states.sensor.ledout_power.state}} W",
-                      "secondary": "State: {{states.switch.ledout.state}}",
+                      "primary": "{{states.sensor.ledout_power.state}} W",
+                      "secondary": "Led Out: {{states.switch.ledout.state}}",
                       "icon": "mdi:led-on",
                       "icon_color": "{{ (states(\"sensor.ledout_power\")|float(0) > 0) | iif(\"yellow\", \"\") }}\n",
                       "entity": "switch.ledout",
-                      "layout": "vertical",
                       "multiline_secondary": true,
                       "tap_action": {
                         "action": "more-info"
                       },
                       "badge_icon": "",
-                      "fill_container": false
+                      "fill_container": true
                     }
                   ],
                   "columns": 2
+                },
+                {
+                  "type": "energy-solar-graph"
+                },
+                {
+                  "type": "energy-usage-graph"
                 }
               ]
             },
             {
               "type": "vertical-stack",
               "cards": [
-                {
-                  "type": "energy-usage-graph"
-                },
                 {
                   "type": "energy-distribution",
                   "link_dashboard": true
@@ -585,106 +625,6 @@
           "badges": [],
           "cards": [
             {
-              "square": false,
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "custom:mushroom-template-card",
-                  "primary": "Frigate",
-                  "secondary": "",
-                  "icon": "mdi:cctv",
-                  "icon_color": "yellow",
-                  "tap_action": {
-                    "action": "url",
-                    "url_path": "https://xc5oo1paki2zabddex3se0s8lcrq40ho.ui.nabu.casa/ccab4aaf_frigate-fa/ingress"
-                  },
-                  "fill_container": true,
-                  "multiline_secondary": true,
-                  "layout": "vertical"
-                },
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "input_boolean.person_notification",
-                  "icon_color": "primary",
-                  "fill_container": false,
-                  "layout": "vertical",
-                  "name": "Notification",
-                  "view_layout": {
-                    "position": "sidebar"
-                  }
-                },
-                {
-                  "type": "custom:mushroom-template-card",
-                  "primary": "Setup",
-                  "secondary": "",
-                  "icon": "mdi:file-settings",
-                  "icon_color": "green",
-                  "tap_action": {
-                    "action": "url",
-                    "url_path": "https://xc5oo1paki2zabddex3se0s8lcrq40ho.ui.nabu.casa/hassio/addon/ccab4aaf_frigate-fa/info"
-                  },
-                  "fill_container": true,
-                  "multiline_secondary": true,
-                  "layout": "vertical"
-                }
-              ],
-              "columns": 3,
-              "view_layout": {
-                "position": "sidebar"
-              }
-            },
-            {
-              "type": "custom:apexcharts-card",
-              "experimental": {
-                "color_threshold": true
-              },
-              "header": {
-                "show": true,
-                "show_states": true,
-                "colorize_states": true
-              },
-              "graph_span": "24h",
-              "stacked": true,
-              "apex_config": {
-                "legend": {
-                  "show": true
-                }
-              },
-              "series": [
-                {
-                  "entity": "sensor.entrance_ffmpeg_cpu_usage",
-                  "name": "Entrance",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "30min"
-                  }
-                },
-                {
-                  "entity": "sensor.back_ffmpeg_cpu_usage",
-                  "name": "Back",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "30min"
-                  }
-                },
-                {
-                  "entity": "sensor.garden_ffmpeg_cpu_usage",
-                  "name": "Garden",
-                  "color": "green",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "30min"
-                  }
-                }
-              ],
-              "view_layout": {
-                "position": "sidebar"
-              }
-            },
-            {
               "type": "custom:frigate-card",
               "cameras": [
                 {
@@ -711,45 +651,82 @@
               }
             },
             {
-              "type": "custom:apexcharts-card",
-              "experimental": {
-                "color_threshold": true
-              },
-              "header": {
-                "show": true,
-                "show_states": true,
-                "colorize_states": true
-              },
-              "graph_span": "24h",
-              "apex_config": {
-                "legend": {
-                  "show": true
-                }
-              },
-              "series": [
+              "type": "vertical-stack",
+              "cards": [
                 {
-                  "entity": "sensor.frigate_cpu_inference_speed",
-                  "show": {
-                    "extremas": true
+                  "type": "custom:uptime-card",
+                  "entity": "binary_sensor.frigate_full_access_running",
+                  "icon": "mdi:cctv",
+                  "bar": {
+                    "height": 110,
+                    "round": 0,
+                    "spacing": 3,
+                    "amount": 42
                   },
-                  "name": "Speed",
-                  "type": "line",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "30min"
+                  "hours_to_show": 168,
+                  "update_interval": 1,
+                  "init": {},
+                  "color": {},
+                  "alias": {
+                    "ok": "Online",
+                    "ko": "Offline"
+                  },
+                  "show": {
+                    "header": true
+                  },
+                  "tap_action": {},
+                  "tooltip": {},
+                  "blink": {},
+                  "clip": {},
+                  "view_layout": {
+                    "position": "sidebar"
                   }
                 },
                 {
-                  "entity": "sensor.frigate_full_access_cpu_percent",
-                  "show": {
-                    "extremas": true
-                  },
-                  "name": "CPU",
-                  "type": "line",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "30min"
-                  }
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "Setup",
+                      "secondary": "",
+                      "icon": "mdi:file-settings",
+                      "icon_color": "green",
+                      "tap_action": {
+                        "action": "url",
+                        "url_path": "https://xc5oo1paki2zabddex3se0s8lcrq40ho.ui.nabu.casa/hassio/addon/ccab4aaf_frigate-fa/info"
+                      },
+                      "fill_container": true,
+                      "multiline_secondary": true,
+                      "layout": "vertical"
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "Frigate",
+                      "secondary": "",
+                      "icon": "mdi:cctv",
+                      "icon_color": "yellow",
+                      "tap_action": {
+                        "action": "url",
+                        "url_path": "https://xc5oo1paki2zabddex3se0s8lcrq40ho.ui.nabu.casa/ccab4aaf_frigate-fa/ingress"
+                      },
+                      "fill_container": true,
+                      "multiline_secondary": true,
+                      "layout": "vertical"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.person_notification",
+                      "icon_color": "primary",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Notification",
+                      "view_layout": {
+                        "position": "sidebar"
+                      }
+                    }
+                  ],
+                  "columns": 3
                 }
               ],
               "view_layout": {
@@ -757,8 +734,225 @@
               }
             },
             {
-              "square": true,
+              "square": false,
               "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Stream",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "stacked": true,
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.entrance_ffmpeg_cpu_usage",
+                      "name": "Entrance",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.back_ffmpeg_cpu_usage",
+                      "name": "Back",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.garden_ffmpeg_cpu_usage",
+                      "name": "Garden",
+                      "color": "green",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    }
+                  ],
+                  "view_layout": {
+                    "position": "sidebar"
+                  }
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Detect",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "stacked": true,
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.entrance_detect_cpu_usage",
+                      "name": "Entrance",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.back_detect_cpu_usage",
+                      "name": "Back",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.garden_detect_cpu_usage",
+                      "name": "Garden",
+                      "color": "green",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    }
+                  ],
+                  "view_layout": {
+                    "position": "sidebar"
+                  }
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Capture",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "stacked": true,
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.entrance_capture_cpu_usage",
+                      "name": "Entrance",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.back_capture_cpu_usage",
+                      "name": "Back",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.garden_capture_cpu_usage",
+                      "name": "Garden",
+                      "color": "green",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    }
+                  ],
+                  "view_layout": {
+                    "position": "sidebar"
+                  }
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "FPS",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "stacked": true,
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.entrance_camera_fps",
+                      "name": "Entrance",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.back_camera_fps",
+                      "name": "Back",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.garden_camera_fps",
+                      "name": "Garden",
+                      "color": "green",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    }
+                  ],
+                  "view_layout": {
+                    "position": "sidebar"
+                  }
+                }
+              ],
+              "columns": 4,
+              "view_layout": {
+                "position": "main"
+              }
+            },
+            {
+              "type": "vertical-stack",
               "cards": [
                 {
                   "type": "custom:apexcharts-card",
@@ -773,7 +967,46 @@
                   "graph_span": "24h",
                   "apex_config": {
                     "legend": {
-                      "show": true
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.frigate_full_access_memory_percent",
+                      "name": "Memory",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.frigate_detection_fps",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    }
+                  ],
+                  "view_layout": {
+                    "position": "sidebar"
+                  }
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "apex_config": {
+                    "legend": {
+                      "show": false
                     }
                   },
                   "series": [
@@ -807,22 +1040,29 @@
                   "graph_span": "24h",
                   "apex_config": {
                     "legend": {
-                      "show": true
+                      "show": false
                     }
                   },
                   "series": [
                     {
-                      "entity": "sensor.frigate_full_access_memory_percent",
-                      "name": "Memory",
-                      "type": "line",
+                      "entity": "sensor.frigate_cpu_inference_speed",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "Speed",
+                      "type": "column",
                       "group_by": {
                         "func": "avg",
                         "duration": "30min"
                       }
                     },
                     {
-                      "entity": "sensor.frigate_detection_fps",
-                      "type": "column",
+                      "entity": "sensor.frigate_full_access_cpu_percent",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "CPU",
+                      "type": "line",
                       "group_by": {
                         "func": "avg",
                         "duration": "30min"
@@ -834,7 +1074,9 @@
                   }
                 }
               ],
-              "columns": 2
+              "view_layout": {
+                "position": "sidebar"
+              }
             }
           ]
         },
@@ -849,6 +1091,32 @@
               "title": "Boiler",
               "cards": [
                 {
+                  "type": "custom:uptime-card",
+                  "title_template": "Boiler",
+                  "entity": "switch.boiler",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 24,
+                  "none": "Unknown",
+                  "icon": "mdi:web",
+                  "ko_icon": "mdi:water-boiler",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 100
+                },
+                {
                   "type": "sensor",
                   "graph": "line",
                   "entity": "sensor.boiler_power",
@@ -856,6 +1124,58 @@
                   "name": "Boiler",
                   "icon": "mdi:water-boiler",
                   "hours_to_show": 24
+                },
+                {
+                  "type": "custom:bar-card",
+                  "entities": [
+                    {
+                      "entity": "sensor.boiler_power"
+                    }
+                  ],
+                  "icon": "mdi:lightning-bolt",
+                  "max": "1300"
+                },
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "switch.boiler",
+                      "icon": "mdi:water-boiler",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Boiler"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.boiler_current",
+                      "icon": "mdi:current-ac",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Current",
+                      "icon_color": "lime"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.boiler_voltage",
+                      "icon": "mdi:electron-framework",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Voltage",
+                      "icon_color": "amber"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.boiler_device_temperature",
+                      "icon": "mdi:temperature-celsius",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Temp",
+                      "icon_color": "green"
+                    }
+                  ],
+                  "columns": 2
                 },
                 {
                   "chart_type": "bar",
@@ -899,239 +1219,52 @@
                   ]
                 },
                 {
-                  "type": "history-graph",
-                  "hours_to_show": 24,
+                  "show_name": true,
+                  "show_icon": true,
+                  "show_state": true,
+                  "type": "glance",
                   "entities": [
                     {
-                      "entity": "switch.boiler"
+                      "entity": "automation.autoboileron",
+                      "icon": "mdi:solar-power-variant-outline"
+                    },
+                    {
+                      "entity": "automation.autoboileroff",
+                      "icon": "mdi:power-plug-off-outline"
+                    },
+                    {
+                      "entity": "binary_sensor.combo_minus05_enel_plus1_solar"
                     }
-                  ]
+                  ],
+                  "state_color": true
                 },
                 {
-                  "type": "entities",
+                  "type": "glance",
                   "entities": [
-                    {
-                      "entity": "switch.boiler",
-                      "secondary_info": "last-updated",
-                      "name": "power",
-                      "icon": "mdi:power"
-                    },
-                    {
-                      "entity": "sensor.boiler_current",
-                      "name": "Current"
-                    },
-                    {
-                      "entity": "sensor.boiler_voltage",
-                      "name": "Voltage"
-                    },
-                    {
-                      "entity": "automation.autoboileron"
-                    },
-                    {
-                      "entity": "automation.autoboileroff"
-                    },
                     {
                       "entity": "input_datetime.boiler_start"
                     },
                     {
                       "entity": "input_datetime.boiler_stop"
-                    },
-                    {
-                      "entity": "automation.boilerstart"
-                    },
-                    {
-                      "entity": "automation.boileroff"
-                    }
-                  ],
-                  "title": "State",
-                  "state_color": true,
-                  "show_header_toggle": false
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "title": "Lavastoviglie",
-              "cards": [
-                {
-                  "graph": "line",
-                  "type": "sensor",
-                  "entity": "sensor.washdisher_power",
-                  "detail": 2,
-                  "icon": "mdi:dishwasher",
-                  "hours_to_show": 24,
-                  "name": "Lavastoviglie"
-                },
-                {
-                  "chart_type": "bar",
-                  "period": "hour",
-                  "type": "statistics-graph",
-                  "entities": [
-                    "sensor.lavastoviglie_energy"
-                  ],
-                  "days_to_show": 1,
-                  "title": "Energy",
-                  "hide_legend": true,
-                  "stat_types": [
-                    "change"
-                  ]
-                },
-                {
-                  "type": "horizontal-stack",
-                  "cards": [
-                    {
-                      "type": "statistic",
-                      "entity": "sensor.lavastoviglie_energy",
-                      "period": {
-                        "calendar": {
-                          "period": "day"
-                        }
-                      },
-                      "stat_type": "change",
-                      "name": "Today",
-                      "icon": "mdi:dishwasher"
-                    },
-                    {
-                      "type": "statistic",
-                      "entity": "sensor.lavastoviglie_energy",
-                      "period": {
-                        "calendar": {
-                          "period": "week"
-                        }
-                      },
-                      "stat_type": "change",
-                      "name": "Week",
-                      "icon": "mdi:dishwasher"
                     }
                   ]
                 },
                 {
-                  "type": "history-graph",
-                  "hours_to_show": 24,
-                  "entities": [
-                    {
-                      "entity": "switch.dishwasher_power",
-                      "name": "power"
-                    },
-                    {
-                      "entity": "binary_sensor.dishwasher_door",
-                      "name": "door"
-                    },
-                    {
-                      "entity": "sensor.dishwasher_operation_state"
-                    }
-                  ]
-                },
-                {
-                  "type": "custom:button-card",
-                  "entity": "sensor.washer_end_time",
-                  "name": "End Time",
-                  "show_icon": false,
-                  "show_label": false,
                   "show_name": true,
+                  "show_icon": true,
                   "show_state": true,
-                  "styles": {
-                    "state": [
-                      {
-                        "font-size": "2.5em"
-                      },
-                      {
-                        "font-weight": "bold"
-                      },
-                      {
-                        "text-transform": "uppercase"
-                      }
-                    ],
-                    "card": [
-                      {
-                        "border": "0px solid rgb(0, 0, 0)"
-                      },
-                      {
-                        "height": "130px"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "custom:bar-card",
+                  "type": "glance",
                   "entities": [
                     {
-                      "entity": "sensor.dishwasher_program_progress"
+                      "entity": "automation.boilerstart",
+                      "icon": "mdi:clock-start"
+                    },
+                    {
+                      "entity": "automation.boileroff",
+                      "icon": "mdi:clock-remove"
                     }
                   ],
-                  "title": "Progress",
-                  "icon": "mdi:dishwasher",
-                  "height": "1200",
-                  "min": "0",
-                  "max": "100"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "switch.dishwasher_power",
-                      "name": "Power",
-                      "icon": "mdi:power",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "sensor.dishwasher_operation_state",
-                      "name": "State",
-                      "secondary_info": "none"
-                    },
-                    {
-                      "entity": "binary_sensor.dishwasher_door",
-                      "name": "Door",
-                      "icon": "mdi:doorbell",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "sensor.dishwasher_program_progress",
-                      "name": "Progress"
-                    },
-                    {
-                      "entity": "sensor.dishwasher_remaining_program_time",
-                      "name": "Remain"
-                    },
-                    {
-                      "entity": "binary_sensor.dishwasher_remote_control",
-                      "name": "Remote Control"
-                    },
-                    {
-                      "entity": "binary_sensor.dishwasher_remote_start",
-                      "name": "Remote Start"
-                    }
-                  ],
-                  "title": "State",
-                  "state_color": true,
-                  "show_header_toggle": false
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "switch.dishwasher_program_auto2",
-                      "name": "auto"
-                    },
-                    {
-                      "entity": "switch.dishwasher_program_prerinse",
-                      "name": "rinse"
-                    },
-                    {
-                      "entity": "switch.dishwasher_program_intensiv70",
-                      "name": "intensive"
-                    },
-                    {
-                      "entity": "switch.dishwasher_program_eco50",
-                      "name": "eco50"
-                    },
-                    {
-                      "entity": "switch.dishwasher_program_quick65",
-                      "name": "quick65"
-                    }
-                  ],
-                  "hours_to_show": 24,
-                  "title": "Program "
+                  "state_color": true
                 }
               ]
             },
@@ -1140,13 +1273,93 @@
               "title": "Lavatrice",
               "cards": [
                 {
+                  "type": "custom:uptime-card",
+                  "title_template": "Lavatrice",
+                  "entity": "switch.front_load_washer_power",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 24,
+                  "none": "Unknown",
+                  "icon": "mdi:web",
+                  "ko_icon": "mdi:washing-machine",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 100,
+                  "update_interval": 1,
+                  "tooltip_adaptive_color": true
+                },
+                {
                   "graph": "line",
                   "type": "sensor",
                   "entity": "sensor.washmachine_power",
                   "detail": 2,
+                  "name": "Lavatrice",
                   "icon": "mdi:washing-machine",
-                  "hours_to_show": 24,
-                  "name": "Lavatrice"
+                  "hours_to_show": 24
+                },
+                {
+                  "type": "custom:bar-card",
+                  "entities": [
+                    {
+                      "entity": "sensor.washmachine_power"
+                    }
+                  ],
+                  "icon": "mdi:lightning-bolt",
+                  "max": "2500"
+                },
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "switch.washmachine",
+                      "icon": "mdi:washing-machine",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Lavatrice"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.washmachine_current",
+                      "icon": "mdi:current-ac",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Current",
+                      "icon_color": "lime"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.washmachine_voltage",
+                      "icon": "mdi:electron-framework",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Voltage",
+                      "icon_color": "amber"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.washmachine_device_temperature",
+                      "icon": "mdi:temperature-celsius",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Temp",
+                      "icon_color": "green"
+                    }
+                  ],
+                  "columns": 2
                 },
                 {
                   "chart_type": "bar",
@@ -1190,22 +1403,108 @@
                   ]
                 },
                 {
-                  "type": "history-graph",
-                  "hours_to_show": 24,
-                  "entities": [
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
                     {
-                      "entity": "sensor.front_load_washer",
-                      "name": "power"
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states.sensor.washdisher_power.state|float(0)}} W",
+                      "secondary": "Lavatrice: {{states(\"sensor.front_load_washer_run_state\")|string()}}",
+                      "icon": "mdi:washing-machine",
+                      "icon_color": "{{ (states(\"sensor.front_load_washer_run_state\")|string()  == \"-\") | iif(\"grey\", \"blue\") }}\n",
+                      "entity": "sensor.front_load_washer_run_state",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true
                     },
                     {
+                      "type": "custom:mushroom-entity-card",
                       "entity": "binary_sensor.front_load_washer_door_lock",
-                      "name": "door"
+                      "icon": "mdi:door-open",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Door",
+                      "icon_color": "accent"
                     },
                     {
+                      "type": "custom:mushroom-entity-card",
                       "entity": "sensor.front_load_washer_tub_clean_counter",
-                      "name": "cycle"
+                      "icon": "mdi:circle-outline",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Cicle",
+                      "icon_color": "purple"
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states(\"sensor.front_load_washer_current_course\")|string()}}",
+                      "secondary": "Program",
+                      "icon": "mdi:progress-star",
+                      "icon_color": "{{ (states(\"sensor.front_load_washer_current_course\")|string()  == \"-\") | iif(\"grey\", \"red\") }}\n",
+                      "entity": "sensor.front_load_washer_current_course",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states(\"sensor.front_load_washer_rinse_mode\")|string()}}",
+                      "secondary": "Rinse",
+                      "icon": "mdi:waves",
+                      "icon_color": "{{ (states(\"sensor.front_load_washer_rinse_mode\")|string() == \"Not Selected\") | iif(\"\", \"blue\") }}\n",
+                      "entity": "sensor.front_load_washer_rinse_mode",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states(\"sensor.front_load_washer_water_temp\")|string()}}",
+                      "secondary": "Temp",
+                      "icon": "mdi:water-thermometer",
+                      "icon_color": "{{ (states(\"sensor.front_load_washer_water_temp\")|string() == \"Not Selected\") | iif(\"\", \"blue\") }}\n",
+                      "entity": "sensor.front_load_washer_water_temp",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states(\"sensor.front_load_washer_spin_speed\")|string()}}",
+                      "secondary": "Speed",
+                      "icon": "mdi:speedometer-medium",
+                      "icon_color": "{{ (states(\"sensor.front_load_washer_spin_speed\")|string() == \"Not Selected\") | iif(\"\", \"blue\") }}\n",
+                      "entity": "sensor.front_load_washer_spin_speed",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "binary_sensor.front_load_washer_wash_completed",
+                      "icon": "mdi:circle-double",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "deep-orange",
+                      "name": "End Cicle"
                     }
-                  ]
+                  ],
+                  "columns": 2
                 },
                 {
                   "type": "custom:button-card",
@@ -1236,112 +1535,353 @@
                       }
                     ]
                   }
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "switch.washmachine",
-                      "name": "Energy",
-                      "icon": "mdi:lightning-bolt",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "switch.front_load_washer_power",
-                      "name": "Power",
-                      "icon": "mdi:power"
-                    },
-                    {
-                      "entity": "sensor.front_load_washer_run_state",
-                      "name": "Stato",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "binary_sensor.front_load_washer_wash_completed",
-                      "name": "Lavaggio OK",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "binary_sensor.front_load_washer_door_lock",
-                      "name": "Lock Door"
-                    },
-                    {
-                      "entity": "binary_sensor.front_load_washer_remote_start",
-                      "name": "Remote start"
-                    },
-                    {
-                      "entity": "binary_sensor.front_load_washer_standby",
-                      "name": "Standby"
-                    },
-                    {
-                      "entity": "sensor.front_load_washer_tub_clean_counter",
-                      "name": "Cicli"
-                    }
-                  ],
-                  "title": "State",
-                  "state_color": true,
-                  "show_header_toggle": false
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.front_load_washer_current_course",
-                      "name": "Programs",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "sensor.front_load_washer_remaining_time",
-                      "name": "Remain"
-                    },
-                    {
-                      "entity": "sensor.front_load_washer_rinse_mode",
-                      "name": "Rinse"
-                    },
-                    {
-                      "entity": "sensor.front_load_washer_water_temp",
-                      "name": "Temp",
-                      "secondary_info": "last-changed"
-                    },
-                    {
-                      "entity": "sensor.front_load_washer_spin_speed",
-                      "name": "Speed"
-                    }
-                  ],
-                  "state_color": true,
-                  "title": "Programs"
-                },
-                {
-                  "type": "history-graph",
-                  "hours_to_show": 24,
-                  "entities": [
-                    {
-                      "entity": "sensor.front_load_washer_water_temp",
-                      "name": "temp"
-                    },
-                    {
-                      "entity": "sensor.front_load_washer_spin_speed",
-                      "name": "speed"
-                    },
-                    {
-                      "entity": "sensor.front_load_washer_current_course"
-                    }
-                  ]
                 }
               ]
             },
             {
               "type": "vertical-stack",
-              "title": "Oven & Frigo",
+              "title": "Lavastoviglie",
               "cards": [
                 {
-                  "graph": "line",
+                  "type": "custom:uptime-card",
+                  "title_template": "Lavastoviglie",
+                  "entity": "switch.dishwasher_power",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 24,
+                  "none": "Unknown",
+                  "icon": "mdi:web",
+                  "ko_icon": "mdi:dishwasher",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "update_interval": 1,
+                  "severity": 100,
+                  "alias": {}
+                },
+                {
                   "type": "sensor",
+                  "graph": "line",
+                  "entity": "sensor.washdisher_power",
+                  "detail": 2,
+                  "name": "Lavastoviglie",
+                  "icon": "mdi:dishwasher",
+                  "hours_to_show": 24
+                },
+                {
+                  "type": "custom:bar-card",
+                  "entities": [
+                    {
+                      "entity": "sensor.washdisher_power"
+                    }
+                  ],
+                  "icon": "mdi:lightning-bolt",
+                  "max": "2500"
+                },
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "switch.dishwasher_power",
+                      "icon": "mdi:dishwasher",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Lavastoviglie"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.dishwasher_operation_state",
+                      "icon": "mdi:dishwasher",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Lavastoviglie"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.kitchen_voltage",
+                      "icon": "mdi:electron-framework",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Voltage",
+                      "icon_color": "amber"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.kitchen_power_factor",
+                      "icon": "mdi:power-cycle",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "PF",
+                      "icon_color": "green"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "chart_type": "bar",
+                  "period": "hour",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.lavastoviglie_energy"
+                  ],
+                  "days_to_show": 1,
+                  "title": "Energy",
+                  "stat_types": [
+                    "change"
+                  ],
+                  "hide_legend": true
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.lavastoviglie_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Today"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.lavastoviglie_energy",
+                      "period": {
+                        "calendar": {
+                          "period": "week"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Week"
+                    }
+                  ]
+                },
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states.sensor.dishwasher_operation_state.state|string()}}",
+                      "secondary": "Lavastoviglie: {{states.sensor.dishwasher_operation_state.state|string()}}",
+                      "icon": "mdi:water-boiler",
+                      "icon_color": "{{ (states.sensor.dishwasher_operation_state.state|string() == \"Inactive\") | iif(\"grey\", \"green\") }}\n",
+                      "entity": "switch.boiler",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "binary_sensor.dishwasher_door",
+                      "icon": "mdi:door-open",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Door",
+                      "icon_color": "accent"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "switch.dishwasher_power",
+                      "icon": "mdi:power",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Power",
+                      "icon_color": "purple"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "device_tracker.bosch_dishwasher",
+                      "icon": "mdi:wifi",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "pink",
+                      "name": "WiFi"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "switch.dishwasher_program_auto2",
+                      "icon": "mdi:auto-fix",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "teal",
+                      "name": "Auto Prog"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "switch.dishwasher_program_prerinse",
+                      "icon": "mdi:waves",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "green",
+                      "name": "Rinse"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "binary_sensor.dishwasher_remote_start",
+                      "icon": "mdi:progress-helper",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "lime",
+                      "name": "Remote"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.dishwasher_program_progress",
+                      "icon": "mdi:circle-double",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "deep-orange",
+                      "name": "Progress"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "type": "custom:button-card",
+                  "entity": "sensor.washer_end_time",
+                  "name": "End Time",
+                  "show_icon": false,
+                  "show_label": false,
+                  "show_name": true,
+                  "show_state": true,
+                  "styles": {
+                    "state": [
+                      {
+                        "font-size": "2.5em"
+                      },
+                      {
+                        "font-weight": "bold"
+                      },
+                      {
+                        "text-transform": "uppercase"
+                      }
+                    ],
+                    "card": [
+                      {
+                        "border": "0px solid rgb(0, 0, 0)"
+                      },
+                      {
+                        "height": "130px"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "custom:bar-card",
+                  "entities": [
+                    {
+                      "entity": "sensor.dishwasher_program_progress"
+                    }
+                  ],
+                  "title": "Progress",
+                  "icon": "mdi:dishwasher",
+                  "height": "1200",
+                  "min": "0",
+                  "max": "100"
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Frigo & Forno",
+              "cards": [
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "Frigo & Forno",
+                  "entity": "binary_sensor.oven_status",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 24,
+                  "icon": "mdi:web",
+                  "ko_icon": "mdi:fridge-top",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 100,
+                  "update_interval": 1
+                },
+                {
+                  "type": "sensor",
+                  "graph": "line",
                   "entity": "sensor.oven_power",
                   "detail": 2,
-                  "icon": "mdi:stove",
-                  "hours_to_show": 24,
-                  "name": "Oven & Frigo"
+                  "name": "Frigo & Forno",
+                  "icon": "mdi:fridge-top",
+                  "hours_to_show": 24
+                },
+                {
+                  "type": "custom:bar-card",
+                  "entities": [
+                    {
+                      "entity": "sensor.oven_power"
+                    }
+                  ],
+                  "icon": "mdi:lightning-bolt",
+                  "max": "2500"
+                },
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.kitchen_voltage",
+                      "icon": "mdi:electron-framework",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Voltage",
+                      "icon_color": "amber",
+                      "fill_container": false
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.kitchen_power_factor",
+                      "icon": "mdi:circle-multiple-outline",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "PF",
+                      "icon_color": "green",
+                      "fill_container": false
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "type": "custom:mushroom-template-card",
+                  "primary": "",
+                  "secondary": "",
+                  "icon": "mdi:black-mesa",
+                  "layout": "vertical"
                 },
                 {
                   "chart_type": "bar",
@@ -1352,10 +1892,10 @@
                   ],
                   "days_to_show": 1,
                   "title": "Energy",
-                  "hide_legend": true,
                   "stat_types": [
                     "change"
-                  ]
+                  ],
+                  "hide_legend": true
                 },
                 {
                   "type": "horizontal-stack",
@@ -1383,18 +1923,6 @@
                       "name": "Week"
                     }
                   ]
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.home_voltage",
-                      "name": "Voltage"
-                    }
-                  ],
-                  "title": "State",
-                  "state_color": true,
-                  "show_header_toggle": false
                 }
               ]
             }
@@ -1415,6 +1943,9 @@
                   "type": "iframe",
                   "url": "https://meteo.search.ch/widget/Camedo.it.html?bgcolor=dedede&amp;fgcolor=000000&amp;days=1",
                   "aspect_ratio": "120%"
+                },
+                {
+                  "type": "custom:sun-card"
                 },
                 {
                   "type": "picture",
@@ -1441,6 +1972,11 @@
                     "title": "Temperature",
                     "show_states": true,
                     "colorize_states": true
+                  },
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
                   },
                   "series": [
                     {
@@ -1478,15 +2014,122 @@
             },
             {
               "type": "vertical-stack",
-              "title": "Charts",
+              "title": "Forecast",
               "cards": [
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "Rain",
+                  "entity": "binary_sensor.rain_weather_status",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 168,
+                  "none": "Unknown",
+                  "icon": "mdi:web",
+                  "ko_icon": "mdi:weather-rainy",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 30,
+                  "alias": {
+                    "ok": "Raining",
+                    "ko": "Not raining"
+                  }
+                },
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "weather.selvahome",
+                      "icon": "mdi:weather-cloudy-clock",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Status"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.selvahome_apparent_temperature",
+                      "icon": "mdi:temperature-celsius",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Temp",
+                      "icon_color": "lime"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.selvahome_hours_of_sun_0d",
+                      "icon": "mdi:sun-clock-outline",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Sun Time",
+                      "icon_color": "amber"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.selvahome_wind_day_0d",
+                      "icon": "mdi:windsock",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Wind",
+                      "icon_color": "green"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.selvahome_precipitation",
+                      "icon": "mdi:weather-rainy",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Rain",
+                      "icon_color": "blue"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.selvahome_cloud_cover",
+                      "icon": "mdi:cloud",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Wind",
+                      "icon_color": "blue-grey"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.selvahome_solar_irradiance_day_0d",
+                      "icon": "mdi:solar-power",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Solar Power",
+                      "icon_color": "green"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.selvahome_air_quality_0d",
+                      "icon": "mdi:quality-high",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Air",
+                      "icon_color": "green"
+                    }
+                  ],
+                  "columns": 2
+                },
                 {
                   "type": "custom:apexcharts-card",
                   "graph_span": "7d",
                   "header": {
                     "show": true,
                     "title": "Precipitation",
-                    "show_states": true,
                     "colorize_states": true
                   },
                   "series": [
@@ -1506,7 +2149,6 @@
                   "header": {
                     "show": true,
                     "title": "Cloud",
-                    "show_states": true,
                     "colorize_states": true
                   },
                   "series": [
@@ -1526,7 +2168,6 @@
                   "header": {
                     "show": true,
                     "title": "Solar",
-                    "show_states": true,
                     "colorize_states": true
                   },
                   "series": [
@@ -1553,267 +2194,6 @@
           "cards": [
             {
               "type": "vertical-stack",
-              "title": "Internet Speed",
-              "cards": [
-                {
-                  "square": false,
-                  "type": "grid",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.speedtest_download",
-                      "layout": "vertical",
-                      "primary_info": "state",
-                      "secondary_info": "name"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.speedtest_upload",
-                      "layout": "vertical",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon": "mdi:speedometer-medium",
-                      "icon_color": "pink"
-                    }
-                  ],
-                  "columns": 2
-                },
-                {
-                  "type": "custom:apexcharts-card",
-                  "graph_span": "1d",
-                  "header": {
-                    "show": true,
-                    "title": "Speed",
-                    "colorize_states": true
-                  },
-                  "series": [
-                    {
-                      "entity": "sensor.speedtest_download",
-                      "show": {
-                        "extremas": true
-                      },
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.speedtest_upload",
-                      "show": {
-                        "extremas": true
-                      },
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "square": false,
-                  "type": "grid",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.speedtest_ping",
-                      "layout": "vertical",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon": "mdi:camera-timer",
-                      "icon_color": "yellow"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.network_throughput_in_eth0",
-                      "layout": "vertical",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "green",
-                      "icon": "mdi:relation-one-to-one-or-many",
-                      "name": "Rate"
-                    }
-                  ],
-                  "columns": 2
-                },
-                {
-                  "type": "custom:apexcharts-card",
-                  "graph_span": "1d",
-                  "header": {
-                    "show": true,
-                    "title": "Ping",
-                    "colorize_states": true
-                  },
-                  "series": [
-                    {
-                      "entity": "sensor.speedtest_ping",
-                      "show": {
-                        "extremas": true
-                      },
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "5min"
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "title": "Internet Band",
-              "cards": [
-                {
-                  "square": false,
-                  "type": "grid",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.upnp_igd_kib_s_sent",
-                      "layout": "vertical",
-                      "name": "Sent",
-                      "icon": "mdi:upload-network",
-                      "icon_color": "primary",
-                      "primary_info": "state",
-                      "secondary_info": "name"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.upnp_igd_kib_s_received",
-                      "name": "Received",
-                      "icon": "mdi:download-network",
-                      "layout": "vertical",
-                      "primary_info": "state",
-                      "secondary_info": "name"
-                    }
-                  ],
-                  "columns": 2
-                },
-                {
-                  "type": "custom:apexcharts-card",
-                  "graph_span": "1d",
-                  "yaxis": [
-                    {
-                      "id": "first",
-                      "decimals": 0,
-                      "apex_config": {
-                        "tickAmount": 5
-                      }
-                    },
-                    {
-                      "id": "second",
-                      "opposite": true,
-                      "decimals": 0,
-                      "apex_config": {
-                        "tickAmount": 5
-                      }
-                    }
-                  ],
-                  "header": {
-                    "show": true,
-                    "title": "Traffic",
-                    "colorize_states": true
-                  },
-                  "series": [
-                    {
-                      "entity": "sensor.upnp_igd_kib_s_sent",
-                      "show": {
-                        "extremas": true
-                      },
-                      "yaxis_id": "first",
-                      "type": "line",
-                      "group_by": {
-                        "func": "max",
-                        "duration": "30min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.upnp_igd_kib_s_received",
-                      "show": {
-                        "extremas": true
-                      },
-                      "yaxis_id": "second",
-                      "type": "line",
-                      "group_by": {
-                        "func": "max",
-                        "duration": "30min"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "square": false,
-                  "type": "grid",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.internet_data_in_integral",
-                      "name": "Data IN",
-                      "icon": "mdi:download",
-                      "layout": "vertical",
-                      "primary_info": "state",
-                      "secondary_info": "name"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.internet_data_out_integral",
-                      "layout": "vertical",
-                      "name": "Data OUT",
-                      "icon": "mdi:upload",
-                      "icon_color": "primary",
-                      "primary_info": "state",
-                      "secondary_info": "name"
-                    }
-                  ],
-                  "columns": 2
-                },
-                {
-                  "type": "custom:apexcharts-card",
-                  "graph_span": "1d",
-                  "yaxis": [
-                    {
-                      "id": "first",
-                      "decimals": 0,
-                      "apex_config": {
-                        "tickAmount": 5
-                      }
-                    },
-                    {
-                      "id": "second",
-                      "opposite": true,
-                      "decimals": 0,
-                      "apex_config": {
-                        "tickAmount": 5
-                      }
-                    }
-                  ],
-                  "header": {
-                    "show": true,
-                    "title": "Data",
-                    "colorize_states": true
-                  },
-                  "series": [
-                    {
-                      "entity": "sensor.internet_data_in_integral",
-                      "yaxis_id": "first",
-                      "group_by": {
-                        "func": "max",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.internet_data_out_integral",
-                      "yaxis_id": "second",
-                      "group_by": {
-                        "func": "max",
-                        "duration": "15min"
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
               "title": "Network",
               "cards": [
                 {
@@ -1826,8 +2206,7 @@
                       "name": "Internet",
                       "primary_info": "state",
                       "secondary_info": "name",
-                      "fill_container": true,
-                      "layout": "vertical"
+                      "fill_container": true
                     },
                     {
                       "type": "custom:mushroom-entity-card",
@@ -1836,8 +2215,7 @@
                       "primary_info": "state",
                       "secondary_info": "name",
                       "icon_color": "amber",
-                      "fill_container": true,
-                      "layout": "vertical"
+                      "fill_container": true
                     },
                     {
                       "type": "custom:mushroom-entity-card",
@@ -1845,8 +2223,7 @@
                       "name": "Ip",
                       "primary_info": "state",
                       "secondary_info": "name",
-                      "icon_color": "green",
-                      "layout": "vertical"
+                      "icon_color": "green"
                     },
                     {
                       "type": "custom:mushroom-entity-card",
@@ -1855,21 +2232,34 @@
                       "primary_info": "state",
                       "secondary_info": "name",
                       "icon_color": "deep-orange",
-                      "icon": "mdi:cable-data",
-                      "layout": "vertical"
+                      "icon": "mdi:cable-data"
                     }
                   ],
                   "columns": 2
                 },
                 {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "binary_sensor.upnp_igd_wan_status",
-                      "name": "Internet"
-                    }
-                  ],
-                  "hours_to_show": 25
+                  "type": "custom:uptime-card",
+                  "title_template": "Internet",
+                  "entity": "binary_sensor.upnp_igd_wan_status",
+                  "ok": "on",
+                  "ko": "off",
+                  "name": "Internet",
+                  "hours_to_show": 168,
+                  "none": "Unknown",
+                  "icon": "mdi:web",
+                  "ko_icon": "mdi:signal-off",
+                  "title_adaptive_color": false,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 30,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 42
+                  },
+                  "init": {},
+                  "color": {},
+                  "severity": 90
                 },
                 {
                   "show_name": true,
@@ -1902,7 +2292,8 @@
                       "name": "North",
                       "icon": "mdi:router-wireless"
                     }
-                  ]
+                  ],
+                  "state_color": true
                 },
                 {
                   "type": "history-graph",
@@ -1965,7 +2356,283 @@
                       "entity": "device_tracker.camera4_2"
                     }
                   ],
-                  "hours_to_show": 36
+                  "hours_to_show": 64,
+                  "title": "64h"
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Internet Speed",
+              "cards": [
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.speedtest_download",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "primary"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.speedtest_upload",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon": "mdi:speedometer-medium",
+                      "icon_color": "blue"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1d",
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Speed",
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.speedtest_download",
+                      "show": {
+                        "extremas": true
+                      },
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.speedtest_upload",
+                      "show": {
+                        "extremas": true
+                      },
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.speedtest_ping",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon": "mdi:camera-timer",
+                      "icon_color": "yellow"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.network_throughput_in_eth0",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "green",
+                      "icon": "mdi:relation-one-to-one-or-many",
+                      "name": "Rate"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1d",
+                  "header": {
+                    "show": true,
+                    "title": "Ping",
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.speedtest_ping",
+                      "color": "yellow",
+                      "show": {
+                        "extremas": true
+                      },
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "5min"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Internet Band",
+              "cards": [
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.upnp_igd_kib_s_sent",
+                      "layout": "horizontal",
+                      "name": "Sent",
+                      "icon": "mdi:upload-network",
+                      "icon_color": "primary",
+                      "primary_info": "state",
+                      "secondary_info": "name"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.upnp_igd_kib_s_received",
+                      "name": "Received",
+                      "icon": "mdi:download-network",
+                      "layout": "horizontal",
+                      "primary_info": "state",
+                      "secondary_info": "name"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1d",
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "yaxis": [
+                    {
+                      "id": "first",
+                      "decimals": 0,
+                      "apex_config": {
+                        "tickAmount": 6
+                      }
+                    },
+                    {
+                      "id": "second",
+                      "opposite": true,
+                      "decimals": 0,
+                      "apex_config": {
+                        "tickAmount": 6
+                      }
+                    }
+                  ],
+                  "header": {
+                    "show": true,
+                    "title": "Traffic",
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.upnp_igd_kib_s_sent",
+                      "show": {
+                        "extremas": true
+                      },
+                      "yaxis_id": "first",
+                      "type": "line",
+                      "group_by": {
+                        "func": "max",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.upnp_igd_kib_s_received",
+                      "show": {
+                        "extremas": true
+                      },
+                      "yaxis_id": "second",
+                      "type": "line",
+                      "group_by": {
+                        "func": "max",
+                        "duration": "1h"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.internet_data_in_integral",
+                      "name": "Data IN",
+                      "icon": "mdi:download",
+                      "layout": "horizontal",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "primary"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.internet_data_out_integral",
+                      "layout": "horizontal",
+                      "name": "Data OUT",
+                      "icon": "mdi:upload",
+                      "icon_color": "blue",
+                      "primary_info": "state",
+                      "secondary_info": "name"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1d",
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "yaxis": [
+                    {
+                      "id": "first",
+                      "decimals": 0,
+                      "apex_config": {
+                        "tickAmount": 5
+                      }
+                    },
+                    {
+                      "id": "second",
+                      "opposite": true,
+                      "decimals": 0,
+                      "apex_config": {
+                        "tickAmount": 5
+                      }
+                    }
+                  ],
+                  "header": {
+                    "show": true,
+                    "title": "Data",
+                    "colorize_states": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.internet_data_in_integral",
+                      "yaxis_id": "first",
+                      "group_by": {
+                        "func": "max",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.internet_data_out_integral",
+                      "yaxis_id": "second",
+                      "group_by": {
+                        "func": "max",
+                        "duration": "15min"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -2054,18 +2721,36 @@
                   }
                 },
                 {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "device_tracker.workstationeth",
-                      "name": "Lan"
-                    },
-                    {
-                      "entity": "binary_sensor.upnp_igd_wan_status",
-                      "name": "Internet"
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Load CPU",
+                    "show_states": false,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "apex_config": {
+                    "legend": {
+                      "show": false
                     }
-                  ],
-                  "hours_to_show": 24
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.load_1m",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "Load",
+                      "type": "area",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    }
+                  ]
                 }
               ]
             },
@@ -2140,7 +2825,7 @@
                         "extremas": true
                       },
                       "name": "Disk Use",
-                      "type": "column",
+                      "type": "area",
                       "group_by": {
                         "func": "avg",
                         "duration": "30min"
@@ -2282,9 +2967,9 @@
           ]
         },
         {
-          "path": "charts",
-          "icon": "mdi:periodic-table",
-          "title": "Charts",
+          "path": "solar",
+          "icon": "mdi:solar-panel-large",
+          "title": "Solar",
           "type": "sidebar",
           "badges": [],
           "cards": [
@@ -2295,7 +2980,7 @@
               },
               "header": {
                 "show": true,
-                "title": "Home Power",
+                "title": "Power",
                 "show_states": true,
                 "colorize_states": true
               },
@@ -2303,194 +2988,476 @@
               "stacked": true,
               "apex_config": {
                 "legend": {
-                  "show": true
+                  "show": false
                 }
               },
               "series": [
                 {
-                  "entity": "sensor.solar_power",
+                  "entity": "sensor.solarpoweravg10min",
                   "show": {
                     "extremas": true
                   },
                   "color_threshold": [
                     {
-                      "value": 1000,
-                      "color": "fcf803",
-                      "opacity": 0.7
+                      "value": 1500,
+                      "color": "d9fa1b"
                     },
                     {
-                      "value": 2000,
-                      "color": "fc8c03",
-                      "opacity": 0.7
+                      "value": 2500,
+                      "color": "fc6f03"
                     },
                     {
-                      "value": 3000,
-                      "color": "fc3103",
-                      "opacity": 0.7
+                      "value": 3500,
+                      "color": "fc3103"
                     }
                   ],
                   "name": "Solar",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "15min"
-                  }
-                },
-                {
-                  "entity": "sensor.enel_power",
-                  "show": {
-                    "extremas": true
-                  },
-                  "name": "Enel",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "15min"
-                  }
-                },
-                {
-                  "entity": "sensor.home_total_power_2",
-                  "color": "green",
-                  "show": {
-                    "extremas": true
-                  },
-                  "name": "Home",
                   "type": "line",
                   "group_by": {
                     "func": "avg",
                     "duration": "15min"
                   }
-                }
-              ]
-            },
-            {
-              "type": "custom:apexcharts-card",
-              "header": {
-                "show": true,
-                "title": "Power Loads",
-                "show_states": true,
-                "colorize_states": true
-              },
-              "graph_span": "36h",
-              "stacked": true,
-              "series": [
-                {
-                  "entity": "sensor.boiler_power",
-                  "name": "boiler",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "15min"
-                  }
                 },
                 {
-                  "entity": "sensor.washmachine_power",
-                  "name": "lavatrice",
-                  "type": "column",
+                  "entity": "sensor.power_production_now",
+                  "opacity": 0.5,
+                  "stroke_width": 2,
+                  "name": "Est",
+                  "type": "area",
                   "group_by": {
                     "func": "avg",
-                    "duration": "15min"
-                  }
-                },
-                {
-                  "entity": "sensor.acsala_power",
-                  "name": "sala",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "15min"
-                  }
-                },
-                {
-                  "entity": "sensor.acscala_power",
-                  "name": "scala",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "15min"
-                  }
-                },
-                {
-                  "entity": "sensor.ininverter_power",
-                  "name": "inverter",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "15min"
-                  }
-                },
-                {
-                  "entity": "sensor.fan_power",
-                  "name": "stufetta",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "15min"
-                  }
-                },
-                {
-                  "entity": "sensor.washdisher_power",
-                  "name": "Lavastoviglie",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "15min"
-                  }
-                },
-                {
-                  "entity": "sensor.oven_power",
-                  "name": "oven & frigo",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "15min"
-                  }
-                },
-                {
-                  "entity": "sensor.monitor_power",
-                  "name": "monitor",
-                  "type": "column",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "15min"
+                    "duration": "1h"
                   }
                 }
               ]
             },
             {
-              "type": "custom:apexcharts-card",
-              "graph_span": "1.5d",
-              "header": {
-                "show": true,
-                "title": "Temp Compare",
-                "show_states": true,
-                "colorize_states": true
-              },
-              "series": [
+              "type": "vertical-stack",
+              "cards": [
                 {
-                  "entity": "sensor.temperature1",
-                  "name": "Today",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "1h"
-                  },
-                  "show": {
-                    "extremas": true
-                  }
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.solarderivateaverage10min",
+                      "icon": "mdi:sun-wireless",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "yellow",
+                      "name": "Solar Derivate"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.selvahome_solar_irradiance_day_0d",
+                      "icon": "mdi:solar-power",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Irradiance",
+                      "icon_color": "green"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.sun_solar_azimuth",
+                      "icon": "mdi:compass",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Azimuth",
+                      "icon_color": "green"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.sun_solar_elevation",
+                      "icon": "mdi:arrow-collapse",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Elevation",
+                      "icon_color": "deep-orange"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.energy_production_today",
+                      "icon": "mdi:elevation-rise",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Energy Est",
+                      "icon_color": "purple"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.power_production_now",
+                      "icon": "mdi:solar-power-variant-outline",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "orange",
+                      "name": "Power Est"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.energy_production_today_remaining",
+                      "icon": "mdi:sun-clock",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "blue",
+                      "name": "Energy Remain"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.enel_rssi",
+                      "icon": "mdi:wifi",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "yellow",
+                      "name": "WiFi Solar"
+                    }
+                  ],
+                  "columns": 2
                 },
                 {
-                  "entity": "sensor.temperature1",
-                  "offset": "-1d",
-                  "name": "Yesterday",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "1h"
+                  "type": "custom:uptime-card",
+                  "title_template": "Enel First Stage",
+                  "entity": "binary_sensor.combo_minus05_enel_plus1_solar",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 36,
+                  "none": "Unknown",
+                  "icon": "mdi:view-grid-compact",
+                  "ko_icon": "mdi:view-grid",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
                   },
-                  "show": {
-                    "extremas": true
-                  }
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 100
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Derivate",
+                    "show_states": false,
+                    "colorize_states": true
+                  },
+                  "graph_span": "36h",
+                  "stacked": true,
+                  "apex_config": {
+                    "legend": {
+                      "show": true
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.solarderivateaverage10min",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "Derivate",
+                      "color": "orange",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "1kW",
+                  "entity": "binary_sensor.plus_1_kw_solar",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 36,
+                  "none": "Unknown",
+                  "icon": "mdi:solar-power-variant",
+                  "ko_icon": "mdi:sun-angle-outline",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 100
+                },
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "2kW",
+                  "entity": "binary_sensor.plus_2_kw_solar",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 36,
+                  "none": "Unknown",
+                  "icon": "mdi:solar-power-variant",
+                  "ko_icon": "mdi:sun-angle-outline",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 80
+                },
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "3kW",
+                  "entity": "binary_sensor.plus_3_kw_solar",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 36,
+                  "none": "Unknown",
+                  "icon": "mdi:solar-power-variant",
+                  "ko_icon": "mdi:sun-angle-outline",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 80
+                },
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "4kW",
+                  "entity": "binary_sensor.plus_4_kw_solar",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 36,
+                  "none": "Unknown",
+                  "icon": "mdi:solar-power-variant",
+                  "ko_icon": "mdi:sun-angle-outline",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 90
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Sun",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "36h",
+                  "stacked": true,
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.sun_solar_azimuth",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "Azimuth",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.sun_solar_elevation",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "Elevation",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    }
+                  ]
                 }
-              ]
+              ],
+              "view_layout": {
+                "position": "sidebar"
+              }
+            },
+            {
+              "square": false,
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Power",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "36h",
+                  "stacked": true,
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.solarpoweravg10min",
+                      "show": {
+                        "extremas": true
+                      },
+                      "color_threshold": [
+                        {
+                          "value": 1500,
+                          "color": "d9fa1b"
+                        },
+                        {
+                          "value": 2500,
+                          "color": "fc6f03"
+                        },
+                        {
+                          "value": 3500,
+                          "color": "fc3103"
+                        }
+                      ],
+                      "name": "Solar",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.power_production_now",
+                      "opacity": 0.5,
+                      "stroke_width": 2,
+                      "name": "Est",
+                      "type": "area",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Power",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "36h",
+                  "stacked": true,
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.solarpoweravg10min",
+                      "show": {
+                        "extremas": true
+                      },
+                      "color_threshold": [
+                        {
+                          "value": 1500,
+                          "color": "d9fa1b"
+                        },
+                        {
+                          "value": 2500,
+                          "color": "fc6f03"
+                        },
+                        {
+                          "value": 3500,
+                          "color": "fc3103"
+                        }
+                      ],
+                      "name": "Now",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.solarpoweravg10min",
+                      "offset": "-1d",
+                      "name": "1 Day",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.solarpoweravg10min",
+                      "offset": "-2d",
+                      "name": "2 Day",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "30min"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "columns": 2
             }
           ]
         },

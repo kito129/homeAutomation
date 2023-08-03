@@ -15,9 +15,26 @@ birdseye:
   enabled: True
   mode: continuous
 
+ffmpeg:
+  hwaccel_args: 
+    - preset-intel-qsv-h264
+
+rtmp:
+  enabled: True
+
 detectors:
-  cpu:
-    type: cpu
+  ov:
+    type: openvino
+    device: AUTO
+    model:
+      path: /openvino-model/ssdlite_mobilenet_v2.xml
+
+model:
+  width: 300
+  height: 300
+  input_tensor: nhwc
+  input_pixel_format: bgr
+  labelmap_path: /openvino-model/coco_91cl_bkgr.txt
 
   
 cameras:
@@ -25,14 +42,16 @@ cameras:
     enabled: True
     ffmpeg:
       inputs:
-        - path: ----
+        - path: ---
           roles:
                 - detect
                 - record
                 - rtmp
+    snapshots:
+      enabled: True
     detect:
-      width: 1920
-      height: 1080
+      width: 1280
+      height: 720
     record:
       enabled: True
       events:
@@ -42,14 +61,16 @@ cameras:
     enabled: True
     ffmpeg:
       inputs:
-        - path: ----
+        - path: ---
           roles:
                 - detect
                 - record
                 - rtmp
+    snapshots:
+      enabled: True
     detect:
-      width: 1920
-      height: 1080
+      width: 1280
+      height: 720
     record:
       enabled: True
       events:
@@ -64,9 +85,11 @@ cameras:
                 - detect
                 - record
                 - rtmp
+    snapshots:
+      enabled: True
     detect:
-      width: 1920
-      height: 1080
+      width: 1280
+      height: 720
     record:
       enabled: True
       events:

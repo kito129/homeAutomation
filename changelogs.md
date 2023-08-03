@@ -1,6 +1,18 @@
 # changelogs.md
 
 ## v2023.8.0.2
+### 2023/08/03
+
+- Update appliances card and network card
+- Uptime card install and extensive use
+- Update dashboard lovelace
+- Reduce Stream width in Frigate
+    - Try to reduce CPU usage and improve performance
+- Notification to iphone test
+    - Now not working, need to investigate
+
+
+## v2023.8.0.2
 ### 2023/08/02
 
 - Update core and supervisor
