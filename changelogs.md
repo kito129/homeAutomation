@@ -13,6 +13,9 @@
 - Add shelly DCbox
 - Add shelly BackDerivazione
 
+- Final Install Entrance cam 
+- Add gardenSouth camera4
+
 
 ## v2023.8.0.2
 ### 2023/08/03
