@@ -1,8 +1,8 @@
 # homeAutomation project
     author: kito129
     date: 2023/03/01
-    last update: 2023/08/02
-    version: v2023.8.0.2
+    last update: 2023/10/17
+    version: v2023.10.0.1
     docVersion: 1.0
 
 
@@ -20,26 +20,65 @@ My current setup is:
     - 1x i7-12900k workstation 
     - Hyper-V virtualizer on Windows 10 running Home Assistant OS and Core 
     
-Versioning is based on the Home Assistant versioning. The last number is the version of the project.
+Versioning is based on the Home Assistant versioning.
 
 ### Code Base
-    Home Assistant 2023.7.3
-    Supervisor 2023.07.1
-    Operating System 10.3
-    Frontend 20230705.1 - latest
+    Home Assistant 2023.10.3
+    Supervisor 2023.10.0
+    Operating System 10.5
+    Frontend 20231005.0 - latest
 
 ## Network
 
 All network devices are connected to TpLink Deco M5 mesh network. The mesh network is connected to the ISP fiber router.
-Based on 5 Decos, the mesh network covers the whole house and garden.
+Based on 5 Decos, network covers the whole house and 3 gardens.
 
-The LAN network is based on a 3, 5 port TPlink switch that wires 4 Decos, only one is WiFi only connected.
+The LAN network is based on  x3 TPlink switch 5 port that wires 4 Decos, only one is WiFi only connected.
 DHCP, Firewall, DNS, NTP, VPN, etc. are all managed by the Main Deco in WiFi Mode, WLAN is provided by OpenFiber ZTE H3600 v9 Router. 
 
 
 ## Integrations
 
+- AccuWeather
+- Alexa Media Player
+- DLNA DMR
+    - KitchenTV
+- Electricity Maps  // CO2 services
+- Forecast.Solar
+- Frigate
+- Google Cast
+- HACS
+- Home Connect      // Bosch dishwasher
+- Home Assitant iOS
+- Home Assistant Supervisor
+- HomeKit Device
+- Mobile App
+- Moon
+- MQTT
+- Node-RED
+- Pi-Hole
+- Scheduler
+- Shelly
+- SmartThings LG    // LG washing machine
+- Speedtest.net
+- Spotify
+- Sun
+- TP-Link Deco
+- UPnP
+
 ## Addons
+
+- ESPHome
+- Frigate Full Access
+- Glances
+- Grafana
+- InfluxDB
+- MariaDB
+- Mosquitto broker
+- Node-RED
+- Samba share
+- Terminal & SSH
+- Visual Studio Code
 
 ## Devices
 
@@ -69,23 +108,25 @@ DHCP, Firewall, DNS, NTP, VPN, etc. are all managed by the Main Deco in WiFi Mod
 
 | ID  | Qt. | Name  | Type  | 
 |---|---|---|---|
-| 1 | 5 | Tp-Link  |  Deco M5 | 
+| 1 | 5 |  TPLink |  Deco M5 | 
 | 2 | 2 |  TPlink |  LS105G  | 
 | 3 | 1 |  Shelly |  LS108G | 
 | 4 | 1 |  ZTE |  H3600 v9 | 
 | 5 | 1 |  OpenFiber |  FTTH-ETH | 
 
-all wired via CAT7 cables
-
+All wired via CAT7 cables
 
 ### Shelly
 
 | ID  | Qt. | Name  | Type  | 
 |---|---|---|---|
-| 1 | 4 | Shelly  |  PM 1 | 
+| 1 | 4 |  Shelly |  PM 1 | 
 | 2 | 2 |  Shelly |  EM | 
 | 3 | 2 |  Shelly |  PRO2 PM |
 | 4 | 2 |  Shelly |  PLUG S |
+| 5 | 6 |  Shelly |  PM 2 |
+| 6 | 1 |  Shelly |  H&T v2 |
+
 
 ### ESP
 
@@ -109,7 +150,7 @@ all wired via CAT7 cables
 | 1 | Bosch  |  Dishwasher |  SMV4EVX14E |
 | 2 |  LG |  Washing Machine | F4WV510S0E  |
 | 3 | Hisense  | Tv  | 43" UHD 4K 2022 43A6FG  |
-| 4 |  Ariston Lydos  | HeatPump Boiler  |  Hybrid 80 litri  |
+| 4 |  Ariston Lydos  | HeatPump Boiler  |  Hybrid 80 litri -- TO INSTALL WIFI  |
 
 # Dashboard
 

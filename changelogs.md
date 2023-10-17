@@ -1,5 +1,19 @@
 # changelogs.md
 
+## v2023.10.0.1
+### 2023/10/17
+
+- Update core and supervisor
+- Update automations
+- Fix and improve frigate
+- Update dashboard lovelace
+- Update readme and documentation
+
+- Add shelly HT
+- Add shelly DCbox
+- Add shelly BackDerivazione
+
+
 ## v2023.8.0.2
 ### 2023/08/03
 

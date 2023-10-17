@@ -1,7 +1,7 @@
 # SENSORS.YAML
 # AUTHOR: kito129
 
-# SYSTEM MONITOR
+# *** SYSTEM MONITOR ***
 - platform: systemmonitor
   resources:
     - type: disk_use_percent
@@ -37,9 +37,23 @@
     - type: processor_temperature
     - type: last_boot
 
-# ENERGY SENSORS
+# *** TIME AND DATE ***
+- platform: time_date
+  display_options:
+    - "time"
+    - "date"
+    - "date_time"
+    - "date_time_utc"
+    - "date_time_iso"
+    - "time_date"
+    - "time_utc"
+    - "beat"
 
-# frigoFornoEnergy
+# **** INTEGRATION ****
+
+## CUCINA ENERGY SENSORS
+
+# frigo_forno_energy
 - platform: integration
   unique_id: "0a7476cc-245654-2456-8ae1-8882845"
   method: "left"
@@ -49,7 +63,7 @@
   unit_time: h
   round: 2
 
-# lavastoviglieEnergy
+# lavastoviglie_energy
 - platform: integration
   unique_id: "0a7476cc-245654-2456-8ae1-25828714"
   method: "left"
@@ -59,30 +73,54 @@
   unit_time: h
   round: 2
 
-# INTERNET
+## HOME ENERGY SENSORS
 
-  # DATA IN INTERNET Mbps
+# home_loads_energy
 - platform: integration
-  unique_id: "0a7476cc-245654-2456-8ae1-28452"
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-606518c3497c"
   method: "left"
-  source: sensor.upnp_igd_kib_s_received
-  name: internet_data_in_integral
-  unit_time: h
-  round: 2
-  
-  # DATA OUT INTERNET Mbps
-- platform: integration
-  unique_id: "0a7476cc-245654-2456-8ae1-28453"
-  method: "left"
-  source: sensor.upnp_igd_kib_s_sent
-  name: internet_data_out_integral
+  source: sensor.home_other_loads_power
+  name: home_loads_energy
+  unit_prefix: k
   unit_time: h
   round: 2
 
+## BOILER ENERGY SENSORS
 
-# BATTERY
+# boiler_room_energy
+- platform: integration
+  unique_id: "0a7476cc-245654-2456-8ae1-6518715"
+  method: "left"
+  source: sensor.boiler_room_power
+  name: boiler_room_energy
+  unit_prefix: k
+  unit_time: h
+  round: 2
 
-  # BATTERY IN
+# boiler_resistenza_energy
+- platform: integration
+  unique_id: "0a7476cc-245654-2456-8ae1-58252"
+  method: "left"
+  source: sensor.boiler_resistance_power
+  name: boiler_resistenza_energy
+  unit_prefix: k
+  unit_time: h
+  round: 2
+
+# boiler_pompa_di_calore_energy
+- platform: integration
+  unique_id: "0a7476cc-245654-2456-8ae1-287252"
+  method: "left"
+  source: sensor.boiler_heat_pump_power
+  name: boiler_pompa_di_calore_energy
+  unit_prefix: k
+  unit_time: h
+  round: 2
+
+## INTERNET
+
+##  BATTERY
+# battery_in_energy_integral
 - platform: integration
   unique_id: "0a7476cc-245654-2456-8ae1-28748565"
   method: "left"
@@ -92,8 +130,9 @@
   unit_time: h
   round: 2
 
-  # BATTERY OUT
+# battery_out_energy_integral
 - platform: integration
+
   unique_id: "0a7476cc-245654-2456-8ae1-281983"
   method: "left"
   source: sensor.battery_out_power
@@ -101,8 +140,8 @@
   unit_prefix: k
   unit_time: h
   round: 2
-  
-  # BATTERY NET
+
+# battery_net_energy_integral
 - platform: integration
   unique_id: "0a7476cc-245654-2456-8ae1-984763"
   method: "left"
@@ -112,9 +151,11 @@
   unit_time: h
   round: 2
 
-# AVERAGES
+# *** AVERAGE **
 
-  # POWER
+# POWER
+
+# solarPowerAvg
 - platform: average
   unique_id: "0a7476cc-d6c1-40ba-8ae1-888282852"
   name: "solarPowerAvg"
@@ -123,6 +164,7 @@
   entities:
     - sensor.solar_power
 
+# enelPowerAvg
 - platform: average
   name: "enelPowerAvg"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-888282825"
@@ -131,6 +173,7 @@
   entities:
     - sensor.enel_power
 
+# homePowerAvg
 - platform: average
   name: "homePowerAvg"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-888282821875"
@@ -140,6 +183,8 @@
     - sensor.home_power
 
 # POWER DERIVATE
+
+# enel_derivate_average
 - platform: average
   name: "enelDerivateAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-888282966"
@@ -148,6 +193,7 @@
   entities:
     - sensor.enelDerivate
 
+# solar_derivate_average
 - platform: average
   name: "solarDerivateAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-88828288582"
@@ -156,6 +202,7 @@
   entities:
     - sensor.solarDerivate
 
+# home_derivate_average
 - platform: average
   name: "homeDerivateAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-88828282545"
@@ -164,7 +211,9 @@
   entities:
     - sensor.homeDerivate
 
-# TEMPERATURE
+## TEMPERATURE
+
+# temp1
 - platform: average
   name: "outTempAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-8882824565"
@@ -173,16 +222,241 @@
   entities:
     - sensor.temperature1
 
-# TIME AND DATE
+# temp2
+- platform: average
+  name: "ACTempAverage"
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-17871874"
+  duration:
+    minutes: 20
+  entities:
+    - sensor.temperature2
 
-# WASHER END TIME
-- platform: time_date
-  display_options:
-    - 'time'
-    - 'date'
-    - 'date_time'
-    - 'date_time_utc'
-    - 'date_time_iso'
-    - 'time_date'
-    - 'time_utc'
-    - 'beat'
+## *** HISTORY_STATS ***
+
+### BOILER ROOM
+
+# BOILER
+
+# boiler_heat_pump_duration
+- platform: history_stats
+  name: boiler_heat_pump_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-4847568"
+  entity_id: binary_sensor.boiler_pompa_di_calore
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# boiler_resistance_duration
+- platform: history_stats
+  name: boiler_resistance_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-871745"
+  entity_id: binary_sensor.boiler_resistenza
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# LAVATRICE
+
+### KITCHEN
+
+# LAVASTOVIGLIE
+
+# frigo_on_duration
+- platform: history_stats
+  name: frigo_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-28455"
+  entity_id: binary_sensor.frigo_state
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+## SOLAR
+
+# 05kWSolar
+- platform: history_stats
+  name: 05kWSolar_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-25878945"
+  entity_id: binary_sensor.plus_05_kw_solar
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# 1kWSolar
+- platform: history_stats
+  name: 1kWSolar_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-284568"
+  entity_id: binary_sensor.plus_1_kw_solar
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# 2kWSolar
+- platform: history_stats
+  name: 2kWSolar_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-718485"
+  entity_id: binary_sensor.plus_2_kw_solar
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# 3kWSolar
+- platform: history_stats
+  name: 3kWSolar_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-5159552"
+  entity_id: binary_sensor.plus_3_kw_solar
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# 4kWSolar
+- platform: history_stats
+  name: 4kWSolar_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-287187"
+  entity_id: binary_sensor.plus_4_kw_solar
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+## MINUS ENEL
+
+# minus00_05kWEnel_on_duration
+- platform: history_stats
+  name: minus00_05kWEnel_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-516551220"
+  entity_id: binary_sensor.minus_00_05_kw_enel
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# minus05kWEnel
+- platform: history_stats
+  name: minus05kWEnel_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-8189489615"
+  entity_id: binary_sensor.minus_05_kw_enel
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# minus1kWEnel
+- platform: history_stats
+  name: minus1kWEnel_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-717845"
+  entity_id: binary_sensor.minus_1_kw_enel
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# minus2kWEnel
+- platform: history_stats
+  name: minus2kWEnel_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-2852863863"
+  entity_id: binary_sensor.minus_2_kw_enel
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# minus3kWEnel
+- platform: history_stats
+  name: minus3kWEnel_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-717863683683845"
+  entity_id: binary_sensor.minus_3_kw_enel
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+## PLUS enel
+
+# plus_00_05_kw_enel
+- platform: history_stats
+  name: plus_00_05_kw_enel_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-06652822623"
+  entity_id: binary_sensor.plus_00_05_kw_enel
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# plus05kWEnel
+- platform: history_stats
+  name: plus05kWEnel_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-7874882"
+  entity_id: binary_sensor.plus_05_kw_enel
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# plus1kWEnel
+- platform: history_stats
+  name: plus1kWEnel_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-7174787844"
+  entity_id: binary_sensor.plus_1_kw_enel
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# plus2kWEnel
+- platform: history_stats
+  name: plus2kWEnel_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-sfgbv1sf"
+  entity_id: binary_sensor.plus_2_kw_enel
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# plus3kWEnel
+- platform: history_stats
+  name: plus3kWEnel_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-18845"
+  entity_id: binary_sensor.plus_3_kw_enel
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+## STAGE
+
+# comboFirstStage
+- platform: history_stats
+  name: comboFirstStage_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-51984852"
+  entity_id: binary_sensor.combo_minus05_enel_plus1_solar
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# comboSecondStage
+- platform: history_stats
+  name: comboSecondStage_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-27825282"
+  entity_id: binary_sensor.combo_second_stage
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# comboThirdStage
+- platform: history_stats
+  name: comboThirdStage_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-27525"
+  entity_id: binary_sensor.combo_third_stage
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"

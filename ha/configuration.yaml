@@ -2,7 +2,9 @@
 # CONFIGURATION.YAML
 # AUTHOR: MARCO SELVA
 # DATE CREATION 03/01/2023
-# VERSION: 0.5.0
+# VERSION: 0.9.1
+# v0.9.1: 10/17/2023
+# v0.9.0: 09/22/2023
 # v0.5.0: 07/20/2023
 # v0.4.1: 04/08/2023
 # v0.2.1: 03/23/2023
@@ -20,6 +22,7 @@ frontend:
 # MariaDb configuration
 recorder:
   db_url: !secret dbUrl
+  purge_keep_days: 365
 
 # Loads default set of integrations. Do not remove.
 default_config:
@@ -27,7 +30,6 @@ default_config:
 # Text to speech
 tts:
   - platform: google_translate
-
 
 ### YAML file locations
 automation: !include automations.yaml
@@ -51,27 +53,26 @@ influxdb:
 #  - url: /local/apexcharts-card.js?v=2.0.2
 #    type: module
 
-
 # Logger configuration
 logger:
   default: warning
   logs:
-    homeassistant.components.mqtt: debug
-    custom_components.my_integration: debug
-    custom_components.average: debug
+    homeassistant.components.mqtt: warning
+    custom_components.my_integration: warning
+    custom_components.average: warning
 
-# MQTT sensors
+# MQTT SENSORS
 mqtt:
   sensor:
-  # esp32-DF36A0
-    # Sensor 1
+    # esp32-DF36A0
+    ## Sensor 1
     - name: "Temperature1"
       state_topic: "homeassistant/sensor/esp32iotsensor/temperatureSensor"
       value_template: "{{ value_json.temp_1 }}"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-60651843524353425"
       device_class: temperature
       unit_of_measurement: °C
-    # Sensor 2
+    ## Sensor 2
     - name: "Temperature2"
       state_topic: "homeassistant/sensor/esp32iotsensor/temperatureSensor"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-606518435256736535"
@@ -79,16 +80,13 @@ mqtt:
       unit_of_measurement: °C
       value_template: "{{ value_json.temp_2 }}"
 
-
-
 # for frigate
 ios:
   push:
     categories:
       - name: camera
-        identifier: 'camera'
+        identifier: "camera"
         actions:
-          - identifier: 'SENDSTILLANDCLIP'
-            title: 'Send still and video clip'
+          - identifier: "SENDSTILLANDCLIP"
+            title: "Send still and video clip"
             authenticationRequired: false
-
