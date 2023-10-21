@@ -12,7 +12,6 @@
 
 ## Description
 
-## Description
 
 This project is a home automation project. It is based on a Home Assistant OS, running on i7 workstation.
 My current setup is:
