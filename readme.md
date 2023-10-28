@@ -10,6 +10,9 @@
 
 [Changelogs page](https://github.com/kito129/homeAssistantKito/blob/main/changelogs.md)
 
+
+[GSheet project](https://docs.google.com/spreadsheets/d/12iFfYhk_wlS3it2I3UpV4yOX3LBn83WyK0mKroPCnjY/edit#gid=0)
+
 ## Description
 
 
@@ -19,7 +22,7 @@ My current setup is:
     - 1x i7-12900k workstation 
     - Hyper-V virtualizer on Windows 10 running Home Assistant OS and Core 
     
-Versioning is based on the Home Assistant versioning.
+Versioning is based on the Home Assistant updates.
 
 ### Code Base
     Home Assistant 2023.10.3

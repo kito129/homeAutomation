@@ -97,6 +97,16 @@
   unit_time: h
   round: 2
 
+# ac_total_energy
+- platform: integration
+  unique_id: "0a7476cc-245654-2456-8ae1-8787484"
+  method: "left"
+  source: sensor.ac_total_power
+  name: ac_total_energy
+  unit_prefix: k
+  unit_time: h
+  round: 2
+
 # boiler_resistenza_energy
 - platform: integration
   unique_id: "0a7476cc-245654-2456-8ae1-58252"
