@@ -116,6 +116,11 @@ views:
               colorize_states: true
             graph_span: 24h
             stacked: true
+            yaxis:
+              - max: 4000
+                decimals: 0
+                apex_config:
+                  tickAmount: 4
             apex_config:
               legend:
                 show: false
@@ -1539,10 +1544,9 @@ views:
     badges: []
     cards:
       - type: vertical-stack
-        title: Riscaldamento
+        title: Day
         cards:
           - type: custom:vertical-stack-in-card
-            title: Day
             cards:
               - square: false
                 type: grid
@@ -1570,6 +1574,30 @@ views:
                     name: Humidity
                     icon_color: teal
                     layout: vertical
+                  - type: custom:mushroom-entity-card
+                    primary_info: state
+                    secondary_info: name
+                    icon_color: light-green
+                    layout: vertical
+                    entity: sensor.hometempderivate
+                    name: Derivata
+                    icon: mdi:math-integral-box
+                  - type: custom:mushroom-entity-card
+                    primary_info: state
+                    secondary_info: name
+                    icon_color: cyan
+                    layout: vertical
+                    entity: sensor.externtempderivate
+                    name: DerivataExtern
+                    icon: mdi:math-integral-box
+                  - type: custom:mushroom-entity-card
+                    primary_info: state
+                    secondary_info: name
+                    icon_color: deep-orange
+                    layout: vertical
+                    entity: sensor.temperature1
+                    name: AcTemp
+                    icon: mdi:fireplace
               - type: custom:mini-graph-card
                 entities:
                   - entity: sensor.shellyplusht_80646fcbd5dc_temperature_2
@@ -1633,10 +1661,9 @@ views:
                   fill: fade
                   extrema: true
       - type: vertical-stack
-        title: Riscaldamento
+        title: Week
         cards:
           - type: custom:vertical-stack-in-card
-            title: Week
             cards:
               - type: custom:mini-graph-card
                 entities:
@@ -1710,6 +1737,31 @@ views:
                   legend: false
                   fill: fade
                   extrema: true
+      - type: vertical-stack
+        title: Charts
+        cards:
+          - type: custom:apexcharts-card
+            graph_span: 1d
+            header:
+              show: true
+              title: Home
+              show_states: true
+              colorize_states: true
+            apex_config:
+              legend:
+                show: false
+            series:
+              - entity: sensor.shellyplusht_80646fcbd5dc_temperature_2
+                name: Today
+                show:
+                  extremas: true
+              - entity: sensor.shellyplusht_80646fcbd5dc_temperature_2
+                offset: '-1d'
+                name: Yesterday
+              - entity: sensor.shellyplusht_80646fcbd5dc_temperature_2
+                offset: '-2d'
+                name: 2 Days ago
+                color: yellow
   - title: Frigate
     path: frigate
     icon: mdi:cctv
@@ -2034,23 +2086,16 @@ views:
               legend:
                 show: false
             series:
-              - entity: sensor.temperature1
+              - entity: sensor.temperature2
                 name: Today
                 group_by:
                   func: avg
                   duration: 1h
                 show:
                   extremas: true
-              - entity: sensor.temperature1
+              - entity: sensor.temperature2
                 offset: '-1d'
                 name: Yesterday
-                group_by:
-                  func: avg
-                  duration: 1h
-                show:
-                  extremas: true
-              - entity: sensor.shellyplusht_80646fcbd5dc_temperature_2
-                name: Home
                 group_by:
                   func: avg
                   duration: 1h
@@ -3305,23 +3350,23 @@ views:
                 columns: 2
                 cards:
                   - type: custom:mushroom-entity-card
-                    entity: sensor.upnp_igd_kib_s_sent
+                    entity: sensor.upnp_igd_data_sent
                     primary_info: state
                     secondary_info: name
                     name: FIber Up
                     icon_color: red
                   - type: custom:mushroom-entity-card
-                    entity: sensor.upnp_igd_kib_s_received
+                    entity: sensor.upnp_igd_data_sent
                     primary_info: state
                     secondary_info: name
                     name: FiberDown
                     icon_color: blue
               - type: custom:mini-graph-card
                 entities:
-                  - entity: sensor.upnp_igd_kib_s_sent
+                  - entity: sensor.upnp_igd_data_sent
                     name: Upload
                     color: var(--red-color)
-                  - entity: sensor.upnp_igd_kib_s_received
+                  - entity: sensor.upnp_igd_data_received
                     name: Download
                     color: var(--blue-color)
                 hours_to_show: 72
@@ -6642,3 +6687,6 @@ views:
                 fill_container: false
             columns: 3
             square: false
+      - type: iframe
+        url: http://localhosts:4000
+        aspect_ratio: 50%

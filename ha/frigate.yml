@@ -8,16 +8,12 @@ mqtt:
   host: 192.168.0.14
   port: 1883
   topic_prefix: frigate
-  user: "---"
-  password: "---"
+  user: "kito"
+  password: "65255"
 
 birdseye:
   enabled: True
   mode: continuous
-
-ffmpeg:
-  hwaccel_args: 
-    - preset-intel-qsv-h264
 
 rtmp:
   enabled: True
@@ -36,7 +32,16 @@ model:
   input_pixel_format: bgr
   labelmap_path: /openvino-model/coco_91cl_bkgr.txt
 
-  
+objects:
+  track:
+    - person
+  #mask: stops all objects from being tracked here
+  filters:
+    person:
+      min_area: 7000
+      min_score: 0.6
+      threshold: 0.8
+
 cameras:
   entrance:
     enabled: True
@@ -44,54 +49,109 @@ cameras:
       inputs:
         - path: ---
           roles:
-                - detect
-                - record
-                - rtmp
+            - detect
+            - record
+            - rtmp
     snapshots:
       enabled: True
+      clean_copy: True
+      timestamp: True
+      bounding_box: True
+      crop: False
+      retain:
+        default: 10
     detect:
-      width: 1280
-      height: 720
+      width: 1920
+      height: 1080
+      fps: 25
     record:
       enabled: True
+      retain:
+        days: 2
       events:
         retain:
-          default: 2
+          default: 5
+  gardenSouth:
+    enabled: True
+    ffmpeg:
+      inputs:
+        - path: ---
+          roles:
+            - detect
+            - record
+            - rtmp
+    snapshots:
+      enabled: True
+      clean_copy: True
+      timestamp: True
+      bounding_box: True
+      crop: False
+      retain:
+        default: 10
+    detect:
+      width: 1920
+      height: 1080
+      fps: 25
+    record:
+      enabled: True
+      retain:
+        days: 2
+      events:
+        retain:
+          default: 5
   back:
     enabled: True
     ffmpeg:
       inputs:
         - path: ---
           roles:
-                - detect
-                - record
-                - rtmp
+            - detect
+            - record
+            - rtmp
     snapshots:
       enabled: True
+      clean_copy: True
+      timestamp: True
+      bounding_box: True
+      crop: False
+      retain:
+        default: 10
     detect:
-      width: 1280
-      height: 720
+      width: 1920
+      height: 1080
+      fps: 25
     record:
       enabled: True
+      retain:
+        days: 2
       events:
         retain:
-          default: 2
+          default: 5
   garden:
     enabled: True
     ffmpeg:
       inputs:
         - path: ---
           roles:
-                - detect
-                - record
-                - rtmp
+            - detect
+            - record
+            - rtmp
     snapshots:
       enabled: True
+      clean_copy: True
+      timestamp: True
+      bounding_box: True
+      crop: False
+      retain:
+        default: 10
     detect:
-      width: 1280
-      height: 720
+      width: 1920
+      height: 1080
+      fps: 25
     record:
       enabled: True
+      retain:
+        days: 2
       events:
         retain:
-          default: 2
+          default: 7

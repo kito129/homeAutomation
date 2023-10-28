@@ -141,13 +141,9 @@
   - type: battery_level
     platform: device
     device_id: ede330a4d1d8b3aa4ce2a3f7fbf86bb2
-    entity_id: 9e9d816795fd31e62d4975b8aab0d473
+    entity_id: ef916e116aeacdcb2b74fedbc315d722
     domain: sensor
     below: 20
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
   condition:
   - condition: device
     type: is_off
@@ -167,12 +163,8 @@
   - type: battery_level
     platform: device
     device_id: ede330a4d1d8b3aa4ce2a3f7fbf86bb2
-    entity_id: 9e9d816795fd31e62d4975b8aab0d473
+    entity_id: ef916e116aeacdcb2b74fedbc315d722
     domain: sensor
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
     above: 80
   condition: []
   action:

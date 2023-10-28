@@ -1,5 +1,17 @@
 # changelogs.md
 
+
+## v2023.10.0.2
+### 2023/10/28
+
+- update os and core to 
+
+        Home Assistant 2023.10.3
+        Supervisor 2023.10.1
+        Operating System 10.5
+- minor fix
+- battery fix
+
 ## v2023.10.0.1
 ### 2023/10/17
 
