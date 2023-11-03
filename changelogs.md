@@ -1,5 +1,12 @@
 # changelogs.md
 
+## v2023.11.0.0
+### 2023/11/03
+
+- fix temp bug for -127 temperature
+- update CORE 2023.11.0 and OS 10.5
+- minor dashboard fix
+
 
 ## v2023.10.0.2
 ### 2023/10/28

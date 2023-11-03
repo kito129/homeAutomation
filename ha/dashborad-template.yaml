@@ -525,10 +525,21 @@ views:
                 layout: vertical
               - type: custom:mushroom-entity-card
                 entity: input_boolean.manualbattery
-                name: Usicta Inverter
+                name: OUT Inverter
                 icon: mdi:hand-back-left
                 icon_color: green
                 layout: vertical
+              - type: custom:mushroom-entity-card
+                icon: mdi:hand-back-left
+                icon_color: blue
+                entity: binary_sensor.combo_minus05_enel_plus1_solar
+                name: First
+              - type: custom:mushroom-entity-card
+                icon: ''
+                icon_color: purple
+                entity: binary_sensor.combo_second_stage
+                name: Second
+                fill_container: false
             columns: 2
       - type: vertical-stack
         cards:
@@ -547,7 +558,7 @@ views:
       - type: vertical-stack
         cards:
           - type: custom:vertical-stack-in-card
-            title: Powers
+            title: Derivates
             cards:
               - type: custom:mushroom-entity-card
                 entity: sensor.solar_power
@@ -557,21 +568,15 @@ views:
                 icon_color: yellow
               - type: custom:mini-graph-card
                 entities:
-                  - entity: sensor.solarpoweravg10min
-                    name: Solar
+                  - entity: sensor.solarderivate
+                    name: Solar Derivate
+                    color: yellow
                 hours_to_show: 24
                 points_per_hour: 10
                 line_width: 3
                 font_size: 100
                 animate: true
                 cache: true
-                color_thresholds:
-                  - value: 0
-                    color: '#395ce6'
-                  - color: '#39e692'
-                  - color: '#cce639'
-                  - value: 4000
-                    color: '#ff0000'
                 show:
                   name: false
                   icon: false
@@ -587,22 +592,15 @@ views:
                 icon_color: blue
               - type: custom:mini-graph-card
                 entities:
-                  - entity: sensor.enelpoweravg10min
-                    name: Enel
+                  - entity: sensor.enelderivate
+                    name: Enel Derivate
+                    color: lightblue
                 hours_to_show: 24
                 points_per_hour: 10
                 line_width: 3
                 font_size: 100
                 animate: true
                 cache: true
-                color_thresholds:
-                  - value: -2000
-                    color: '#c639e6'
-                  - color: '#c639e6'
-                  - color: '#39e692'
-                  - color: '#cce639'
-                  - value: 2000
-                    color: '#ff0000'
                 show:
                   name: false
                   icon: false
@@ -619,21 +617,14 @@ views:
                 icon: mdi:home
               - type: custom:mini-graph-card
                 entities:
-                  - entity: sensor.homepoweravg10min_2
-                    name: Home
+                  - entity: sensor.homederivate
+                    name: Home Derivate
                 hours_to_show: 24
                 points_per_hour: 10
                 line_width: 3
                 font_size: 100
                 animate: true
                 cache: true
-                color_thresholds:
-                  - value: 0
-                    color: '#395ce6'
-                  - color: '#39e692'
-                  - color: '#cce639'
-                  - value: 2000
-                    color: '#ff0000'
                 show:
                   name: false
                   icon: false
@@ -1584,10 +1575,10 @@ views:
                     icon_color: deep-orange
                     layout: vertical
                   - type: custom:mushroom-entity-card
-                    entity: sensor.temperature2
+                    entity: input_number.temp2previuous
                     primary_info: state
                     secondary_info: name
-                    name: Extern
+                    name: Esterna
                     icon_color: yellow
                     icon: mdi:temperature-celsius
                     layout: vertical
@@ -1619,7 +1610,7 @@ views:
                     secondary_info: name
                     icon_color: deep-orange
                     layout: vertical
-                    entity: sensor.temperature1
+                    entity: input_number.temp1previous
                     name: AcTemp
                     icon: mdi:fireplace
               - type: custom:mini-graph-card
@@ -1667,7 +1658,7 @@ views:
                   extrema: true
               - type: custom:mini-graph-card
                 entities:
-                  - entity: sensor.temperature2
+                  - entity: input_number.temp2previuous
                     name: Extern
                     color: yellow
                 hours_to_show: 24
@@ -1739,7 +1730,7 @@ views:
                   extrema: true
               - type: custom:mini-graph-card
                 entities:
-                  - entity: sensor.temperature2
+                  - entity: input_number.temp2previuous
                     name: Extern
                 hours_to_show: 168
                 line_width: 3

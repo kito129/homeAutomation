@@ -562,3 +562,49 @@
     entity_id: e70bc5233813107e15be0f35f3fb4dda
     domain: switch
   mode: single
+- id: '81878494'
+  alias: Preserve State temperature2
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.temperature2
+  condition:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: sensor.temperature2
+      state: unavailable
+    - condition: state
+      entity_id: sensor.temperature2
+      state: '-127'
+  action:
+  - service: input_number.set_value
+    data:
+      value: '{{ states(''sensor.temperature2'') }}'
+    target:
+      entity_id: input_number.temp2previuous
+  mode: single
+- id: '1699040422869'
+  alias: Preserve State temp1
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.temperature1
+  condition:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: sensor.temperature1
+      state: unavailable
+    - condition: state
+      entity_id: sensor.temperature1
+      state: '-127'
+  action:
+  - service: input_number.set_value
+    data:
+      value: '{{ states(''sensor.temperature1'') }}'
+    target:
+      entity_id: input_number.temp1previous
+  mode: single

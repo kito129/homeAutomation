@@ -25,10 +25,10 @@ My current setup is:
 Versioning is based on the Home Assistant updates.
 
 ### Code Base
-    Home Assistant 2023.10.3
-    Supervisor 2023.10.0
-    Operating System 10.5
-    Frontend 20231005.0 - latest
+    Core    2023.11.0
+    Supervisor  2023.10.1
+    Operating System    10.5
+    Frontend    20231030.1
 
 ## Network
 
