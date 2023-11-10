@@ -18,7 +18,7 @@
     - name: "home_total_energy"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-606518c3497a"
       device_class: energy
-      state_class: total_increasing
+      state_class: measurement
       unit_of_measurement: "kWh"
       icon: mdi:home-lightning-bolt-outline
       state: >-
@@ -44,7 +44,7 @@
     - name: "enel_net_energy"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-606458c3497h"
       device_class: energy
-      state_class: total_increasing
+      state_class: measurement
       unit_of_measurement: "kWh"
       icon: mdi:transmission-tower
       state: >-
@@ -188,7 +188,10 @@
       unit_of_measurement: "h"
       icon: mdi:timelapse
       state: >-
-        {{ ( float(states('sensor.boiler_resistance_duration')) + float(states('sensor.boiler_heat_pump_duration')) ) | round(2) }}
+        {{ ( 
+          float(states('sensor.boiler_resistance_duration')) 
+        + float(states('sensor.boiler_heat_pump_duration')) 
+        + float(states('sensor.boiler_pump_resistance_duration')) ) | round(2) }}
 
     # STATUS
 
@@ -197,14 +200,22 @@
       unique_id: "0a7476cc-d6c1-40ba-8ae1-5415151"
       icon: mdi:water-boiler-alert
       state: >-
-        {% if is_state('binary_sensor.boiler_resistenza', "on") -%}
-          {{ "Resistenza" }}
-        {%- else -%}
-          {% if is_state('binary_sensor.boiler_pompa_di_calore', "on") -%}
-            {{ "Pompa di Calore" }}
+        {% if is_state('switch.boiler', "on") -%}
+          {% if is_state('binary_sensor.boiler_resistenza', "on") -%}
+            {{ "Resistenza" }}
           {%- else -%}
-            {{ "Off" }}
+            {% if is_state('binary_sensor.boiler_pompa_di_calore', "on") -%}
+              {{ "Pompa di Calore" }}
+            {%- else -%}
+            {% if is_state('binary_sensor.boiler_pompa_e_resistenza', "on") -%}
+              {{ "Pompa & Resistenza" }}
+              {%- else -%}
+                {{ "StandBy" }}
+              {%- endif -%}
+            {%- endif -%}
           {%- endif -%}
+        {%- else -%}
+          {{ "Off" }}
         {%- endif -%}
 
 #BINARY SENSORS
@@ -253,3 +264,4 @@
         {%- else -%}
           {{ "off" }}
         {%- endif -%}
+

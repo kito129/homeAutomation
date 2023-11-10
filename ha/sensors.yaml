@@ -166,80 +166,80 @@
 # POWER
 
 # solarPowerAvg
-- platform: average
+- platform: statistics
+  state_characteristic: mean
   unique_id: "0a7476cc-d6c1-40ba-8ae1-888282852"
   name: "solarPowerAvg"
-  duration:
+  max_age:
     minutes: 20
-  entities:
-    - sensor.solar_power
+  entity_id: sensor.solar_power
 
 # enelPowerAvg
-- platform: average
+- platform: statistics
+  state_characteristic: mean
   name: "enelPowerAvg"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-888282825"
-  duration:
+  max_age:
     minutes: 20
-  entities:
-    - sensor.enel_power
+  entity_id: sensor.enel_power
 
 # homePowerAvg
-- platform: average
+- platform: statistics
+  state_characteristic: mean
   name: "homePowerAvg"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-888282821875"
-  duration:
+  max_age:
     minutes: 20
-  entities:
-    - sensor.home_power
+  entity_id: sensor.home_power
 
 # POWER DERIVATE
 
 # enel_derivate_average
-- platform: average
+- platform: statistics
+  state_characteristic: mean
   name: "enelDerivateAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-888282966"
-  duration:
+  max_age:
     minutes: 20
-  entities:
-    - sensor.enelDerivate
+  entity_id: sensor.enelDerivate
 
 # solar_derivate_average
-- platform: average
+- platform: statistics
+  state_characteristic: mean
   name: "solarDerivateAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-88828288582"
-  duration:
+  max_age:
     minutes: 20
-  entities:
-    - sensor.solarDerivate
+  entity_id: sensor.solarDerivate
 
 # home_derivate_average
-- platform: average
+- platform: statistics
+  state_characteristic: mean
   name: "homeDerivateAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-88828282545"
-  duration:
+  max_age:
     minutes: 20
-  entities:
-    - sensor.homeDerivate
+  entity_id: sensor.homeDerivate
 
 ## TEMPERATURE
 
 # temp1
-- platform: average
+- platform: statistics
+  state_characteristic: mean
   name: "outTempAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-8882824565"
-  duration:
+  max_age:
     minutes: 20
-  entities:
-    - sensor.temperature1
+  entity_id: sensor.temperature1
 
 # temp2
-- platform: average
+- platform: statistics
+  state_characteristic: mean
   name: "ACTempAverage"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-17871874"
-  duration:
+  max_age:
     minutes: 20
-  entities:
-    - sensor.temperature2
+  entity_id: sensor.temperature2
 
 ## *** HISTORY_STATS ***
 
@@ -262,6 +262,16 @@
   name: boiler_resistance_duration
   unique_id: "0a7476cc-d6c1-40ba-8ae1-871745"
   entity_id: binary_sensor.boiler_resistenza
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# boiler_pump_resistance_duration
+- platform: history_stats
+  name: boiler_pump_resistance_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-5828552"
+  entity_id: binary_sensor.boiler_pompa_e_resistenza
   state: "on"
   type: time
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"

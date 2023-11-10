@@ -65,7 +65,10 @@
       hours: 0
       minutes: 10
       seconds: 0
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.manualboiler
+    state: 'off'
   action:
   - type: turn_on
     device_id: 3ad97e1daf95913698b7b1acb69a32d8
@@ -592,6 +595,10 @@
   - platform: state
     entity_id:
     - sensor.temperature1
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
   condition:
   - condition: not
     conditions:

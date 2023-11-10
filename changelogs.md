@@ -1,5 +1,16 @@
 # changelogs.md
 
+
+
+## v2023.11.0.1
+### 2023/11/10
+
+- update core system
+- minor dashboard fix
+- update lovelace dashboard file
+- fix  state_class: total_increasing for sensor energy
+- boiler new states and sensors
+
 ## v2023.11.0.0
 ### 2023/11/03
 

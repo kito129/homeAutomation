@@ -1,9 +1,8 @@
 # homeAutomation project
     author: kito129
     date: 2023/03/01
-    last update: 2023/10/28
-    version: v2023.10.0.2
-    docVersion: 1.0
+    last update: 2023/11/10
+    version: v2023.11.0.1
 
 
 ## Change Log:
@@ -25,7 +24,7 @@ My current setup is:
 Versioning is based on the Home Assistant updates.
 
 ### Code Base
-    Core    2023.11.0
+    Core    2023.11.2
     Supervisor  2023.10.1
     Operating System    10.5
     Frontend    20231030.1
