@@ -13,9 +13,9 @@
 [GSheet project](https://docs.google.com/spreadsheets/d/12iFfYhk_wlS3it2I3UpV4yOX3LBn83WyK0mKroPCnjY/edit#gid=0)
 
 ## Description
+This repository comprises all my home automation, networking, and residential energy control side projects. With a solar installation generating 6MW/year since 2011 and a home automation and energy optimization system from 2023, I aim to minimize my environmental footprint.
 
-
-This project is a home automation project. It is based on a Home Assistant OS, running on i7 workstation.
+It is based on a Home Assistant OS, running on i7 workstation.
 My current setup is:
 
     - 1x i7-12900k workstation 
