@@ -7,7 +7,7 @@
 
 ## Change Log:
 
-[Changelogs page](https://github.com/kito129/homeAssistantKito/blob/main/changelogs.md)
+[Changelogs page](https://github.com/kito129/homeAutomation/blob/main/changelogs.md)
 
 
 [GSheet project](https://docs.google.com/spreadsheets/d/12iFfYhk_wlS3it2I3UpV4yOX3LBn83WyK0mKroPCnjY/edit#gid=0)
@@ -159,32 +159,46 @@ Dashboard lovelace screenshots
 
 
 ### Home
-![home](./doc/images/home2.png "Dashboard")
+![home](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-home-2023-11-16-14_15_50.png "Dashboard")
 
-### CCTV
-![CCTV](./doc/images/cctv2.png "Appliances")
 
 ### Appliances
-![Appliances](./doc/images/appliances2.png "Appliances")
+![Appliances](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-appliances-2023-11-16-14_15_59.png "Appliances")
+
+### Heating
+![Weather](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-riscaldamento-2023-11-16-14_16_06.png "Heating")
+
+### CCTV
+![CCTV](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-frigate-2023-11-16-14_16_13.png "CCTV")
+
+### Energy Dashboard
+![Charts](./doc/images/3/screencapture-192-168-0-14-8123-energy-2023-11-16-14_22_48.png "Energy Dashboard")
 
 ### Network
-![Network](./doc/images/network2.png "Network")
+![Network](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-network-2023-11-16-14_18_07.png "Network")
 
 ### Weather
-![Weather](./doc/images/weather2.png "Weather")
+![Weather](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-weather-2023-11-16-14_16_21.png "Weather")
 
-### Automation
-![Automation](./doc/images/automations2.png "Automation")
 
-### Charts
-![Charts](./doc/images/charts2.png "Charts")
+### Solar
+![Charts](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-solar-2023-11-16-14_17_42.png "Solar")
+
+### Workstation
+![Charts](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-workstation-2023-11-16-14_19_09.png "Workstation")
+
+### Energy Charts
+![Charts](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-energy-2023-11-16-14_16_27.png "Energy Charts")
 
 ### Shelly
-![Shelly](./doc/images/shellys2.png "Shelly Charts")
+![Shelly](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-shelly-2023-11-16-14_19_17.png "Shelly")
 
 ### Shelly Charts
-![Charts](./doc/images/shellycharts2.png "Shelly Charts")
+![Charts](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-shelly-tables-2023-11-16-14_19_31.png "Shelly Charts")
 
-### Tools
-![Shellys](./doc/images/tools2.png "Shelly Charts")
+### Automation
+![Automation](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-automations-2023-11-16-14_19_44.png "Automation")
+
+### PiHole DNS server
+![Shellys](./doc/images/3/screencapture-192-168-0-15-admin-index-php-2023-11-16-14_17_52.png "PiHole DNS server")
 

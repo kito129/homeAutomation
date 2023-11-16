@@ -8,6 +8,8 @@
 - some minor fix
 - update of integrations and addons
 - now fiber liked with 1GBit in all home with CAT7 cable
+- update images in readme
+- update lovelace dashboard file
 
 
 ## v2023.11.0.1
