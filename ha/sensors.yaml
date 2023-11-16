@@ -307,11 +307,8 @@
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"
   end: "{{ now() }}"
 
-# LAVATRICE
 
 ### KITCHEN
-
-# LAVASTOVIGLIE
 
 # frigo_on_duration
 - platform: history_stats
@@ -323,10 +320,34 @@
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"
   end: "{{ now() }}"
 
+# forno_on_duration
 - platform: history_stats
   name: forno_on_duration
   unique_id: "0a7476cc-d6c1-40ba-8ae1-174741"
   entity_id: binary_sensor.forno_state
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+
+### AC
+
+# ac_sala_on_duration
+- platform: history_stats
+  name: ac_sala_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-752572"
+  entity_id: binary_sensor.ac_sala_function
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# ac_scala_on_duration
+- platform: history_stats
+  name: ac_scala_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-7521752"
+  entity_id: binary_sensor.ac_scala_function
   state: "on"
   type: time
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"

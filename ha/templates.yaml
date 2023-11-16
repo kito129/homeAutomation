@@ -198,7 +198,7 @@
         {%- endif %}
 
     # boilerRoom Power
-    - name: "lights_total__power"
+    - name: "lights_total_power"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-8295"
       device_class: power
       state_class: measurement
