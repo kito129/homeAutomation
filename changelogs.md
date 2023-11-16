@@ -1,5 +1,13 @@
 # changelogs.md
 
+## v2023.11.0.2
+### 2023/11/16
+
+- update sensor for forno and frigo
+- improve dashboard main with power bar-card
+- some minor fix
+- update of integrations and addons
+- now fiber liked with 1GBit in all home with CAT7 cable
 
 
 ## v2023.11.0.1

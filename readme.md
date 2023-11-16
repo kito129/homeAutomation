@@ -2,7 +2,7 @@
     author: kito129
     date: 2023/03/01
     last update: 2023/11/10
-    version: v2023.11.0.1
+    version: v2023.11.0.2
 
 
 ## Change Log:

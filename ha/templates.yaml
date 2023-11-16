@@ -169,6 +169,44 @@
       state: >-
         {{ ( float(states('sensor.kitchen_power')) - float(states('sensor.washdisher_power')) ) | round(2) }}
 
+    # oven Power
+    - name: "frigo_power"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-28258"
+      device_class: power
+      state_class: measurement
+      unit_of_measurement: "W"
+      icon: mdi:oven
+      state: >-
+        {% if is_state('binary_sensor.frigo_state', "on") -%}
+          {{ ( float(states('sensor.oven_power'))) | round(2) }}
+        {%- else -%}
+          {{ ( float(0) | round(2)) }}
+        {%- endif %}
+
+    # oven Power
+    - name: "forno_power"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-2825"
+      device_class: power
+      state_class: measurement
+      unit_of_measurement: "W"
+      icon: mdi:oven
+      state: >-
+        {% if is_state('binary_sensor.fornostate', "on") -%}
+          {{ ( float(states('sensor.oven_power'))) | round(2) }}
+        {%- else -%}
+          {{ ( float(0) | round(2)) }}
+        {%- endif %}
+
+    # boilerRoom Power
+    - name: "lights_total__power"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-8295"
+      device_class: power
+      state_class: measurement
+      unit_of_measurement: "W"
+      icon: mdi:globe-light
+      state: >-
+        {{ ( float(states('sensor.backled_power')) + float(states('sensor.ledout_power')) + float(states('sensor.ledswitchnorth_power')) + float(states('sensor.lampadeout_power'))  ) | round(2) }}
+
     # INTERNET
 
     # TIME AND DURATION
@@ -207,8 +245,8 @@
             {% if is_state('binary_sensor.boiler_pompa_di_calore', "on") -%}
               {{ "Pompa di Calore" }}
             {%- else -%}
-            {% if is_state('binary_sensor.boiler_pompa_e_resistenza', "on") -%}
-              {{ "Pompa & Resistenza" }}
+              {% if is_state('binary_sensor.boiler_pompa_e_resistenza', "on") -%}
+                {{ "Pompa & Resistenza" }}
               {%- else -%}
                 {{ "StandBy" }}
               {%- endif -%}

@@ -63,6 +63,26 @@
   unit_time: h
   round: 2
 
+# frigo_forno_energy
+- platform: integration
+  unique_id: "0a7476cc-245654-2456-8ae1-1727527"
+  method: "left"
+  source: sensor.frigo_power
+  name: frigo_energy
+  unit_prefix: k
+  unit_time: h
+  round: 2
+
+# frigo_forno_energy
+- platform: integration
+  unique_id: "0a7476cc-245654-2456-8ae1-7527527"
+  method: "left"
+  source: sensor.forno_power
+  name: forno_energy
+  unit_prefix: k
+  unit_time: h
+  round: 2
+
 # lavastoviglie_energy
 - platform: integration
   unique_id: "0a7476cc-245654-2456-8ae1-25828714"
@@ -93,6 +113,16 @@
   method: "left"
   source: sensor.boiler_room_power
   name: boiler_room_energy
+  unit_prefix: k
+  unit_time: h
+  round: 2
+
+# lights_total_energy
+- platform: integration
+  unique_id: "0a7476cc-245654-2456-8ae1-17742574"
+  method: "left"
+  source: sensor.lights_total_power
+  name: lights_total_energy
   unit_prefix: k
   unit_time: h
   round: 2
@@ -288,6 +318,15 @@
   name: frigo_on_duration
   unique_id: "0a7476cc-d6c1-40ba-8ae1-28455"
   entity_id: binary_sensor.frigo_state
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: forno_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-174741"
+  entity_id: binary_sensor.forno_state
   state: "on"
   type: time
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"
