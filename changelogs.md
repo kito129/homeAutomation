@@ -1,6 +1,12 @@
 # changelogs.md
 
 ## v2023.11.0.2
+### 2023/11/20
+
+- minor dashboard fix and update
+- new shelly PLUS 2PM floor00: 1-ledSala 2-ledEntrata
+
+## v2023.11.0.2
 ### 2023/11/16
 
 - update sensor for forno and frigo

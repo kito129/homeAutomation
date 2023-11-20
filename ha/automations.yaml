@@ -318,8 +318,8 @@
     before_offset: 0:30
   action:
   - type: turn_on
-    device_id: 0fd83799c9d1f093e3684d436c4614cb
-    entity_id: 2f584d1f082626498d31638040f00651
+    device_id: 66672ab969f60c7ed08377fb6389511e
+    entity_id: 047e93f56340f6def908aa6764919315
     domain: switch
   - type: turn_on
     device_id: c2080a4515fda07919d6eb7f4723eddd
@@ -342,8 +342,8 @@
       seconds: 14
       milliseconds: 0
   - type: turn_off
-    device_id: 0fd83799c9d1f093e3684d436c4614cb
-    entity_id: 2f584d1f082626498d31638040f00651
+    device_id: 66672ab969f60c7ed08377fb6389511e
+    entity_id: 047e93f56340f6def908aa6764919315
     domain: switch
   - type: turn_off
     device_id: c2080a4515fda07919d6eb7f4723eddd

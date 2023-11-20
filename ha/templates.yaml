@@ -205,7 +205,8 @@
       unit_of_measurement: "W"
       icon: mdi:globe-light
       state: >-
-        {{ ( float(states('sensor.backled_power')) + float(states('sensor.ledout_power')) + float(states('sensor.ledswitchnorth_power')) + float(states('sensor.lampadeout_power'))  ) | round(2) }}
+        {{ ( float(states('sensor.backled_power')) + float(states('sensor.ledentrata_power')) + float(states('sensor.ledswitchnorth_power')) 
+        + float(states('sensor.lampadeout_power')) + float(states('sensor.salafloor00_power'))  ) | round(2) }}
 
     # INTERNET
 

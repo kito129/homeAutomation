@@ -96,4 +96,15 @@ ios:
             title: "Send still and video clip"
             authenticationRequired: false
 
+# workstationsensor openhardwaremonitor
+openhardwaremonitor:
+  - platform: openhardwaremonitor
+    host: http://172.17.144.1
 
+#http:
+#  api_password: !secret api_password
+#  trusted_proxies: 172.16.0.0/12
+#  trusted_networks: 172.16.0.0/12
+#  use_x_forwarded_for: true
+#  ip_ban_enabled: true
+#  login_attempts_threshold: 3
