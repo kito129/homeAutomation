@@ -1,6 +1,11 @@
 # changelogs.md
 
 ## v2023.11.0.2
+### 2023/11/22
+
+- minor update in dashboard
+
+## v2023.11.0.2
 ### 2023/11/20
 
 - minor dashboard fix and update

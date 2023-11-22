@@ -440,7 +440,10 @@
                         "action": "more-info"
                       },
                       "badge_icon": "",
-                      "fill_container": true
+                      "fill_container": true,
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     },
                     {
                       "type": "custom:mushroom-template-card",
@@ -468,7 +471,10 @@
                         "action": "more-info"
                       },
                       "badge_icon": "",
-                      "fill_container": true
+                      "fill_container": true,
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     },
                     {
                       "type": "custom:mushroom-template-card",
@@ -482,7 +488,10 @@
                         "action": "more-info"
                       },
                       "badge_icon": "",
-                      "fill_container": true
+                      "fill_container": true,
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     },
                     {
                       "type": "custom:mushroom-template-card",
@@ -566,102 +575,87 @@
                         "action": "more-info"
                       },
                       "badge_icon": "",
-                      "fill_container": true
+                      "fill_container": true,
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     }
                   ],
                   "columns": 2
                 },
                 {
                   "square": false,
+                  "title": "Lights",
                   "type": "grid",
-                  "title": "Luci",
                   "cards": [
                     {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.ledentrata_power.state}} W",
-                      "secondary": "Entrata: {{states.switch.ledentrata.state | upper}}",
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "switch.ledentrata",
+                      "name": "Entrata ",
                       "icon": "mdi:led-on",
-                      "icon_color": "{{ (states(\"sensor.ledentrata_power\")|float(0) > 0) | iif(\"yellow\", \"\") }}\n",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": true,
-                      "entity": "switch.ledentrata"
+                      "layout": "vertical",
+                      "icon_color": "red",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     },
                     {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.lampadeout_power.state}} W",
-                      "secondary": "Scala: {{states.switch.lampadeout.state | upper}}",
-                      "icon": "mdi:lightbulb-multiple-outline",
-                      "icon_color": "{{ (states(\"sensor.lampadeout_power\")|float(0) > 0) | iif(\"yellow\", \"\") }}\n",
-                      "entity": "switch.lampadeout",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": true
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.backled_power.state}} W",
-                      "secondary": "Legnaia: {{states.switch.backled.state | upper}}",
-                      "icon": "mdi:lightbulb-night-outline",
-                      "icon_color": "{{ (states(\"sensor.backled_power\")|float(0) > 0) | iif(\"yellow\", \"\") }}\n",
-                      "entity": "switch.backled",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": true
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.ledswitchnorth_power.state}} W",
-                      "secondary": "Luce Inverter: {{states.switch.ledswitchnorth.state | upper}}",
-                      "icon": "mdi:light-switch",
-                      "icon_color": "{{ (states(\"sensor.ledswitchnorth_power\")|float(0) > 0) | iif(\"yellow\", \"\") }}\n",
-                      "entity": "switch.ledswitchnorth",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": true
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.salafloor00_power.state}} W",
-                      "secondary": "Sala Floor00: {{states.switch.salafloor00.state | upper}}",
-                      "icon": "mdi:light-flood-down",
-                      "icon_color": "{{ (states(\"sensor.salafloor00_power\")|float(0) > 0) | iif(\"purple\", \"\") }}\n",
+                      "type": "custom:mushroom-entity-card",
+                      "icon": "mdi:ceiling-light",
+                      "layout": "vertical",
+                      "icon_color": "yellow",
+                      "name": "Sala ",
                       "entity": "switch.salafloor00",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": true
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     },
                     {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.lights_total_power.state}} W",
-                      "secondary": "Luci: {{states.switch.lights.state | upper}}",
-                      "icon": "mdi:light-switch",
-                      "icon_color": "{{ (states(\"sensor.lights_total_power\")|float(0) > 0) | iif(\"red\", \"\") }}\n",
+                      "type": "custom:mushroom-entity-card",
+                      "icon": "mdi:lightbulb-group",
+                      "layout": "vertical",
+                      "icon_color": "light-green",
+                      "name": "Lampade ",
+                      "entity": "switch.lampadeout",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "icon": "mdi:lightbulb",
+                      "layout": "vertical",
+                      "icon_color": "green",
+                      "entity": "switch.backled",
+                      "name": "Legnaia",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "icon": "mdi:light-flood-down",
+                      "layout": "vertical",
+                      "icon_color": "light-blue",
+                      "entity": "switch.ledswitchnorth",
+                      "name": "Switch ",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "icon": "mdi:lightbulb-group-outline",
+                      "layout": "vertical",
+                      "icon_color": "deep-orange",
+                      "name": "Tutte le luci ",
                       "entity": "switch.lights",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": true
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     }
                   ],
-                  "columns": 2
+                  "columns": 3
                 },
                 {
                   "square": false,
@@ -672,28 +666,40 @@
                       "type": "custom:mushroom-entity-card",
                       "entity": "input_boolean.manualboiler",
                       "name": "Boiler",
-                      "icon_color": "primary"
+                      "icon_color": "primary",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     },
                     {
                       "type": "custom:mushroom-entity-card",
                       "entity": "input_boolean.ininverter_manual",
                       "name": "MAN  Inverter",
                       "icon": "mdi:hand-back-left",
-                      "icon_color": "cyan"
+                      "icon_color": "cyan",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     },
                     {
                       "type": "custom:mushroom-entity-card",
                       "entity": "input_boolean.manualbattery",
                       "icon": "mdi:hand-back-left",
                       "icon_color": "green",
-                      "name": "MAN battery "
+                      "name": "MAN battery ",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     },
                     {
                       "type": "custom:mushroom-entity-card",
                       "icon": "mdi:hand-back-left",
                       "icon_color": "blue",
                       "entity": "binary_sensor.combo_minus05_enel_plus1_solar",
-                      "name": "First"
+                      "name": "First",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     },
                     {
                       "type": "custom:mushroom-entity-card",
@@ -701,7 +707,10 @@
                       "icon_color": "purple",
                       "entity": "binary_sensor.combo_second_stage",
                       "name": "Second",
-                      "fill_container": false
+                      "fill_container": false,
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     }
                   ],
                   "columns": 2
@@ -2307,7 +2316,6 @@
                           "color": "#ff0000"
                         }
                       ],
-                      "height": 200,
                       "show": {
                         "name": true,
                         "icon": false,
@@ -2490,6 +2498,46 @@
                       }
                     }
                   ]
+                },
+                {
+                  "type": "custom:mini-graph-card",
+                  "entities": [
+                    {
+                      "entity": "sensor.shellyplusht_80646fcbd5dc_temperature_2",
+                      "name": "Home History"
+                    }
+                  ],
+                  "hours_to_show": 600,
+                  "line_width": 3,
+                  "font_size": 100,
+                  "group_by": "hour",
+                  "heught": 300,
+                  "animate": true,
+                  "cache": true,
+                  "color_thresholds": [
+                    {
+                      "value": 18,
+                      "color": "#395ce6"
+                    },
+                    {
+                      "color": "#39e692"
+                    },
+                    {
+                      "color": "#cce639"
+                    },
+                    {
+                      "value": 22,
+                      "color": "#ff0000"
+                    }
+                  ],
+                  "show": {
+                    "name": true,
+                    "icon": false,
+                    "state": false,
+                    "legend": false,
+                    "fill": "fade",
+                    "extrema": true
+                  }
                 }
               ]
             }
@@ -2588,25 +2636,40 @@
                       "fill_container": true,
                       "layout": "vertical",
                       "name": "Notification",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      },
                       "view_layout": {
                         "position": "sidebar"
                       }
                     },
                     {
                       "type": "custom:mushroom-entity-card",
-                      "entity": "switch.back_detect"
+                      "entity": "switch.back_detect",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     },
                     {
                       "type": "custom:mushroom-entity-card",
-                      "entity": "switch.garden_detect"
+                      "entity": "switch.garden_detect",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     },
                     {
                       "type": "custom:mushroom-entity-card",
-                      "entity": "switch.entrance_detect"
+                      "entity": "switch.entrance_detect",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     },
                     {
                       "type": "custom:mushroom-entity-card",
-                      "entity": "switch.gardensouth_detect"
+                      "entity": "switch.gardensouth_detect",
+                      "double_tap_action": {
+                        "action": "toggle"
+                      }
                     }
                   ],
                   "columns": 2
@@ -3128,6 +3191,353 @@
           ]
         },
         {
+          "title": "Energy",
+          "path": "energy",
+          "icon": "mdi:home-lightning-bolt-outline",
+          "type": "sidebar",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "energy-distribution",
+                  "link_dashboard": true
+                },
+                {
+                  "type": "energy-devices-graph"
+                },
+                {
+                  "square": true,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "energy-grid-neutrality-gauge"
+                    },
+                    {
+                      "type": "energy-solar-consumed-gauge"
+                    },
+                    {
+                      "type": "energy-self-sufficiency-gauge"
+                    }
+                  ],
+                  "columns": 3
+                },
+                {
+                  "type": "energy-usage-graph"
+                }
+              ],
+              "view_layout": {
+                "position": "sidebar"
+              }
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "vertical-stack",
+                  "title": "Giornaliero",
+                  "cards": [
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        {
+                          "entity": "sensor.enel_energy",
+                          "name": "Buy"
+                        },
+                        {
+                          "entity": "sensor.enel_energy_returned",
+                          "name": "Sell"
+                        }
+                      ],
+                      "stat_types": [
+                        "change"
+                      ],
+                      "days_to_show": 30,
+                      "title": "Enel",
+                      "hide_legend": false
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        {
+                          "entity": "sensor.solar_energy",
+                          "name": "Solar"
+                        }
+                      ],
+                      "stat_types": [
+                        "change"
+                      ],
+                      "days_to_show": 30,
+                      "title": "Solar",
+                      "hide_legend": true
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.boiler_resistance_duration",
+                        "sensor.boiler_heat_pump_duration",
+                        "sensor.boiler_pump_resistance_duration"
+                      ],
+                      "hide_legend": false,
+                      "days_to_show": 30,
+                      "stat_types": [
+                        "max"
+                      ],
+                      "title": "Duration Boiler"
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.boiler_energy"
+                      ],
+                      "hide_legend": true,
+                      "days_to_show": 30,
+                      "title": "BoilerEnergy",
+                      "stat_types": [
+                        "change"
+                      ]
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.ac_scala_on_duration"
+                      ],
+                      "hide_legend": true,
+                      "days_to_show": 30,
+                      "title": "AC time",
+                      "stat_types": [
+                        "max"
+                      ]
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.ac_total_energy"
+                      ],
+                      "hide_legend": true,
+                      "days_to_show": 30,
+                      "title": "AC energy",
+                      "stat_types": [
+                        "change"
+                      ]
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.battery_net_energy_integral"
+                      ],
+                      "hide_legend": true,
+                      "days_to_show": 30,
+                      "title": "Battery energy",
+                      "stat_types": [
+                        "change"
+                      ]
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.1kwsolar_on_duration"
+                      ],
+                      "hide_legend": false,
+                      "days_to_show": 30,
+                      "stat_types": [
+                        "max"
+                      ],
+                      "title": "Duration 1kW"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "vertical-stack",
+                  "title": "Today",
+                  "cards": [
+                    {
+                      "type": "energy-sources-table"
+                    },
+                    {
+                      "type": "entities",
+                      "entities": [
+                        {
+                          "entity": "sensor.consume_day",
+                          "name": "Day"
+                        },
+                        {
+                          "entity": "sensor.consume_week",
+                          "name": "Week"
+                        },
+                        {
+                          "entity": "sensor.consume_month",
+                          "name": "Month"
+                        },
+                        {
+                          "entity": "sensor.consume_quarter",
+                          "name": "Quarter"
+                        },
+                        {
+                          "entity": "sensor.consume_year",
+                          "name": "Year"
+                        }
+                      ],
+                      "title": "Enel consume"
+                    }
+                  ]
+                }
+              ],
+              "view_layout": {
+                "position": "sidebar"
+              }
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "vertical-stack",
+                  "title": "Settimanale",
+                  "cards": [
+                    {
+                      "chart_type": "bar",
+                      "period": "week",
+                      "type": "statistics-graph",
+                      "entities": [
+                        {
+                          "entity": "sensor.enel_energy",
+                          "name": "Buy"
+                        },
+                        {
+                          "entity": "sensor.enel_energy_returned",
+                          "name": "Sell"
+                        }
+                      ],
+                      "stat_types": [
+                        "change"
+                      ],
+                      "days_to_show": 180,
+                      "title": "Enel",
+                      "hide_legend": false
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "week",
+                      "type": "statistics-graph",
+                      "entities": [
+                        {
+                          "entity": "sensor.solar_energy",
+                          "name": "Solar"
+                        }
+                      ],
+                      "stat_types": [
+                        "change"
+                      ],
+                      "days_to_show": 180,
+                      "title": "Solar",
+                      "hide_legend": true
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "week",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.home_total_energy"
+                      ],
+                      "title": "Home Total",
+                      "hide_legend": true,
+                      "stat_types": [
+                        "change"
+                      ],
+                      "days_to_show": 180
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "vertical-stack",
+                  "title": "Mensile",
+                  "cards": [
+                    {
+                      "chart_type": "bar",
+                      "period": "month",
+                      "type": "statistics-graph",
+                      "entities": [
+                        {
+                          "entity": "sensor.enel_energy",
+                          "name": "Buy"
+                        },
+                        {
+                          "entity": "sensor.enel_energy_returned",
+                          "name": "Sell"
+                        }
+                      ],
+                      "stat_types": [
+                        "change"
+                      ],
+                      "days_to_show": 365,
+                      "title": "Enel",
+                      "hide_legend": false
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "month",
+                      "type": "statistics-graph",
+                      "entities": [
+                        {
+                          "entity": "sensor.solar_energy",
+                          "name": "Solar"
+                        }
+                      ],
+                      "stat_types": [
+                        "change"
+                      ],
+                      "days_to_show": 365,
+                      "title": "Solar",
+                      "hide_legend": true
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "month",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.home_total_energy"
+                      ],
+                      "title": "Home Total",
+                      "hide_legend": true,
+                      "stat_types": [
+                        "change"
+                      ],
+                      "days_to_show": 365
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
           "theme": "Backend-selected",
           "title": "Network",
           "path": "network",
@@ -3391,7 +3801,8 @@
                           "primary_info": "state",
                           "secondary_info": "name",
                           "name": "Download",
-                          "icon_color": "green"
+                          "icon_color": "green",
+                          "layout": "vertical"
                         },
                         {
                           "type": "custom:mushroom-entity-card",
@@ -3399,7 +3810,8 @@
                           "primary_info": "state",
                           "secondary_info": "name",
                           "name": "Upload",
-                          "icon_color": "blue"
+                          "icon_color": "blue",
+                          "layout": "vertical"
                         },
                         {
                           "type": "custom:mushroom-entity-card",
@@ -3407,7 +3819,8 @@
                           "primary_info": "state",
                           "secondary_info": "name",
                           "name": "Ping",
-                          "icon_color": "yellow"
+                          "icon_color": "yellow",
+                          "layout": "vertical"
                         }
                       ]
                     },
@@ -3481,10 +3894,11 @@
                         }
                       ],
                       "hours_to_show": 72,
-                      "points_per_hour": 2,
+                      "points_per_hour": 6,
                       "line_width": 3,
                       "font_size": 100,
                       "group_by": "hour",
+                      "height": 309,
                       "animate": true,
                       "show": {
                         "name": false,
@@ -4529,340 +4943,6 @@
                     }
                   ],
                   "columns": 2
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Energy",
-          "path": "energy",
-          "icon": "mdi:home-lightning-bolt-outline",
-          "type": "sidebar",
-          "badges": [],
-          "cards": [
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "energy-distribution",
-                  "link_dashboard": true
-                },
-                {
-                  "type": "energy-devices-graph"
-                },
-                {
-                  "square": true,
-                  "type": "grid",
-                  "cards": [
-                    {
-                      "type": "energy-grid-neutrality-gauge"
-                    },
-                    {
-                      "type": "energy-solar-consumed-gauge"
-                    },
-                    {
-                      "type": "energy-self-sufficiency-gauge"
-                    }
-                  ],
-                  "columns": 3
-                },
-                {
-                  "type": "energy-usage-graph"
-                }
-              ],
-              "view_layout": {
-                "position": "sidebar"
-              }
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "vertical-stack",
-                  "title": "Giornaliero",
-                  "cards": [
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        {
-                          "entity": "sensor.enel_energy",
-                          "name": "Buy"
-                        },
-                        {
-                          "entity": "sensor.enel_energy_returned",
-                          "name": "Sell"
-                        }
-                      ],
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 30,
-                      "title": "Enel",
-                      "hide_legend": false
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        {
-                          "entity": "sensor.solar_energy",
-                          "name": "Solar"
-                        }
-                      ],
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 30,
-                      "title": "Solar",
-                      "hide_legend": true
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.home_total_energy"
-                      ],
-                      "title": "Home Total",
-                      "hide_legend": true,
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 30
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.4kwsolar_on_duration",
-                        "sensor.combosecondstage_on_duration"
-                      ],
-                      "hide_legend": false,
-                      "days_to_show": 30,
-                      "stat_types": [
-                        "max"
-                      ],
-                      "title": "Stages duration"
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.1kwsolar_on_duration"
-                      ],
-                      "hide_legend": false,
-                      "days_to_show": 30,
-                      "stat_types": [
-                        "max"
-                      ],
-                      "title": "Duration 1kW"
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.boiler_resistance_duration",
-                        "sensor.boiler_heat_pump_duration",
-                        "sensor.boiler_pump_resistance_duration"
-                      ],
-                      "hide_legend": false,
-                      "days_to_show": 30,
-                      "stat_types": [
-                        "max"
-                      ],
-                      "title": "Duration Boiler"
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.boiler_energy"
-                      ],
-                      "hide_legend": true,
-                      "days_to_show": 30,
-                      "title": "BoilerEnergy",
-                      "stat_types": [
-                        "change"
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "vertical-stack",
-                  "title": "Today",
-                  "cards": [
-                    {
-                      "type": "energy-sources-table"
-                    },
-                    {
-                      "type": "entities",
-                      "entities": [
-                        {
-                          "entity": "sensor.consume_day",
-                          "name": "Day"
-                        },
-                        {
-                          "entity": "sensor.consume_week",
-                          "name": "Week"
-                        },
-                        {
-                          "entity": "sensor.consume_month",
-                          "name": "Month"
-                        },
-                        {
-                          "entity": "sensor.consume_quarter",
-                          "name": "Quarter"
-                        },
-                        {
-                          "entity": "sensor.consume_year",
-                          "name": "Year"
-                        }
-                      ],
-                      "title": "Enel consume"
-                    }
-                  ]
-                }
-              ],
-              "view_layout": {
-                "position": "sidebar"
-              }
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "vertical-stack",
-                  "title": "Settimanale",
-                  "cards": [
-                    {
-                      "chart_type": "bar",
-                      "period": "week",
-                      "type": "statistics-graph",
-                      "entities": [
-                        {
-                          "entity": "sensor.enel_energy",
-                          "name": "Buy"
-                        },
-                        {
-                          "entity": "sensor.enel_energy_returned",
-                          "name": "Sell"
-                        }
-                      ],
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 180,
-                      "title": "Enel",
-                      "hide_legend": false
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "week",
-                      "type": "statistics-graph",
-                      "entities": [
-                        {
-                          "entity": "sensor.solar_energy",
-                          "name": "Solar"
-                        }
-                      ],
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 180,
-                      "title": "Solar",
-                      "hide_legend": true
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "week",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.home_total_energy"
-                      ],
-                      "title": "Home Total",
-                      "hide_legend": true,
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 180
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "vertical-stack",
-                  "title": "Mensile",
-                  "cards": [
-                    {
-                      "chart_type": "bar",
-                      "period": "month",
-                      "type": "statistics-graph",
-                      "entities": [
-                        {
-                          "entity": "sensor.enel_energy",
-                          "name": "Buy"
-                        },
-                        {
-                          "entity": "sensor.enel_energy_returned",
-                          "name": "Sell"
-                        }
-                      ],
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 365,
-                      "title": "Enel",
-                      "hide_legend": false
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "month",
-                      "type": "statistics-graph",
-                      "entities": [
-                        {
-                          "entity": "sensor.solar_energy",
-                          "name": "Solar"
-                        }
-                      ],
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 365,
-                      "title": "Solar",
-                      "hide_legend": true
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "month",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.home_total_energy"
-                      ],
-                      "title": "Home Total",
-                      "hide_legend": true,
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 365
-                    }
-                  ]
                 }
               ]
             }
