@@ -1,5 +1,12 @@
 # changelogs.md
 
+## v2023.12.0.1
+### 2023/12/19
+
+- remove AC and prepare for new shelly and AC command
+- minor fix in dashboard
+- update
+
 ## v2023.11.0.2
 ### 2023/11/22
 

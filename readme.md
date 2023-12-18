@@ -1,8 +1,8 @@
 # homeAutomation project
     author: kito129
     date: 2023/03/01
-    last update: 2023/11/10
-    version: v2023.11.0.2
+    last update: 2023/12/19
+    version: v2023.12.0.1
 
 
 ## Change Log:
@@ -24,10 +24,10 @@ My current setup is:
 Versioning is based on the Home Assistant updates.
 
 ### Code Base
-    Core    2023.11.2
-    Supervisor  2023.10.1
-    Operating System    10.5
-    Frontend    20231030.1
+    Core    2023.12.3
+    Supervisor  2023.11.6
+    Operating System    11.2
+    Frontend    20231208.2
 
 ## Network
 
@@ -111,7 +111,7 @@ DHCP, Firewall, DNS, NTP, VPN, etc. are all managed by the Main Deco in WiFi Mod
 |---|---|---|---|
 | 1 | 5 |  TPLink |  Deco M5 | 
 | 2 | 2 |  TPlink |  LS105G  | 
-| 3 | 1 |  Shelly |  LS108G | 
+| 3 | 1 |  TPlink |  LS108G | 
 | 4 | 1 |  ZTE |  H3600 v9 | 
 | 5 | 1 |  OpenFiber |  FTTH-ETH | 
 
@@ -123,9 +123,9 @@ All wired via CAT7 cables
 |---|---|---|---|
 | 1 | 4 |  Shelly |  PM 1 | 
 | 2 | 2 |  Shelly |  EM | 
-| 3 | 2 |  Shelly |  PRO2 PM |
+| 3 | 3 |  Shelly |  PRO2 PM |
 | 4 | 2 |  Shelly |  PLUG S |
-| 5 | 6 |  Shelly |  PM 2 |
+| 5 | 6 |  Shelly |  PM2 |
 | 6 | 1 |  Shelly |  H&T v2 |
 
 
@@ -141,7 +141,8 @@ All wired via CAT7 cables
 | ID  | Name  | Type  | Device  |
 |---|---|---|---|
 | 1 | Alexa  |  Dot |  5gen |
-| 2 |  Alexa |  Pop  | 1gen  |
+| 2 | Alexa |  Pop  | 1gen  |
+| 3 | Alexa  |  Dot |  5gen |
 
 
 ### Appliances
@@ -151,7 +152,8 @@ All wired via CAT7 cables
 | 1 | Bosch  |  Dishwasher |  SMV4EVX14E |
 | 2 |  LG |  Washing Machine | F4WV510S0E  |
 | 3 | Hisense  | Tv  | 43" UHD 4K 2022 43A6FG  |
-| 4 |  Ariston Lydos  | HeatPump Boiler  |  Hybrid 80 litri -- TO INSTALL WIFI  |
+| 4 |  Ariston Lydos  | HeatPump Boiler  |  Hybrid 80L |
+| 5 |  Toshiba Seya | AC 16000 BTU  | RAS-B16E2KVG-E + RAS-16J2AVG-E |
 
 # Dashboard
 
@@ -160,7 +162,6 @@ Dashboard lovelace screenshots
 
 ### Home
 ![home](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-home-2023-11-16-14_15_50.png "Dashboard")
-
 
 ### Appliances
 ![Appliances](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-appliances-2023-11-16-14_15_59.png "Appliances")
@@ -179,7 +180,6 @@ Dashboard lovelace screenshots
 
 ### Weather
 ![Weather](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-weather-2023-11-16-14_16_21.png "Weather")
-
 
 ### Solar
 ![Charts](./doc/images/3/screencapture-192-168-0-14-8123-lovelace-solar-2023-11-16-14_17_42.png "Solar")

@@ -495,34 +495,6 @@
                     },
                     {
                       "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.acsala_power.state}} W",
-                      "secondary": "AC Sala: {{states.switch.acsala.state | upper}}",
-                      "icon": "mdi:air-conditioner",
-                      "icon_color": "{{ (states(\"sensor.acsala_power\")|float(0) > 0) | iif(\"orange\", \"\") }}\n",
-                      "entity": "switch.acsala",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": true
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.acscala_power.state}} W",
-                      "secondary": "AC Scala: {{states.switch.acscala.state | upper}}",
-                      "icon": "mdi:air-conditioner",
-                      "icon_color": "{{ (states(\"sensor.acscala_power\")|float(0) > 0) | iif(\"orange\", \"\") }}\n",
-                      "entity": "switch.acscala",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": true
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
                       "primary": "{{states.sensor.ininverter_power.state}} W",
                       "secondary": "Ingresso Inverter: {{states.switch.ininverter.state | upper}}",
                       "icon": "mdi:current-ac",
@@ -551,11 +523,25 @@
                     },
                     {
                       "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.switch_power.state}} W",
-                      "secondary": "Uscita Inverter: {{states.switch.switch.state | upper}}",
-                      "icon": "{{ (states(\"sensor.switch_power\")|float(0) > 0) | iif(\"mdi:electric-switch-closed\", \"mdi:electric-switch\") }}\n",
-                      "icon_color": "{{ (states(\"sensor.switch_power\")|float(0) > 0) | iif(\"green\", \"red\") }}\n",
-                      "entity": "switch.switch",
+                      "primary": "{{states.sensor.sw1_power.state}} W",
+                      "secondary": "SW 1: {{states.switch.sw1.state | upper}}",
+                      "icon": "{{ (states(\"sensor.sw1_power\")|float(0) > 0) | iif(\"mdi:electric-switch-closed\", \"mdi:electric-switch\") }}\n",
+                      "icon_color": "{{ (states(\"sensor.sw1_power\")|float(0) > 0) | iif(\"green\", \"red\") }}\n",
+                      "entity": "switch.sw1",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states.sensor.sw2_power.state}} W",
+                      "secondary": "SW 2: {{states.switch.sw2.state | upper}}",
+                      "icon": "{{ (states(\"sensor.sw2_power\")|float(0) > 0) | iif(\"mdi:electric-switch-closed\", \"mdi:electric-switch\") }}\n",
+                      "icon_color": "{{ (states(\"sensor.sw2_power\")|float(0) > 0) | iif(\"green\", \"red\") }}\n",
+                      "entity": "switch.sw2",
                       "multiline_secondary": true,
                       "tap_action": {
                         "action": "more-info"
@@ -579,6 +565,11 @@
                       "double_tap_action": {
                         "action": "toggle"
                       }
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "switch.generaleswitch",
+                      "name": "Generale Switch"
                     }
                   ],
                   "columns": 2
@@ -800,16 +791,11 @@
                           "icon": "mdi:stove"
                         },
                         {
-                          "entity": "sensor.acscala_power",
-                          "name": "Scala",
+                          "entity": "sensor.battery_net_power",
+                          "name": "Battery",
+                          "min": "-1500",
                           "max": "1500",
-                          "icon": "mdi:air-conditioner"
-                        },
-                        {
-                          "entity": "sensor.acsala_power",
-                          "name": "Sala",
-                          "max": "1500",
-                          "icon": "mdi:air-conditioner"
+                          "icon": "mdi:battery-60"
                         },
                         {
                           "entity": "sensor.lights_total_power",
@@ -836,11 +822,11 @@
                           "icon": "mdi:power-plug"
                         },
                         {
-                          "entity": "sensor.battery_net_power",
-                          "name": "Battery",
-                          "min": "-1500",
-                          "max": "1500",
-                          "icon": "mdi:battery-60"
+                          "entity": "sensor.rackpower_power",
+                          "name": "Rack",
+                          "min": "0",
+                          "max": "50",
+                          "icon": "mdi:server"
                         }
                       ]
                     },
@@ -848,11 +834,6 @@
                       "type": "custom:mini-graph-card",
                       "title": "Power",
                       "entities": [
-                        {
-                          "entity": "sensor.ac_total_power",
-                          "name": "AC",
-                          "color": "var(--red-color)"
-                        },
                         {
                           "entity": "sensor.kitchen_power",
                           "name": "Kitchen",
@@ -870,7 +851,7 @@
                         }
                       ],
                       "hours_to_show": 12,
-                      "points_per_hour": 6,
+                      "points_per_hour": 8,
                       "line_width": 4,
                       "font_size": 120,
                       "height": 200,
@@ -907,7 +888,7 @@
                         }
                       ],
                       "hours_to_show": 12,
-                      "points_per_hour": 6,
+                      "points_per_hour": 8,
                       "line_width": 4,
                       "font_size": 120,
                       "animate": true,
@@ -976,7 +957,29 @@
                     "sun",
                     "switch"
                   ],
-                  "exclude": []
+                  "exclude": [],
+                  "sort_by": [
+                    "state",
+                    "relative-time"
+                  ],
+                  "display_options": {
+                    "primary_info": "default",
+                    "secondary_info": [
+                      "relative-time",
+                      "time",
+                      "additional-tasks"
+                    ],
+                    "icon": "action"
+                  },
+                  "title": "Scheduler"
+                },
+                {
+                  "type": "custom:mushroom-number-card",
+                  "entity": "input_number.solar_b_daily_production",
+                  "display_mode": "buttons",
+                  "icon_color": "yellow",
+                  "layout": "vertical",
+                  "secondary_info": "last-updated"
                 }
               ]
             }
@@ -1530,6 +1533,15 @@
                       "secondary_info": "name",
                       "name": "Lavastoviglie Fine",
                       "icon_color": "blue"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.forno_on_duration",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Forrno Duration",
+                      "icon": "mdi:timelapse",
+                      "icon_color": "yellow"
                     }
                   ]
                 },
@@ -1654,245 +1666,6 @@
             },
             {
               "type": "vertical-stack",
-              "title": "Riscaldamento",
-              "cards": [
-                {
-                  "type": "grid",
-                  "square": false,
-                  "columns": 2,
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "switch.acsala",
-                      "primary_info": "name",
-                      "secondary_info": "state",
-                      "name": "Sala",
-                      "icon": "mdi:air-conditioner",
-                      "icon_color": "primary"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "switch.acscala",
-                      "icon": "mdi:air-conditioner",
-                      "primary_info": "name",
-                      "secondary_info": "state",
-                      "name": "Scala",
-                      "icon_color": "blue"
-                    }
-                  ]
-                },
-                {
-                  "type": "custom:bar-card",
-                  "entities": [
-                    {
-                      "entity": "sensor.acsala_power",
-                      "name": "Sala",
-                      "icon": "mdi:air-conditioner",
-                      "max": "1800"
-                    },
-                    {
-                      "entity": "sensor.acscala_power",
-                      "icon": "mdi:air-conditioner",
-                      "name": "Scala",
-                      "max": "1800"
-                    }
-                  ]
-                },
-                {
-                  "type": "custom:apexcharts-card",
-                  "header": {
-                    "show": true,
-                    "title": "Riscaldamento power",
-                    "show_states": false,
-                    "colorize_states": true
-                  },
-                  "graph_span": "12h",
-                  "stacked": false,
-                  "apex_config": {
-                    "legend": {
-                      "show": false
-                    }
-                  },
-                  "series": [
-                    {
-                      "entity": "sensor.acsala_power",
-                      "show": {
-                        "extremas": true
-                      },
-                      "name": "Sala",
-                      "type": "line",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "10min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.acscala_power",
-                      "name": "Scala",
-                      "type": "line",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "10min"
-                      },
-                      "show": {
-                        "extremas": true
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "binary_sensor.ac_sala_function",
-                      "name": "Sala"
-                    },
-                    {
-                      "entity": "binary_sensor.ac_scala_function",
-                      "name": "Scala"
-                    }
-                  ],
-                  "hours_to_show": 12
-                },
-                {
-                  "type": "custom:vertical-stack-in-card",
-                  "cards": [
-                    {
-                      "type": "custom:mini-graph-card",
-                      "entities": [
-                        {
-                          "entity": "sensor.acsala_energy",
-                          "aggregate_func": "delta",
-                          "name": "Sala",
-                          "color": "#e74c3c"
-                        },
-                        {
-                          "entity": "sensor.acscala_energy",
-                          "aggregate_func": "delta",
-                          "name": "Scala",
-                          "color": "#39c3e6"
-                        }
-                      ],
-                      "hours_to_show": 12,
-                      "points_per_hour": 1,
-                      "font_size": 100,
-                      "animate": true,
-                      "show": {
-                        "graph": "bar",
-                        "name": true,
-                        "icon": false,
-                        "state": false,
-                        "legend": true,
-                        "fill": "fade",
-                        "extrema": false
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "horizontal-stack",
-                  "title": "Today Energy",
-                  "cards": [
-                    {
-                      "type": "statistic",
-                      "entity": "sensor.acsala_energy",
-                      "period": {
-                        "calendar": {
-                          "period": "day"
-                        }
-                      },
-                      "stat_type": "change",
-                      "icon": "mdi:air-conditioner",
-                      "name": "Sala"
-                    },
-                    {
-                      "type": "statistic",
-                      "entity": "sensor.acscala_energy",
-                      "icon": "mdi:air-conditioner",
-                      "period": {
-                        "calendar": {
-                          "period": "day"
-                        }
-                      },
-                      "stat_type": "change",
-                      "name": "Scala"
-                    }
-                  ]
-                },
-                {
-                  "type": "grid",
-                  "title": "Status",
-                  "square": false,
-                  "columns": 2,
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "switch.switch",
-                      "primary_info": "name",
-                      "secondary_info": "state",
-                      "name": "Switch",
-                      "icon": "mdi:electric-switch",
-                      "icon_color": "green"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.battery_out_power",
-                      "icon": "mdi:power-plug",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "name": "Total Power",
-                      "icon_color": "blue"
-                    }
-                  ]
-                },
-                {
-                  "type": "grid",
-                  "square": false,
-                  "title": "Duration",
-                  "columns": 2,
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.ac_sala_on_duration",
-                      "primary_info": "name",
-                      "secondary_info": "state",
-                      "name": "Duration Sala",
-                      "icon": "mdi:timer",
-                      "icon_color": "primary"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.ac_scala_on_duration",
-                      "icon": "mdi:timer",
-                      "primary_info": "name",
-                      "secondary_info": "state",
-                      "name": "Duration Scala",
-                      "icon_color": "blue"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "binary_sensor.ac_sala_function",
-                      "primary_info": "name",
-                      "secondary_info": "state",
-                      "name": "Sala State",
-                      "icon": "mdi:power",
-                      "icon_color": "primary"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "binary_sensor.ac_scala_function",
-                      "icon": "mdi:power",
-                      "primary_info": "name",
-                      "secondary_info": "state",
-                      "name": "Scala State",
-                      "icon_color": "blue"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
               "title": "Battery",
               "cards": [
                 {
@@ -1911,12 +1684,21 @@
                     },
                     {
                       "type": "custom:mushroom-entity-card",
-                      "entity": "switch.switch",
+                      "entity": "switch.sw1",
                       "icon": "mdi:dip-switch",
                       "primary_info": "name",
                       "secondary_info": "state",
-                      "name": "Switch AC",
+                      "name": "Sw 1",
                       "icon_color": "deep-orange"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "switch.sw2",
+                      "icon": "mdi:dip-switch",
+                      "primary_info": "name",
+                      "secondary_info": "state",
+                      "name": "Sw 2",
+                      "icon_color": "grey"
                     }
                   ]
                 },
@@ -2141,7 +1923,7 @@
                       "cards": [
                         {
                           "type": "custom:mushroom-entity-card",
-                          "entity": "sensor.shellyplusht_80646fcbd5dc_temperature_2",
+                          "entity": "sensor.shelly_h_t_floor01_temperature_2",
                           "primary_info": "state",
                           "secondary_info": "name",
                           "name": "Home",
@@ -2153,14 +1935,14 @@
                           "primary_info": "state",
                           "secondary_info": "name",
                           "icon_color": "yellow",
-                          "icon": "mdi:temperature-celsius",
+                          "icon": "mdi:thermometer-lines",
                           "layout": "vertical",
                           "name": "Out2",
                           "entity": "input_number.temp2previuous"
                         },
                         {
                           "type": "custom:mushroom-entity-card",
-                          "entity": "sensor.shellyplusht_80646fcbd5dc_humidity_2",
+                          "entity": "sensor.shelly_h_t_floor01_humidity_2",
                           "primary_info": "state",
                           "secondary_info": "name",
                           "name": "Humidity",
@@ -2173,17 +1955,26 @@
                           "secondary_info": "name",
                           "icon_color": "light-green",
                           "entity": "sensor.hometempderivate",
-                          "name": "Derivata",
+                          "name": "Home Der",
                           "icon": "mdi:math-integral-box"
                         },
                         {
                           "type": "custom:mushroom-entity-card",
                           "primary_info": "state",
                           "secondary_info": "name",
-                          "icon_color": "yellow",
+                          "icon_color": "cyan",
                           "entity": "input_number.temp1previous",
-                          "icon": "mdi:thermometer",
-                          "name": "Out1"
+                          "icon": "mdi:fan-chevron-down",
+                          "name": "AC"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "primary_info": "state",
+                          "secondary_info": "name",
+                          "icon_color": "deep-orange",
+                          "icon": "mdi:delta",
+                          "entity": "sensor.delta_temp",
+                          "name": "Delta"
                         }
                       ],
                       "columns": 3
@@ -2192,7 +1983,7 @@
                       "type": "custom:mini-graph-card",
                       "entities": [
                         {
-                          "entity": "sensor.shellyplusht_80646fcbd5dc_temperature_2",
+                          "entity": "sensor.shelly_h_t_floor01_temperature_2",
                           "name": "Home"
                         }
                       ],
@@ -2200,7 +1991,6 @@
                       "points_per_hour": 2,
                       "line_width": 3,
                       "font_size": 100,
-                      "group_by": "hour",
                       "animate": true,
                       "cache": true,
                       "color_thresholds": [
@@ -2230,15 +2020,53 @@
                       "entities": [
                         {
                           "entity": "input_number.temp2previuous",
-                          "name": "Extern",
-                          "color": "yellow"
+                          "name": "Extern"
+                        }
+                      ],
+                      "hours_to_show": 24,
+                      "points_per_hour": 8,
+                      "line_width": 3,
+                      "font_size": 100,
+                      "animate": true,
+                      "color_thresholds": [
+                        {
+                          "value": 0,
+                          "color": "#395ce6"
+                        },
+                        {
+                          "color": "#39e692"
+                        },
+                        {
+                          "color": "#cce639"
+                        },
+                        {
+                          "value": 25,
+                          "color": "#ff0000"
+                        }
+                      ],
+                      "cache": true,
+                      "show": {
+                        "name": true,
+                        "icon": false,
+                        "state": false,
+                        "legend": false,
+                        "fill": "fade",
+                        "extrema": true
+                      }
+                    },
+                    {
+                      "type": "custom:mini-graph-card",
+                      "entities": [
+                        {
+                          "entity": "sensor.shelly_h_t_floor01_humidity_2",
+                          "name": "Humidity",
+                          "color": "teal"
                         }
                       ],
                       "hours_to_show": 24,
                       "points_per_hour": 2,
                       "line_width": 3,
                       "font_size": 100,
-                      "group_by": "hour",
                       "animate": true,
                       "cache": true,
                       "show": {
@@ -2254,16 +2082,30 @@
                       "type": "custom:mini-graph-card",
                       "entities": [
                         {
-                          "entity": "sensor.shellyplusht_80646fcbd5dc_humidity_2",
-                          "name": "Humidity",
-                          "color": "teal"
+                          "entity": "sensor.delta_temp",
+                          "name": "Delta AC"
                         }
                       ],
                       "hours_to_show": 24,
-                      "points_per_hour": 2,
+                      "points_per_hour": 12,
+                      "color_thresholds": [
+                        {
+                          "value": -2,
+                          "color": "#395ce6"
+                        },
+                        {
+                          "color": "#39e692"
+                        },
+                        {
+                          "color": "#cce639"
+                        },
+                        {
+                          "value": 4,
+                          "color": "#ff0000"
+                        }
+                      ],
                       "line_width": 3,
                       "font_size": 100,
-                      "group_by": "hour",
                       "animate": true,
                       "cache": true,
                       "show": {
@@ -2290,14 +2132,13 @@
                       "type": "custom:mini-graph-card",
                       "entities": [
                         {
-                          "entity": "sensor.shellyplusht_80646fcbd5dc_temperature_2",
+                          "entity": "sensor.shelly_h_t_floor01_temperature_2",
                           "name": "Home"
                         }
                       ],
                       "hours_to_show": 168,
                       "line_width": 3,
                       "font_size": 100,
-                      "group_by": "hour",
                       "animate": true,
                       "cache": true,
                       "color_thresholds": [
@@ -2368,7 +2209,7 @@
                       "type": "custom:mini-graph-card",
                       "entities": [
                         {
-                          "entity": "sensor.shellyplusht_80646fcbd5dc_humidity_2",
+                          "entity": "sensor.shelly_h_t_floor01_humidity_2",
                           "name": "Humidity"
                         }
                       ],
@@ -2427,19 +2268,19 @@
                   },
                   "series": [
                     {
-                      "entity": "sensor.shellyplusht_80646fcbd5dc_temperature_2",
+                      "entity": "sensor.shelly_h_t_floor01_temperature_2",
                       "name": "Today",
                       "show": {
                         "extremas": true
                       }
                     },
                     {
-                      "entity": "sensor.shellyplusht_80646fcbd5dc_temperature_2",
+                      "entity": "sensor.shelly_h_t_floor01_temperature_2",
                       "offset": "-1d",
                       "name": "Yesterday"
                     },
                     {
-                      "entity": "sensor.shellyplusht_80646fcbd5dc_temperature_2",
+                      "entity": "sensor.shelly_h_t_floor01_temperature_2",
                       "offset": "-2d",
                       "name": "2 Days ago",
                       "color": "yellow"
@@ -2500,44 +2341,131 @@
                   ]
                 },
                 {
-                  "type": "custom:mini-graph-card",
-                  "entities": [
+                  "type": "vertical-stack",
+                  "title": "History",
+                  "cards": [
                     {
-                      "entity": "sensor.shellyplusht_80646fcbd5dc_temperature_2",
-                      "name": "Home History"
+                      "type": "custom:mini-graph-card",
+                      "entities": [
+                        {
+                          "entity": "sensor.shelly_h_t_floor01_temperature_2",
+                          "name": "Home History"
+                        }
+                      ],
+                      "hours_to_show": 600,
+                      "line_width": 3,
+                      "font_size": 100,
+                      "group_by": "hour",
+                      "height": 200,
+                      "animate": true,
+                      "cache": true,
+                      "color_thresholds": [
+                        {
+                          "value": 18,
+                          "color": "#395ce6"
+                        },
+                        {
+                          "color": "#39e692"
+                        },
+                        {
+                          "color": "#cce639"
+                        },
+                        {
+                          "value": 22,
+                          "color": "#ff0000"
+                        }
+                      ],
+                      "show": {
+                        "name": true,
+                        "icon": false,
+                        "state": false,
+                        "legend": false,
+                        "fill": "fade",
+                        "extrema": true
+                      }
+                    },
+                    {
+                      "type": "custom:mini-graph-card",
+                      "entities": [
+                        {
+                          "entity": "input_number.temp2previuous",
+                          "name": "Out History"
+                        }
+                      ],
+                      "hours_to_show": 600,
+                      "line_width": 3,
+                      "font_size": 100,
+                      "group_by": "hour",
+                      "height": 200,
+                      "animate": true,
+                      "cache": true,
+                      "color_thresholds": [
+                        {
+                          "value": 0,
+                          "color": "#395ce6"
+                        },
+                        {
+                          "color": "#39e692"
+                        },
+                        {
+                          "color": "#cce639"
+                        },
+                        {
+                          "value": 25,
+                          "color": "#ff0000"
+                        }
+                      ],
+                      "show": {
+                        "name": true,
+                        "icon": false,
+                        "state": false,
+                        "legend": false,
+                        "fill": "fade",
+                        "extrema": true
+                      }
+                    },
+                    {
+                      "type": "custom:mini-graph-card",
+                      "entities": [
+                        {
+                          "entity": "sensor.delta_temp",
+                          "name": "Delta AC History"
+                        }
+                      ],
+                      "hours_to_show": 168,
+                      "points_per_hour": 2,
+                      "group_by": "hour",
+                      "color_thresholds": [
+                        {
+                          "value": -2,
+                          "color": "#395ce6"
+                        },
+                        {
+                          "color": "#39e692"
+                        },
+                        {
+                          "color": "#cce639"
+                        },
+                        {
+                          "value": 4,
+                          "color": "#ff0000"
+                        }
+                      ],
+                      "line_width": 3,
+                      "font_size": 100,
+                      "height": 200,
+                      "animate": true,
+                      "cache": true,
+                      "show": {
+                        "name": true,
+                        "icon": false,
+                        "state": false,
+                        "legend": false,
+                        "fill": "fade",
+                        "extrema": true
+                      }
                     }
-                  ],
-                  "hours_to_show": 600,
-                  "line_width": 3,
-                  "font_size": 100,
-                  "group_by": "hour",
-                  "heught": 300,
-                  "animate": true,
-                  "cache": true,
-                  "color_thresholds": [
-                    {
-                      "value": 18,
-                      "color": "#395ce6"
-                    },
-                    {
-                      "color": "#39e692"
-                    },
-                    {
-                      "color": "#cce639"
-                    },
-                    {
-                      "value": 22,
-                      "color": "#ff0000"
-                    }
-                  ],
-                  "show": {
-                    "name": true,
-                    "icon": false,
-                    "state": false,
-                    "legend": false,
-                    "fill": "fade",
-                    "extrema": true
-                  }
+                  ]
                 }
               ]
             }
@@ -3361,6 +3289,20 @@
                         "max"
                       ],
                       "title": "Duration 1kW"
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.solar_b_energy_daily"
+                      ],
+                      "hide_legend": false,
+                      "days_to_show": 30,
+                      "stat_types": [
+                        "max"
+                      ],
+                      "title": "Solar B"
                     }
                   ]
                 }
@@ -3673,7 +3615,7 @@
                         }
                       ],
                       "hours_to_show": 72,
-                      "points_per_hour": 2,
+                      "points_per_hour": 6,
                       "line_width": 3,
                       "font_size": 100,
                       "group_by": "hour",
@@ -3704,7 +3646,7 @@
                         }
                       ],
                       "hours_to_show": 72,
-                      "points_per_hour": 2,
+                      "points_per_hour": 6,
                       "line_width": 3,
                       "font_size": 100,
                       "group_by": "hour",
@@ -3769,7 +3711,7 @@
                         }
                       ],
                       "hours_to_show": 72,
-                      "points_per_hour": 2,
+                      "points_per_hour": 6,
                       "line_width": 3,
                       "font_size": 100,
                       "group_by": "hour",
@@ -3845,7 +3787,7 @@
                         }
                       ],
                       "hours_to_show": 72,
-                      "points_per_hour": 2,
+                      "points_per_hour": 6,
                       "line_width": 3,
                       "font_size": 100,
                       "animate": true,
@@ -5019,7 +4961,7 @@
                 "show_states": false,
                 "colorize_states": true
               },
-              "graph_span": "36h",
+              "graph_span": "12h",
               "stacked": false,
               "apex_config": {
                 "legend": {

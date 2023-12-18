@@ -324,12 +324,11 @@
 - platform: history_stats
   name: forno_on_duration
   unique_id: "0a7476cc-d6c1-40ba-8ae1-174741"
-  entity_id: binary_sensor.forno_state
+  entity_id: binary_sensor.fornostate
   state: "on"
   type: time
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"
   end: "{{ now() }}"
-
 
 ### AC
 
@@ -348,6 +347,27 @@
   name: ac_scala_on_duration
   unique_id: "0a7476cc-d6c1-40ba-8ae1-7521752"
   entity_id: binary_sensor.ac_scala_function
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+
+# ac_sala_nominal_duration
+- platform: history_stats
+  name: ac_sala_nominal_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-7857857"
+  entity_id: binary_sensor.acsala_nominal
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# ac_scala_nominal_duration
+- platform: history_stats
+  name: ac_scala_nominal_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-72782"
+  entity_id: binary_sensor.acscala_nominal
   state: "on"
   type: time
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"

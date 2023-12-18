@@ -22,7 +22,7 @@
       unit_of_measurement: "kWh"
       icon: mdi:home-lightning-bolt-outline
       state: >-
-        {{ ( float(states('sensor.enel_energy')) + float(states('sensor.solar_energy')) - float(states('sensor.enel_energy_returned'))) | round(2) }}
+        {{ ( float(states('sens in or.enel_energy')) + float(states('sensor.solar_energy')) - float(states('sensor.enel_energy_returned'))) | round(2) }}
 
     # homeOtherLoads
     - name: "home_other_loads_power"
@@ -32,10 +32,10 @@
       unit_of_measurement: "W"
       icon: mdi:meter-electric
       state: >-
-        {% if is_state('switch.switch', "on") -%}
-          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.ininverter_power')) - float(states('sensor.dcpower_energy'))  - float(states('sensor.fan_energy')) - float(states('sensor.monitor_power')) ) | round(2) }}
+        {% if is_state('switch.sw2', "on") -%}
+          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_energy'))  - float(states('sensor.fan_energy')) - float(states('sensor.monitor_power')) ) | round(2) }}
         {%- else -%}
-          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.ininverter_power')) - float(states('sensor.dcpower_energy'))  - float(states('sensor.fan_energy')) - float(states('sensor.monitor_power')) - float(states('sensor.acsala_power')) - float(states('sensor.acscala_power')) ) | round(2) }}
+          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_energy'))  - float(states('sensor.fan_energy')) - float(states('sensor.monitor_power'))  ) | round(2) }}
         {%- endif %}
 
     ## ENEL
@@ -85,7 +85,7 @@
       unit_of_measurement: "W"
       icon: mdi:battery-arrow-down
       state: >-
-        {% if is_state('switch.switch', "on") -%}
+        {% if is_state('switch.sw2', "on") -%}
           {{ ( float(states('sensor.acsala_power')) + float(states('sensor.acscala_power')) ) | round(2) }}
         {%- else -%}
           {{ ( float(0) | round(2)) }}
@@ -208,6 +208,20 @@
         {{ ( float(states('sensor.backled_power')) + float(states('sensor.ledentrata_power')) + float(states('sensor.ledswitchnorth_power')) 
         + float(states('sensor.lampadeout_power')) + float(states('sensor.salafloor00_power'))  ) | round(2) }}
 
+
+    # SOLAR B
+
+    # solarb_energy
+       # boilerRoom Power
+    - name: "solar_b_energy_daily"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-7587585"
+      device_class: energy
+      state_class: measurement
+      unit_of_measurement: "kWh"
+      icon: mdi:solar
+      state: >-
+        {{ ( float(states('input_number.solar_b_daily_production')) ) | round(2) }}
+
     # INTERNET
 
     # TIME AND DURATION
@@ -303,4 +317,3 @@
         {%- else -%}
           {{ "off" }}
         {%- endif -%}
-
