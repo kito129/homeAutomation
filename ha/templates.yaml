@@ -22,7 +22,7 @@
       unit_of_measurement: "kWh"
       icon: mdi:home-lightning-bolt-outline
       state: >-
-        {{ ( float(states('sens in or.enel_energy')) + float(states('sensor.solar_energy')) - float(states('sensor.enel_energy_returned'))) | round(2) }}
+        {{ ( float(states('sensor.enel_energy')) + float(states('sensor.solar_energy')) - float(states('sensor.enel_energy_returned'))) | round(2) }}
 
     # homeOtherLoads
     - name: "home_other_loads_power"
@@ -33,9 +33,9 @@
       icon: mdi:meter-electric
       state: >-
         {% if is_state('switch.sw2', "on") -%}
-          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_energy'))  - float(states('sensor.fan_energy')) - float(states('sensor.monitor_power')) ) | round(2) }}
+          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_energy'))  - float(states('sensor.fan_energy')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power'))  ) | round(2) }}
         {%- else -%}
-          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_energy'))  - float(states('sensor.fan_energy')) - float(states('sensor.monitor_power'))  ) | round(2) }}
+          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_energy'))  - float(states('sensor.fan_energy')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power')) - float(states('sensor.acsala_power')) - float(states('sensor.acscala_power'))   ) | round(2) }}
         {%- endif %}
 
     ## ENEL
@@ -85,10 +85,18 @@
       unit_of_measurement: "W"
       icon: mdi:battery-arrow-down
       state: >-
-        {% if is_state('switch.sw2', "on") -%}
-          {{ ( float(states('sensor.acsala_power')) + float(states('sensor.acscala_power')) ) | round(2) }}
+        {% if is_state('switch.sw2', "on") and is_state('switch.sw1', "off") -%}
+          {{ ( float(states('sensor.acsala_power')) ) | round(2) }}
         {%- else -%}
-          {{ ( float(0) | round(2)) }}
+          {% if is_state('switch.sw1', "on") and is_state('switch.sw2', "off") -%}
+            {{ ( float(states('sensor.acscala_power')) ) | round(2) }}
+          {%- else -%}
+            {% if is_state('switch.sw1', "on") and is_state('switch.sw2', "on") -%}
+              {{ ( float(states('sensor.acsala_power')) + float(states('sensor.acscala_power')) ) | round(2) }}
+            {%- else -%}
+              {{ ( float(0) | round(2)) }}
+            {%- endif %}
+          {%- endif %}
         {%- endif %}
 
     # battery_net_power
@@ -145,7 +153,7 @@
 
     ## KITCHEN POWER
 
-    #washdisher_power
+    # washdisher_power
     - name: "washdisher_power"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-6045582828"
       device_class: power
@@ -159,7 +167,7 @@
           {{ ( float(0) | round(2)) }}
         {%- endif %}
 
-    # oven Power
+    # oven_power
     - name: "oven_power"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-456574c5858"
       device_class: power
@@ -169,7 +177,7 @@
       state: >-
         {{ ( float(states('sensor.kitchen_power')) - float(states('sensor.washdisher_power')) ) | round(2) }}
 
-    # oven Power
+    # frigo_power
     - name: "frigo_power"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-28258"
       device_class: power
@@ -183,7 +191,7 @@
           {{ ( float(0) | round(2)) }}
         {%- endif %}
 
-    # oven Power
+    # forno_power
     - name: "forno_power"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-2825"
       device_class: power
@@ -197,7 +205,7 @@
           {{ ( float(0) | round(2)) }}
         {%- endif %}
 
-    # boilerRoom Power
+    # lights_total_power
     - name: "lights_total_power"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-8295"
       device_class: power
@@ -211,9 +219,8 @@
 
     # SOLAR B
 
-    # solarb_energy
-       # boilerRoom Power
-    - name: "solar_b_energy_daily"
+    # lights_total_power
+    - name: "lights_total_power"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-7587585"
       device_class: energy
       state_class: measurement
@@ -222,7 +229,6 @@
       state: >-
         {{ ( float(states('input_number.solar_b_daily_production')) ) | round(2) }}
 
-    # INTERNET
 
     # TIME AND DURATION
 
@@ -271,6 +277,8 @@
           {{ "Off" }}
         {%- endif -%}
 
+
+
 #BINARY SENSORS
 - binary_sensor:
     # combo_first_stage - BOILER
@@ -279,7 +287,7 @@
       icon: mdi:sun-compass
       state: >-
         {% if is_state('binary_sensor.minus_00_05_kw_enel', "on") -%}
-          {% if is_state('binary_sensor.plus_05_kw_solar', "on") -%}
+          {% if is_state('binary_sensor.plus_1_kw_solar', "on") -%}
             {{ "on" }}
           {%- else -%}
             {{ "off" }}
@@ -293,7 +301,7 @@
       unique_id: "0a7476cc-d6c1-40ba-8ae1-828945"
       icon: mdi:sun-compass
       state: >-
-        {% if is_state('binary_sensor.minus_05_kw_enel', "on") -%}
+        {% if is_state('binary_sensor.minus_1_kw_enel', "on") -%}
           {% if is_state('binary_sensor.plus_1_kw_solar', "on") -%}
             {{ "on" }}
           {%- else -%}
@@ -309,7 +317,7 @@
       icon: mdi:sun-compass
       state: >-
         {% if is_state('binary_sensor.minus_1_kw_enel', "on") -%}
-          {% if is_state('binary_sensor.plus_3_kw_solar', "on") -%}
+          {% if is_state('binary_sensor.plus_2_kw_solar', "on") -%}
             {{ "on" }}
           {%- else -%}
             {{ "off" }}
@@ -317,3 +325,8 @@
         {%- else -%}
           {{ "off" }}
         {%- endif -%}
+
+
+
+
+

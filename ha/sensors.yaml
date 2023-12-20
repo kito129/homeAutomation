@@ -51,7 +51,7 @@
 
 # **** INTEGRATION ****
 
-## CUCINA ENERGY SENSORS
+## INTEGRATION ENERGY SENSORS
 
 # frigo_forno_energy
 - platform: integration
@@ -93,8 +93,6 @@
   unit_time: h
   round: 2
 
-## HOME ENERGY SENSORS
-
 # home_loads_energy
 - platform: integration
   unique_id: "0a7476cc-d6c1-40ba-8ae1-606518c3497c"
@@ -104,8 +102,6 @@
   unit_prefix: k
   unit_time: h
   round: 2
-
-## BOILER ENERGY SENSORS
 
 # boiler_room_energy
 - platform: integration
@@ -157,9 +153,8 @@
   unit_time: h
   round: 2
 
-## INTERNET
-
 ##  BATTERY
+
 # battery_in_energy_integral
 - platform: integration
   unique_id: "0a7476cc-245654-2456-8ae1-28748565"
@@ -172,7 +167,6 @@
 
 # battery_out_energy_integral
 - platform: integration
-
   unique_id: "0a7476cc-245654-2456-8ae1-281983"
   method: "left"
   source: sensor.battery_out_power
@@ -222,7 +216,25 @@
     minutes: 20
   entity_id: sensor.home_power
 
-# POWER DERIVATE
+# acSalaPowerAvg
+- platform: statistics
+  state_characteristic: mean
+  name: "acSalaPowerAvg"
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-7636873653"
+  max_age:
+    minutes: 20
+  entity_id: sensor.acsala_power
+
+  # acScalaPowerAvg
+- platform: statistics
+  state_characteristic: mean
+  name: "acScalaPowerAvg"
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-7683683"
+  max_age:
+    minutes: 20
+  entity_id: sensor.acscala_power
+
+#  DERIVATE
 
 # enel_derivate_average
 - platform: statistics
@@ -256,26 +268,27 @@
 # temp1
 - platform: statistics
   state_characteristic: mean
-  name: "outTempAverage"
+  name: "temp1average"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-8882824565"
   max_age:
     minutes: 20
-  entity_id: sensor.temperature1
+  entity_id: input_number.temp1previous
 
 # temp2
 - platform: statistics
   state_characteristic: mean
-  name: "ACTempAverage"
+  name: "temp2average"
   unique_id: "0a7476cc-d6c1-40ba-8ae1-17871874"
   max_age:
     minutes: 20
-  entity_id: sensor.temperature2
+  entity_id: input_number.temp2previuous
+
+
+
 
 ## *** HISTORY_STATS ***
 
 ### BOILER ROOM
-
-# BOILER
 
 # boiler_heat_pump_duration
 - platform: history_stats
@@ -355,23 +368,63 @@
 
 # ac_sala_nominal_duration
 - platform: history_stats
-  name: ac_sala_nominal_duration
-  unique_id: "0a7476cc-d6c1-40ba-8ae1-7857857"
-  entity_id: binary_sensor.acsala_nominal
+  name: acsala_low_power_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-752572752572"
+  entity_id: binary_sensor.acsala_low_power
   state: "on"
   type: time
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"
   end: "{{ now() }}"
 
-# ac_scala_nominal_duration
 - platform: history_stats
-  name: ac_scala_nominal_duration
-  unique_id: "0a7476cc-d6c1-40ba-8ae1-72782"
-  entity_id: binary_sensor.acscala_nominal
+  name: acsala_med_power_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-7863683"
+  entity_id: binary_sensor.acsala_med_power
   state: "on"
   type: time
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"
   end: "{{ now() }}"
+
+
+- platform: history_stats
+  name: acsala_high_power_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-786368378"
+  entity_id: binary_sensor.acsala_high_power
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+
+# ac_scala_nominal_duration
+- platform: history_stats
+  name: acscala_low_power_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-52572852"
+  entity_id: binary_sensor.acscala_low_power
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: acscala_med_power_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-78637863"
+  entity_id: binary_sensor.acscala_med_power
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: acscala_high_power_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-76836378"
+  entity_id: binary_sensor.acscala_high_power
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+
 
 ## SOLAR
 

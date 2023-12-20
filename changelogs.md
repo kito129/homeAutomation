@@ -1,6 +1,29 @@
 # changelogs.md
 
 ## v2023.12.0.1
+### 2023/12/20
+
+- update core and supervisor and all addons
+- removed unused automation, the ones with time trigger
+- fixed configuration file
+- lovelace dashboard 
+    - update for AC and new shelly
+    - fixed shelly tables
+    - home improve
+    - minor fix
+- sensor.yaml
+    - fixed statistics for average
+    - fixed history_stats for duration
+- template.yaml
+    - new ac sensors
+    - fixed template for average
+    - minor fix and improve
+    - remove unused template
+- remove unused helpers and removed entities
+- restart addsOns integration
+
+
+## v2023.12.0.1
 ### 2023/12/19
 
 - remove AC and prepare for new shelly and AC command

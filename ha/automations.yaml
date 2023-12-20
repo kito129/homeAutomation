@@ -1,57 +1,3 @@
-- id: '1684422694124'
-  alias: sunSetLedEntrataON
-  description: ''
-  trigger:
-  - platform: sun
-    event: sunset
-    offset: 0
-  condition: []
-  action:
-  - type: turn_on
-    device_id: 0fd83799c9d1f093e3684d436c4614cb
-    entity_id: switch.ledout
-    domain: switch
-  mode: single
-- id: '1684508590238'
-  alias: sunSetLedEntrataOFF
-  description: ''
-  trigger:
-  - platform: sun
-    event: sunset
-    offset: '2:20'
-  condition: []
-  action:
-  - type: turn_off
-    device_id: 0fd83799c9d1f093e3684d436c4614cb
-    entity_id: switch.ledout
-    domain: switch
-  mode: single
-- id: '1688424518679'
-  alias: timerBoilerStart
-  description: ''
-  trigger:
-  - platform: time
-    at: input_datetime.boiler_start
-  condition: []
-  action:
-  - type: turn_on
-    device_id: 3ad97e1daf95913698b7b1acb69a32d8
-    entity_id: switch.boiler
-    domain: switch
-  mode: single
-- id: '1688424544929'
-  alias: timerBoilerStop
-  description: ''
-  trigger:
-  - platform: time
-    at: input_datetime.boiler_stop
-  condition: []
-  action:
-  - type: turn_off
-    device_id: 3ad97e1daf95913698b7b1acb69a32d8
-    entity_id: switch.boiler
-    domain: switch
-  mode: single
 - id: '1689597287797'
   alias: boilerFirstStageON
   description: ''
@@ -257,10 +203,8 @@
       - '16'
       - '17'
       - '18'
-      - '19'
-      - '20'
 - id: '1694008677172'
-  alias: FrigateEntranceDad
+  alias: frigateEntranceDad
   description: ''
   use_blueprint:
     path: SgtBatten/Stable.yaml
@@ -290,7 +234,7 @@
       - '19'
       - '20'
 - id: '1694041188700'
-  alias: EntrancePersonInNightLed
+  alias: entrancePersonInNightLed
   description: 'when entrance camera detect person turn on for 3.14 minutes entrance
     led and lampade out
 
@@ -314,13 +258,14 @@
   - condition: sun
     before: sunrise
     after: sunset
-    after_offset: 0:20
-    before_offset: 0:30
+    after_offset: 0:30
+    before_offset: 0:40
   action:
   - type: turn_on
     device_id: 66672ab969f60c7ed08377fb6389511e
     entity_id: 047e93f56340f6def908aa6764919315
     domain: switch
+    enabled: false
   - type: turn_on
     device_id: c2080a4515fda07919d6eb7f4723eddd
     entity_id: 7af0d52f2f672ccab6a06f04edbc3436
@@ -345,6 +290,7 @@
     device_id: 66672ab969f60c7ed08377fb6389511e
     entity_id: 047e93f56340f6def908aa6764919315
     domain: switch
+    enabled: false
   - type: turn_off
     device_id: c2080a4515fda07919d6eb7f4723eddd
     entity_id: 7af0d52f2f672ccab6a06f04edbc3436
@@ -361,14 +307,15 @@
     to: 'on'
     for:
       hours: 0
-      minutes: 15
+      minutes: 10
       seconds: 0
   condition:
-  - condition: device
-    type: is_off
-    device_id: e5c9f23f4ba4b34e7a163f258d5493c9
-    entity_id: e70bc5233813107e15be0f35f3fb4dda
-    domain: switch
+  - condition: state
+    entity_id: switch.sw1
+    state: 'off'
+  - condition: state
+    entity_id: switch.sw2
+    state: 'off'
   - condition: state
     entity_id: input_boolean.ininverter_manual
     state: 'off'
@@ -401,45 +348,6 @@
     entity_id: 99dba97e96242c48f2adcb0b7e1ba24f
     domain: switch
   mode: single
-- id: '1695148743588'
-  alias: ledSwitchCameraBackDetect
-  description: ''
-  trigger:
-  - type: value
-    platform: device
-    device_id: d616f14b47ba4ebec4d453f5e8934b99
-    entity_id: e56df8d79f1f6b0f906f001de2231a85
-    domain: sensor
-    above: 0
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-  condition:
-  - condition: sun
-    before: sunrise
-    after: sunset
-    after_offset: 0:10
-  - condition: device
-    type: is_off
-    device_id: 35266dbd54cd05706885160a06fa6aa9
-    entity_id: 65eb9d75dd1e12c0b5ae4939e3a2b54c
-    domain: switch
-  action:
-  - type: turn_on
-    device_id: 35266dbd54cd05706885160a06fa6aa9
-    entity_id: 65eb9d75dd1e12c0b5ae4939e3a2b54c
-    domain: switch
-  - delay:
-      hours: 0
-      minutes: 3
-      seconds: 14
-      milliseconds: 0
-  - type: turn_off
-    device_id: 35266dbd54cd05706885160a06fa6aa9
-    entity_id: 65eb9d75dd1e12c0b5ae4939e3a2b54c
-    domain: switch
-  mode: single
 - id: '1695217201945'
   alias: ledBackCameraBackDetect
   description: ''
@@ -469,104 +377,8 @@
     entity_id: c27acc2ccd63098e7b1bfdc348a38ab8
     domain: switch
   mode: single
-- id: '1695389117202'
-  alias: timerInvertSTART_1
-  description: ''
-  trigger:
-  - platform: time
-    at: input_datetime.ininverter_start1
-  condition:
-  - condition: state
-    entity_id: input_boolean.ininverter_manual
-    state: 'on'
-  action:
-  - type: turn_on
-    device_id: 5ba4557ff747bdc01d9581d5c8f35b5e
-    entity_id: 99dba97e96242c48f2adcb0b7e1ba24f
-    domain: switch
-  mode: single
-- id: '1695389148468'
-  alias: timerInvertSTART_2
-  description: ''
-  trigger:
-  - platform: time
-    at: input_datetime.ininverter_start2
-  condition:
-  - condition: state
-    entity_id: input_boolean.ininverter_manual
-    state: 'on'
-  action:
-  - type: turn_on
-    device_id: 5ba4557ff747bdc01d9581d5c8f35b5e
-    entity_id: 99dba97e96242c48f2adcb0b7e1ba24f
-    domain: switch
-  mode: single
-- id: '1695389235327'
-  alias: timerInvertSTOP_1
-  description: ''
-  trigger:
-  - platform: time
-    at: input_datetime.ininverter_stop1
-  condition:
-  - condition: state
-    entity_id: input_boolean.ininverter_manual
-    state: 'on'
-  action:
-  - type: turn_off
-    device_id: 5ba4557ff747bdc01d9581d5c8f35b5e
-    entity_id: 99dba97e96242c48f2adcb0b7e1ba24f
-    domain: switch
-  mode: single
-- id: '1695389248826'
-  alias: timerInvertSTOP_2
-  description: ''
-  trigger:
-  - platform: time
-    at: input_datetime.ininverter_stop2
-  condition:
-  - condition: state
-    entity_id: input_boolean.ininverter_manual
-    state: 'on'
-  action:
-  - type: turn_off
-    device_id: 5ba4557ff747bdc01d9581d5c8f35b5e
-    entity_id: 99dba97e96242c48f2adcb0b7e1ba24f
-    domain: switch
-  mode: single
-- id: '1695390569590'
-  alias: timerSwitchACboxSTOP
-  description: ''
-  trigger:
-  - platform: time
-    at: input_datetime.switchac_stop
-  condition:
-  - condition: state
-    entity_id: input_boolean.manualbattery
-    state: 'on'
-  action:
-  - type: turn_off
-    device_id: e5c9f23f4ba4b34e7a163f258d5493c9
-    entity_id: e70bc5233813107e15be0f35f3fb4dda
-    domain: switch
-  mode: single
-- id: '1695390607787'
-  alias: timerSwitchACboxSTART
-  description: ''
-  trigger:
-  - platform: time
-    at: input_datetime.switchac_start
-  condition:
-  - condition: state
-    entity_id: input_boolean.manualbattery
-    state: 'on'
-  action:
-  - type: turn_on
-    device_id: e5c9f23f4ba4b34e7a163f258d5493c9
-    entity_id: e70bc5233813107e15be0f35f3fb4dda
-    domain: switch
-  mode: single
 - id: '81878494'
-  alias: Preserve State temperature2
+  alias: fix_temperature2
   description: ''
   trigger:
   - platform: state
@@ -589,7 +401,7 @@
       entity_id: input_number.temp2previuous
   mode: single
 - id: '1699040422869'
-  alias: Preserve State temp1
+  alias: fix_temperature1
   description: ''
   trigger:
   - platform: state
