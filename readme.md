@@ -1,8 +1,8 @@
 # homeAutomation project
     author: kito129
     date: 2023/03/01
-    last update: 2023/12/19
-    version: v2023.12.0.1
+    last update: 2023/12/23
+    version: v2023.12.0.3
 
 
 ## Change Log:
@@ -128,12 +128,14 @@ All wired via CAT7 cables
 | 5 | 6 |  Shelly |  PM2 |
 | 6 | 1 |  Shelly |  H&T v2 |
 
+total of 18 Shelly devices.
+
 
 ### ESP
 
 | ID  | Name  | Type  | Device  |
 |---|---|---|---|
-| 1 | ESP-WROOM-32  |  ESP-32 |  TempOut |
+| 1 | ESP-WROOM-32  |  ESP-32 |  TempOut, 2 sensor |
 | 2 |  CUQI |  GY-BME280  | TO INSTALL  |
 
 ### Amazon Alexa

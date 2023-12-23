@@ -277,6 +277,71 @@
           {{ "Off" }}
         {%- endif -%}
 
+    # PERCENT VALUE
+
+    # SALA
+
+    # ac_low_power_percent
+    - name: "ac_low_power_percent"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-818454882"
+      device_class: battery
+      state_class: measurement
+      unit_of_measurement: "percent"
+      icon: mdi:home-lightning-bolt-outline
+      state: >-
+        {{ ( float(states('sensor.acsala_low_power_duration')) / float(states('sensor.ac_sala_on_duration')) *100 ) | round(2) }}
+    # ac_med_power_percent
+    - name: "ac_med_power_percent"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-818454883"
+      device_class: battery
+      state_class: measurement
+      unit_of_measurement: "percent"
+      icon: mdi:home-lightning-bolt-outline
+      state: >-
+        {{ ( float(states('sensor.acsala_med_power_duration')) / float(states('sensor.ac_sala_on_duration')) *100 ) | round(2) }}
+    
+    # ac_high_power_percent
+    - name: "ac_high_power_percent"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-818454884"
+      device_class: battery
+      state_class: measurement
+      unit_of_measurement: "percent"
+      icon: mdi:home-lightning-bolt-outline
+      state: >-
+        {{ ( float(states('sensor.acsala_high_power_duration')) / float(states('sensor.ac_sala_on_duration')) *100 ) | round(2) }}
+    
+    # SCALA
+
+    # acScala_low_power_percent
+    - name: "acScala_low_power_percent"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-818454885"
+      device_class: battery
+      state_class: measurement
+      unit_of_measurement: "percent"
+      icon: mdi:home-lightning-bolt-outline
+      state: >-
+        {{ ( float(states('sensor.acscala_low_power_duration')) / float(states('sensor.ac_scala_on_duration')) *100 ) | round(2) }}
+    
+    # acScala_med_power_percent
+    - name: "acScala_med_power_percent"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-818454886"
+      device_class: battery
+      state_class: measurement
+      unit_of_measurement: "percent"
+      icon: mdi:home-lightning-bolt-outline
+      state: >-
+        {{ ( float(states('sensor.acscala_med_power_duration')) / float(states('sensor.ac_scala_on_duration')) *100 ) | round(2) }}
+    
+    # acScala_high_power_percent
+    - name: "acScala_high_power_percent"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-818454887"
+      device_class: battery
+      state_class: measurement
+      unit_of_measurement: "percent"
+      icon: mdi:home-lightning-bolt-outline
+      state: >-
+        {{ ( float(states('sensor.acscala_high_power_duration')) / float(states('sensor.ac_scala_on_duration')) *100 ) | round(2) }}
+
 
 
 #BINARY SENSORS

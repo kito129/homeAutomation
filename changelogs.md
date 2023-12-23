@@ -1,6 +1,6 @@
 # changelogs.md
 
-## v2023.12.0.1
+## v2023.12.0.3
 ### 2023/12/20
 
 - update core and supervisor and all addons
