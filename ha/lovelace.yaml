@@ -27,7 +27,7 @@
                         "navigation_path": "/config/integrations/dashboard"
                       },
                       "name": "Integrations",
-                      "content_info": "name",
+                      "content_info": "none",
                       "icon_color": "primary",
                       "icon": "mdi:integrated-circuit-chip"
                     },
@@ -39,8 +39,8 @@
                         "navigation_path": "/config/integrations/integration/shelly"
                       },
                       "name": "Shelly",
-                      "content_info": "name",
-                      "icon": "mdi:powershell",
+                      "content_info": "none",
+                      "icon": "mdi:signal-variant",
                       "icon_color": "blue"
                     },
                     {
@@ -51,9 +51,21 @@
                         "navigation_path": "/config/entities"
                       },
                       "name": "Entities",
-                      "content_info": "name",
+                      "content_info": "none",
                       "icon": "mdi:list-box-outline",
                       "icon_color": "orange"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.hacs",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/helpers"
+                      },
+                      "name": "Helpers",
+                      "content_info": "none",
+                      "icon": "mdi:help-box-outline",
+                      "icon_color": "indigo"
                     },
                     {
                       "type": "entity",
@@ -63,8 +75,8 @@
                         "navigation_path": "/config/automation/dashboard"
                       },
                       "name": "Automations",
-                      "content_info": "name",
-                      "icon": "mdi:home-assistant",
+                      "content_info": "none",
+                      "icon": "mdi:list-status",
                       "icon_color": "green"
                     },
                     {
@@ -75,21 +87,9 @@
                         "navigation_path": "/hassio/dashboard"
                       },
                       "name": "AddOn",
-                      "content_info": "name",
+                      "content_info": "none",
                       "icon": "mdi:home-assistant",
                       "icon_color": "yellow"
-                    },
-                    {
-                      "type": "entity",
-                      "entity": "sensor.hacs",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/config/helpers"
-                      },
-                      "name": "Helpers",
-                      "content_info": "name",
-                      "icon": "mdi:help-box-outline",
-                      "icon_color": "indigo"
                     },
                     {
                       "type": "entity",
@@ -99,21 +99,9 @@
                         "navigation_path": "/ccab4aaf_frigate-fa"
                       },
                       "name": "Frigate",
-                      "content_info": "name",
+                      "content_info": "none",
                       "icon": "mdi:cctv",
                       "icon_color": "grey"
-                    },
-                    {
-                      "type": "entity",
-                      "entity": "sensor.hacs",
-                      "tap_action": {
-                        "action": "navigate",
-                        "navigation_path": "/config/integrations/integration/home_connect"
-                      },
-                      "name": "HomeConnect",
-                      "content_info": "name",
-                      "icon": "mdi:dishwasher",
-                      "icon_color": "blue"
                     },
                     {
                       "type": "entity",
@@ -123,8 +111,8 @@
                         "navigation_path": "/hassio/addon/core_mosquitto/info"
                       },
                       "name": "MQTT",
-                      "content_info": "name",
-                      "icon": "mdi:iobroker",
+                      "content_info": "none",
+                      "icon": "mdi:broadcast",
                       "icon_color": "blue"
                     },
                     {
@@ -134,12 +122,50 @@
                         "action": "navigate",
                         "navigation_path": "/media-browser/browser/app%2Cmedia-source%3A%2F%2Ffrigate/video%2Cmedia-source%3A%2F%2Ffrigate%2Ffrigate%2Frecordings%2F%2F%2F"
                       },
-                      "name": "Recording",
-                      "content_info": "name",
+                      "name": "Rec",
+                      "content_info": "none",
                       "icon": "mdi:record-circle",
                       "icon_color": "red"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.hacs",
+                      "tap_action": {
+                        "action": "navigate",
+                        "navigation_path": "/a0d7b954_grafana"
+                      },
+                      "name": "Rec",
+                      "content_info": "none",
+                      "icon": "mdi:chart-areaspline",
+                      "icon_color": "deep-orange"
                     }
-                  ]
+                  ],
+                  "alignment": "start"
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "chips": [
+                    {
+                      "type": "entity",
+                      "entity": "sensor.shelly_h_t_floor01_temperature_2",
+                      "name": "Home",
+                      "icon_color": "light-green"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "input_number.temp_out_saved",
+                      "name": "Out",
+                      "icon_color": "blue"
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "sensor.delta_temp",
+                      "name": "Delta",
+                      "icon_color": "orange",
+                      "icon": "mdi:delta"
+                    }
+                  ],
+                  "alignment": "start"
                 },
                 {
                   "type": "custom:power-flow-card-plus",
@@ -186,181 +212,66 @@
                       "display_zero": false,
                       "color": "#fc3d3d",
                       "icon": "mdi:air-conditioner",
-                      "display_zero_tolerance": 2
+                      "display_zero_tolerance": 10
                     }
                   },
                   "w_decimals": 0,
                   "kw_decimals": 2,
                   "min_flow_rate": 0.9,
+                  "display_zero_lines": {
+                    "show": false
+                  },
                   "max_flow_rate": 10,
-                  "min_expected_power": 0.1,
+                  "min_expected_power": 1,
                   "max_expected_power": 5000,
                   "watt_threshold": 1000,
-                  "clickable_entities": true,
-                  "dashboard_link": "/energy"
+                  "clickable_entities": true
                 },
                 {
-                  "type": "custom:apexcharts-card",
-                  "header": {
-                    "show": true,
-                    "title": "Home Power",
-                    "show_states": true,
-                    "colorize_states": true
-                  },
-                  "graph_span": "16h",
-                  "stacked": true,
-                  "yaxis": [
-                    {
-                      "max": 4000,
-                      "decimals": 0,
-                      "apex_config": {
-                        "tickAmount": 4
-                      }
-                    }
-                  ],
-                  "apex_config": {
-                    "legend": {
-                      "show": false
-                    }
-                  },
-                  "series": [
+                  "type": "energy-distribution",
+                  "link_dashboard": true
+                },
+                {
+                  "type": "custom:mini-graph-card",
+                  "title": "Inverter",
+                  "entities": [
                     {
                       "entity": "sensor.solar_power",
-                      "show": {
-                        "extremas": true
-                      },
-                      "name": "Solar",
-                      "type": "column",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
+                      "name": "Solar"
                     },
                     {
                       "entity": "sensor.enel_power",
                       "name": "Enel",
-                      "type": "column",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.home_total_power_2",
-                      "color": "yellow",
-                      "name": "Home",
-                      "type": "line",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.battery_net_power",
-                      "color": "green",
-                      "name": "Battery",
-                      "type": "column",
-                      "transform": "return -x",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
+                      "color": "green"
                     }
-                  ]
-                },
-                {
-                  "type": "custom:apexcharts-card",
-                  "apex_config": {
-                    "legend": {
-                      "show": false
+                  ],
+                  "color_thresholds": [
+                    {
+                      "value": 500,
+                      "color": "#395ce6"
+                    },
+                    {
+                      "color": "#cce639"
+                    },
+                    {
+                      "value": 2500,
+                      "color": "#ff0000"
                     }
-                  },
-                  "header": {
-                    "show": true,
-                    "title": "Loads",
-                    "show_states": true,
-                    "colorize_states": true
-                  },
-                  "graph_span": "16h",
-                  "stacked": true,
-                  "series": [
-                    {
-                      "entity": "sensor.boiler_power",
-                      "name": "Boiler",
-                      "type": "column",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.washmachine_power",
-                      "name": "Lavatrice",
-                      "type": "column",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.washdisher_power",
-                      "name": "Lavastoviglie",
-                      "color": "brown",
-                      "type": "column",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.ininverter_power",
-                      "name": "Inverter",
-                      "type": "column",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.oven_power",
-                      "name": "Forno & Frigo",
-                      "color": "white",
-                      "type": "column",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.home_other_loads_power",
-                      "name": "Home",
-                      "type": "column",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.acsala_power",
-                      "name": "Sala",
-                      "type": "column",
-                      "color": "darkorange",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.acscala_power",
-                      "name": "Scala",
-                      "type": "column",
-                      "color": "orange",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    }
-                  ]
+                  ],
+                  "hours_to_show": 16,
+                  "points_per_hour": 12,
+                  "line_width": 4,
+                  "font_size": 120,
+                  "animate": true,
+                  "height": 230,
+                  "cache": true,
+                  "show": {
+                    "name": true,
+                    "extrema": true,
+                    "icon": false,
+                    "state": false,
+                    "legend": true
+                  }
                 }
               ]
             },
@@ -498,134 +409,6 @@
                 },
                 {
                   "square": false,
-                  "title": "Switch",
-                  "type": "grid",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "switch.generaleswitch",
-                      "name": "Generale Quadro",
-                      "layout": "horizontal",
-                      "icon_color": "deep-orange"
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.dcpower_power.state}} W",
-                      "secondary": "DC box: {{states.switch.dcpower.state | upper}}",
-                      "icon": "mdi:current-dc",
-                      "icon_color": "{{ (states(\"sensor.dcpower_power\")|float(0) > 0) | iif(\"black\", \"\") }}\n",
-                      "entity": "switch.dcpower",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": true,
-                      "double_tap_action": {
-                        "action": "toggle"
-                      }
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.ininverter_power.state}} W",
-                      "secondary": "IN Inverter",
-                      "icon": "mdi:current-ac",
-                      "icon_color": "{{ (states(\"sensor.ininverter_power\")|float(0) > 0) | iif(\"green\", \"\") }}\n",
-                      "entity": "switch.ininverter",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": false,
-                      "layout": "vertical"
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.battery_out_power.state}} W",
-                      "secondary": "OUT Inverter",
-                      "icon": "mdi:generator-mobile",
-                      "icon_color": "{{ (states(\"sensor.battery_out_power\")|float(0) > 0) | iif(\"purple\", \"\") }}\n",
-                      "entity": "sensor.battery_out_power",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": true,
-                      "layout": "vertical"
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "switch A",
-                      "secondary": "{{is_state('switch.sw2', \"on\")  | iif(\"Batteria\", \"Enel\") }}",
-                      "icon": "{{ is_state('switch.sw2', \"on\") | iif(\"mdi:electric-switch-closed\", \"mdi:electric-switch\") }}\n",
-                      "icon_color": "{{ is_state('switch.sw2', \"on\") | iif(\"blue\", \"yellow\") }}\n",
-                      "entity": "switch.sw2",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": true,
-                      "badge_color": ""
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "switch B",
-                      "secondary": "{{is_state('switch.sw1', \"on\")  | iif(\"Batteria\", \"Enel\") }}",
-                      "icon": "{{ is_state('switch.sw1', \"on\")  | iif(\"mdi:electric-switch-closed\", \"mdi:electric-switch\") }}\n",
-                      "icon_color": "{{  is_state('switch.sw1', \"on\")| iif(\"blue\", \"yellow\") }}\n",
-                      "entity": "switch.sw1",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "",
-                      "fill_container": true,
-                      "badge_color": ""
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.acsala_power.state}} W",
-                      "secondary": "AC Sala: {{states.switch.acsala.state | upper}}",
-                      "icon": "mdi:air-conditioner",
-                      "icon_color": "{{ (states(\"sensor.acsala_power\")|float(0) > 10) | iif(\"green\", \"red\") }}\n",
-                      "entity": "sensor.acsala_power",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "{{is_state('switch.sw2', \"on\")  | iif(\"mdi:battery-plus\", \"mdi:transmission-tower-import\") }}",
-                      "fill_container": true,
-                      "double_tap_action": {
-                        "action": "toggle"
-                      },
-                      "badge_color": "{{is_state('switch.sw2', \"on\")  | iif(\"blue\", \"yellow\") }}"
-                    },
-                    {
-                      "type": "custom:mushroom-template-card",
-                      "primary": "{{states.sensor.acscala_power.state}} W",
-                      "secondary": "AC Scala: {{states.switch.acscala.state | upper}}",
-                      "icon": "mdi:air-conditioner",
-                      "icon_color": "{{ (states(\"sensor.acscala_power\")|float(0) > 10) | iif(\"green\", \"red\") }}\n",
-                      "entity": "sensor.acscala_power",
-                      "multiline_secondary": true,
-                      "tap_action": {
-                        "action": "more-info"
-                      },
-                      "badge_icon": "{{is_state('switch.sw1', \"on\")  | iif(\"mdi:battery-plus\", \"mdi:transmission-tower-import\") }}",
-                      "fill_container": true,
-                      "double_tap_action": {
-                        "action": "toggle"
-                      },
-                      "badge_color": "{{is_state('switch.sw1', \"on\")  | iif(\"blue\", \"yellow\") }}"
-                    }
-                  ],
-                  "columns": 2
-                },
-                {
-                  "square": false,
                   "title": "Lights",
                   "type": "grid",
                   "cards": [
@@ -700,58 +483,77 @@
                 },
                 {
                   "square": false,
+                  "title": "Switch",
                   "type": "grid",
-                  "title": "Manual",
                   "cards": [
                     {
                       "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.manualboiler",
-                      "name": "Boiler",
-                      "icon_color": "primary",
+                      "entity": "switch.generaleswitch",
+                      "name": "Generale Quadro",
+                      "layout": "horizontal",
+                      "icon_color": "deep-orange"
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states.sensor.dcpower_power.state}} W",
+                      "secondary": "DC box: {{states.switch.dcpower.state | upper}}",
+                      "icon": "mdi:current-dc",
+                      "icon_color": "{{ (states(\"sensor.dcpower_power\")|float(0) > 0) | iif(\"black\", \"\") }}\n",
+                      "entity": "switch.dcpower",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true,
                       "double_tap_action": {
                         "action": "toggle"
                       }
                     },
                     {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.ininverter_manual",
-                      "name": "MAN  Inverter",
-                      "icon": "mdi:hand-back-left",
-                      "icon_color": "cyan",
-                      "double_tap_action": {
-                        "action": "toggle"
-                      }
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states.sensor.ininverter_power.state}} W",
+                      "secondary": "IN Inverter",
+                      "icon": "mdi:current-ac",
+                      "icon_color": "{{ (states(\"sensor.ininverter_power\")|float(0) > 0) | iif(\"green\", \"\") }}\n",
+                      "entity": "switch.ininverter",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": false
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "{{states.sensor.battery_out_power.state}} W",
+                      "secondary": "OUT Inverter",
+                      "icon": "mdi:generator-mobile",
+                      "icon_color": "{{ (states(\"sensor.battery_out_power\")|float(0) > 0) | iif(\"purple\", \"\") }}\n",
+                      "entity": "sensor.battery_out_power",
+                      "multiline_secondary": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "badge_icon": "",
+                      "fill_container": true,
+                      "badge_color": ""
                     },
                     {
                       "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.manualbattery",
-                      "icon": "mdi:hand-back-left",
-                      "icon_color": "green",
-                      "name": "MAN battery ",
-                      "double_tap_action": {
-                        "action": "toggle"
-                      }
+                      "entity": "sensor.acsala_power",
+                      "name": "Sala",
+                      "layout": "horizontal",
+                      "icon_color": "deep-orange",
+                      "icon": "mdi:air-conditioner"
                     },
                     {
                       "type": "custom:mushroom-entity-card",
-                      "icon": "mdi:hand-back-left",
-                      "icon_color": "blue",
-                      "entity": "binary_sensor.combo_minus05_enel_plus1_solar",
-                      "name": "First",
-                      "double_tap_action": {
-                        "action": "toggle"
-                      }
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "icon": "",
-                      "icon_color": "purple",
-                      "entity": "binary_sensor.combo_second_stage",
-                      "name": "Second",
-                      "fill_container": false,
-                      "double_tap_action": {
-                        "action": "toggle"
-                      }
+                      "entity": "sensor.acscala_power",
+                      "name": "Scala",
+                      "layout": "horizontal",
+                      "icon_color": "lime",
+                      "icon": "mdi:air-conditioner"
                     }
                   ],
                   "columns": 2
@@ -960,7 +762,7 @@
                           "color": "var(--green-color)"
                         }
                       ],
-                      "hours_to_show": 12,
+                      "hours_to_show": 16,
                       "points_per_hour": 8,
                       "line_width": 4,
                       "font_size": 120,
@@ -997,7 +799,7 @@
                           "color": "#ff0000"
                         }
                       ],
-                      "hours_to_show": 12,
+                      "hours_to_show": 16,
                       "points_per_hour": 8,
                       "line_width": 4,
                       "font_size": 120,
@@ -1021,8 +823,134 @@
               "title": "Energy",
               "cards": [
                 {
-                  "type": "energy-distribution",
-                  "link_dashboard": true
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "counter.a",
+                      "layout": "horizontal",
+                      "icon_color": "primary"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.sunny_day",
+                      "icon_color": "deep-orange"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "weather.selvahome",
+                      "name": "Weaher",
+                      "icon_color": "green"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_number.solar_b_daily_production",
+                      "icon_color": "amber",
+                      "name": "Impianto dietro"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.manualboiler",
+                      "icon_color": "blue",
+                      "name": "MAN boiler"
+                    }
+                  ],
+                  "columns": 3
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "header": {
+                    "show": false,
+                    "title": "Loads",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "16h",
+                  "stacked": true,
+                  "series": [
+                    {
+                      "entity": "sensor.boiler_power",
+                      "name": "Boiler",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.washmachine_power",
+                      "name": "Lavatrice",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.washdisher_power",
+                      "name": "Lavastoviglie",
+                      "color": "brown",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.ininverter_power",
+                      "name": "Inverter",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.oven_power",
+                      "name": "Forno & Frigo",
+                      "color": "white",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.home_other_loads_power",
+                      "name": "Home",
+                      "type": "column",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.acsala_power",
+                      "name": "Sala",
+                      "type": "column",
+                      "color": "darkorange",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.acscala_power",
+                      "name": "Scala",
+                      "type": "column",
+                      "color": "orange",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    }
+                  ]
                 },
                 {
                   "type": "energy-devices-graph"
@@ -1055,6 +983,7 @@
                     "automation",
                     "binary_sensor",
                     "button",
+                    "climate",
                     "device_tracker",
                     "input_boolean",
                     "input_number",
@@ -1063,6 +992,7 @@
                     "notify",
                     "number",
                     "person",
+                    "select",
                     "sensor",
                     "sun",
                     "switch"
@@ -1073,23 +1003,14 @@
                     "relative-time"
                   ],
                   "display_options": {
-                    "primary_info": "default",
+                    "primary_info": "{entity}: {action}",
                     "secondary_info": [
-                      "relative-time",
-                      "time",
-                      "additional-tasks"
+                      "relative-time"
                     ],
                     "icon": "action"
                   },
-                  "title": "Scheduler"
-                },
-                {
-                  "type": "custom:mushroom-number-card",
-                  "entity": "input_number.solar_b_daily_production",
-                  "display_mode": "buttons",
-                  "icon_color": "yellow",
-                  "layout": "vertical",
-                  "secondary_info": "last-updated"
+                  "title": "Scheduler",
+                  "tags": []
                 }
               ]
             }
@@ -1110,30 +1031,69 @@
                   "type": "grid",
                   "cards": [
                     {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "binary_sensor.ac_sala_function",
-                      "name": "Sala ON",
-                      "icon_color": "green"
+                      "type": "custom:mushroom-climate-card",
+                      "entity": "climate.ac_sala_wifi",
+                      "layout": "vertical",
+                      "name": "Sala",
+                      "hvac_modes": [],
+                      "show_temperature_control": false,
+                      "collapsible_controls": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "hold_action": {
+                        "action": "more-info"
+                      },
+                      "double_tap_action": {
+                        "action": "more-info"
+                      },
+                      "fill_container": false
                     },
                     {
                       "type": "custom:mushroom-entity-card",
-                      "entity": "binary_sensor.ac_scala_function",
-                      "name": "Scala ON",
-                      "icon_color": "green"
+                      "entity": "switch.ac_sala_wifi_high_power_mode",
+                      "icon_color": "red",
+                      "layout": "vertical",
+                      "name": "HP",
+                      "icon": "mdi:power-settings"
                     },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "switch.ac_sala_wifi_eco_mode",
+                      "name": "Eco",
+                      "icon_color": "green",
+                      "icon": "mdi:av-timer",
+                      "layout": "vertical"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "icon_color": "cyan",
+                      "layout": "vertical",
+                      "entity": "sensor.ac_sala_wifi_outdoor_temperature",
+                      "name": "Out"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
                     {
                       "type": "custom:mushroom-entity-card",
                       "entity": "sensor.ac_sala_on_duration",
-                      "name": "Sala Duration",
+                      "name": "Sala",
                       "icon_color": "yellow",
-                      "icon": "mdi:av-timer"
+                      "icon": "mdi:av-timer",
+                      "layout": "horizontal"
                     },
                     {
                       "type": "custom:mushroom-entity-card",
                       "entity": "sensor.ac_scala_on_duration",
-                      "name": "Scala Duration",
+                      "name": "Scala",
                       "icon_color": "lime",
-                      "icon": "mdi:av-timer"
+                      "icon": "mdi:av-timer",
+                      "layout": "horizontal"
                     }
                   ],
                   "columns": 2
@@ -1184,101 +1144,15 @@
                       "name": "Scala",
                       "max": "1800",
                       "icon": "mdi:air-conditioner"
+                    },
+                    {
+                      "entity": "sensor.battery_net_power",
+                      "name": "Battery",
+                      "min": "-1000",
+                      "max": "1500",
+                      "icon": "mdi:battery"
                     }
                   ]
-                },
-                {
-                  "square": false,
-                  "title": "Status",
-                  "type": "grid",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "binary_sensor.acsala_low_power",
-                      "name": "Low",
-                      "icon_color": "light-blue",
-                      "icon": "mdi:gauge-empty"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "binary_sensor.acsala_med_power",
-                      "name": "Med",
-                      "icon_color": "green",
-                      "icon": "mdi:gauge-low"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "binary_sensor.acsala_high_power",
-                      "icon_color": "deep-orange",
-                      "name": "High",
-                      "icon": "mdi:gauge-full"
-                    }
-                  ],
-                  "columns": 3
-                },
-                {
-                  "square": false,
-                  "type": "grid",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.ac_low_power_percent",
-                      "name": "Low",
-                      "icon_color": "light-blue",
-                      "icon": "mdi:gauge-empty",
-                      "primary_info": "state",
-                      "secondary_info": "none",
-                      "layout": "vertical"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.ac_med_power_percent",
-                      "name": "Med",
-                      "icon_color": "green",
-                      "icon": "mdi:gauge-low",
-                      "primary_info": "state",
-                      "secondary_info": "none",
-                      "layout": "vertical"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.ac_high_power_percent",
-                      "icon_color": "deep-orange",
-                      "name": "High",
-                      "icon": "mdi:gauge-full",
-                      "primary_info": "state",
-                      "secondary_info": "none",
-                      "layout": "vertical"
-                    }
-                  ],
-                  "columns": 3
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "binary_sensor.ac_sala_function",
-                      "name": "Sala"
-                    },
-                    {
-                      "entity": "binary_sensor.ac_scala_function",
-                      "name": "Scala"
-                    },
-                    {
-                      "entity": "binary_sensor.acsala_high_power",
-                      "name": "HIGH"
-                    },
-                    {
-                      "entity": "binary_sensor.acsala_med_power",
-                      "name": "MED"
-                    },
-                    {
-                      "entity": "binary_sensor.acsala_low_power",
-                      "name": "lOW"
-                    }
-                  ],
-                  "hours_to_show": 168,
-                  "logarithmic_scale": false
                 },
                 {
                   "square": false,
@@ -1318,10 +1192,10 @@
                     {
                       "type": "custom:mushroom-template-card",
                       "primary": "switch A",
-                      "secondary": "{{is_state('switch.sw2', \"on\")  | iif(\"Batteria\", \"Enel\") }}",
-                      "icon": "{{ is_state('switch.sw2', \"on\") | iif(\"mdi:electric-switch-closed\", \"mdi:electric-switch\") }}\n",
-                      "icon_color": "{{ is_state('switch.sw2', \"on\") | iif(\"blue\", \"yellow\") }}\n",
-                      "entity": "switch.sw2",
+                      "secondary": "{{is_state('switch.sw1', \"on\")  | iif(\"Batteria\", \"Enel\") }}",
+                      "icon": "{{ is_state('switch.sw1', \"on\")  | iif(\"mdi:electric-switch-closed\", \"mdi:electric-switch\") }}\n",
+                      "icon_color": "{{ is_state('switch.sw1', \"on\") | iif(\"blue\", \"yellow\") }}\n",
+                      "entity": "switch.sw1",
                       "multiline_secondary": true,
                       "tap_action": {
                         "action": "more-info"
@@ -1333,10 +1207,10 @@
                     {
                       "type": "custom:mushroom-template-card",
                       "primary": "switch B",
-                      "secondary": "{{is_state('switch.sw1', \"on\")  | iif(\"Batteria\", \"Enel\") }}",
-                      "icon": "{{ is_state('switch.sw1', \"on\")  | iif(\"mdi:electric-switch-closed\", \"mdi:electric-switch\") }}\n",
-                      "icon_color": "{{  is_state('switch.sw1', \"on\")| iif(\"blu\", \"yellow\") }}\n",
-                      "entity": "switch.sw1",
+                      "secondary": "{{is_state('switch.sw2', \"on\")  | iif(\"Batteria\", \"Enel\") }}",
+                      "icon": "{{ is_state('switch.sw2', \"on\") | iif(\"mdi:electric-switch-closed\", \"mdi:electric-switch\") }}\n",
+                      "icon_color": "{{ is_state('switch.sw2', \"on\") | iif(\"blue\", \"yellow\") }}\n",
+                      "entity": "switch.sw2",
                       "multiline_secondary": true,
                       "tap_action": {
                         "action": "more-info"
@@ -1356,12 +1230,12 @@
                       "tap_action": {
                         "action": "more-info"
                       },
-                      "badge_icon": "{{is_state('switch.sw2', \"on\")  | iif(\"mdi:battery-plus\", \"mdi:transmission-tower-import\") }}",
+                      "badge_icon": "{{is_state('switch.sw1', \"on\")  | iif(\"mdi:battery-plus\", \"mdi:transmission-tower-import\") }}",
                       "fill_container": true,
                       "double_tap_action": {
                         "action": "toggle"
                       },
-                      "badge_color": "{{is_state('switch.sw2', \"on\")  | iif(\"blue\", \"yellow\") }}"
+                      "badge_color": "{{is_state('switch.sw1', \"on\")  | iif(\"blue\", \"yellow\") }}"
                     },
                     {
                       "type": "custom:mushroom-template-card",
@@ -1374,24 +1248,37 @@
                       "tap_action": {
                         "action": "more-info"
                       },
-                      "badge_icon": "{{is_state('switch.sw1', \"on\")  | iif(\"mdi:battery-plus\", \"mdi:transmission-tower-import\") }}",
+                      "badge_icon": "{{is_state('switch.sw2', \"on\")  | iif(\"mdi:battery-plus\", \"mdi:transmission-tower-import\") }}",
                       "fill_container": true,
                       "double_tap_action": {
                         "action": "toggle"
                       },
-                      "badge_color": "{{is_state('switch.sw1', \"on\")  | iif(\"blue\", \"yellow\") }}"
+                      "badge_color": "{{is_state('switch.sw2', \"on\")  | iif(\"blue\", \"yellow\") }}"
                     }
                   ],
                   "columns": 2
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "title": "Charts",
-              "cards": [
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "switch.ininverter",
+                      "name": "Battery In"
+                    },
+                    {
+                      "entity": "switch.sw1",
+                      "name": "A"
+                    },
+                    {
+                      "entity": "switch.sw2",
+                      "name": "B"
+                    }
+                  ],
+                  "hours_to_show": 12
+                },
                 {
                   "square": false,
+                  "title": "Temperature",
                   "type": "grid",
                   "cards": [
                     {
@@ -1406,17 +1293,17 @@
                       "type": "custom:mushroom-entity-card",
                       "primary_info": "state",
                       "secondary_info": "name",
-                      "icon_color": "light-green",
-                      "entity": "sensor.hometempderivate",
-                      "name": "Home Der",
-                      "icon": "mdi:math-integral-box"
+                      "icon_color": "green",
+                      "entity": "input_number.temp_out_saved",
+                      "name": "Out",
+                      "icon": "mdi:temperature-celsius"
                     },
                     {
                       "type": "custom:mushroom-entity-card",
                       "primary_info": "state",
                       "secondary_info": "name",
-                      "icon_color": "yellow",
-                      "icon": "mdi:pipe",
+                      "icon_color": "red",
+                      "icon": "",
                       "entity": "input_number.temp2previuous",
                       "name": "Mandata"
                     },
@@ -1424,16 +1311,16 @@
                       "type": "custom:mushroom-entity-card",
                       "primary_info": "state",
                       "secondary_info": "name",
-                      "icon_color": "cyan",
+                      "icon_color": "light-blue",
                       "entity": "input_number.temp1previous",
-                      "icon": "mdi:fan-chevron-down",
+                      "icon": "",
                       "name": "Ritorno"
                     },
                     {
                       "type": "custom:mushroom-entity-card",
                       "primary_info": "state",
                       "secondary_info": "name",
-                      "icon_color": "deep-orange",
+                      "icon_color": "lime",
                       "icon": "mdi:delta",
                       "entity": "sensor.delta_temp",
                       "name": "Delta"
@@ -1451,53 +1338,123 @@
                   "columns": 2
                 },
                 {
-                  "type": "custom:mini-graph-card",
-                  "entities": [
+                  "type": "vertical-stack",
+                  "title": "Status",
+                  "cards": [
                     {
-                      "entity": "sensor.acsala_power",
-                      "name": "Sala (12h)"
+                      "square": false,
+                      "type": "grid",
+                      "cards": [
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "binary_sensor.acsala_low_power",
+                          "name": "Low",
+                          "icon_color": "light-blue",
+                          "icon": "mdi:gauge-empty"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "binary_sensor.acsala_med_power",
+                          "name": "Med",
+                          "icon_color": "green",
+                          "icon": "mdi:gauge-low"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "binary_sensor.acsala_high_power",
+                          "icon_color": "deep-orange",
+                          "name": "High",
+                          "icon": "mdi:gauge-full"
+                        }
+                      ],
+                      "columns": 3
                     }
-                  ],
-                  "hours_to_show": 12,
-                  "points_per_hour": 12,
-                  "color_thresholds": [
-                    {
-                      "value": 300,
-                      "color": "#395ce6"
-                    },
-                    {
-                      "color": "#39e692"
-                    },
-                    {
-                      "color": "#cce639"
-                    },
-                    {
-                      "value": 1000,
-                      "color": "#ff0000"
-                    }
-                  ],
-                  "line_width": 3,
-                  "font_size": 100,
-                  "animate": true,
-                  "cache": true,
-                  "show": {
-                    "name": true,
-                    "icon": false,
-                    "state": false,
-                    "legend": false,
-                    "fill": "fade",
-                    "extrema": true
-                  }
+                  ]
                 },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1d",
+                  "chart_type": "pie",
+                  "header": {
+                    "show": true,
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.ac_high_power_percent",
+                      "name": "High",
+                      "color": "red"
+                    },
+                    {
+                      "entity": "sensor.ac_med_power_percent",
+                      "name": "Med",
+                      "color": "yellow"
+                    },
+                    {
+                      "entity": "sensor.ac_low_power_percent",
+                      "name": "Low",
+                      "color": "lightblue"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1d",
+                  "chart_type": "pie",
+                  "header": {
+                    "show": true,
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.acscala_high_power_percent",
+                      "name": "High",
+                      "color": "red"
+                    },
+                    {
+                      "entity": "sensor.acscala_med_power_percent",
+                      "name": "Med",
+                      "color": "yellow"
+                    },
+                    {
+                      "entity": "sensor.acscala_low_power_percent",
+                      "name": "Low",
+                      "color": "lightblue"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Charts 12h",
+              "cards": [
                 {
                   "type": "custom:mini-graph-card",
                   "entities": [
                     {
                       "entity": "sensor.acsala_power",
-                      "name": "Sala (6h)"
+                      "name": "Sala"
+                    },
+                    {
+                      "entity": "sensor.acscala_power",
+                      "name": "Scala",
+                      "color": "green"
                     }
                   ],
-                  "hours_to_show": 6,
+                  "hours_to_show": 12,
                   "points_per_hour": 80,
                   "color_thresholds": [
                     {
@@ -1532,11 +1489,38 @@
                   "type": "custom:mini-graph-card",
                   "entities": [
                     {
-                      "entity": "sensor.delta_temp",
-                      "name": "Delta Temeprature (6h)"
+                      "entity": "input_number.temp2previuous",
+                      "name": "Mandata"
+                    },
+                    {
+                      "entity": "input_number.temp1previous",
+                      "name": "Ritorno"
                     }
                   ],
-                  "hours_to_show": 6,
+                  "hours_to_show": 12,
+                  "points_per_hour": 12,
+                  "line_width": 3,
+                  "font_size": 100,
+                  "animate": true,
+                  "cache": true,
+                  "show": {
+                    "name": true,
+                    "icon": false,
+                    "state": false,
+                    "legend": true,
+                    "fill": "fade",
+                    "extrema": true
+                  }
+                },
+                {
+                  "type": "custom:mini-graph-card",
+                  "entities": [
+                    {
+                      "entity": "sensor.delta_temp",
+                      "name": "Delta Temeprature"
+                    }
+                  ],
+                  "hours_to_show": 12,
                   "points_per_hour": 12,
                   "color_thresholds": [
                     {
@@ -1568,88 +1552,72 @@
                   }
                 },
                 {
-                  "type": "custom:mini-graph-card",
+                  "type": "custom:scheduler-card",
+                  "include": [
+                    "automation",
+                    "binary_sensor",
+                    "button",
+                    "climate",
+                    "device_tracker",
+                    "input_boolean",
+                    "input_number",
+                    "light",
+                    "media_player",
+                    "notify",
+                    "number",
+                    "person",
+                    "select",
+                    "sensor",
+                    "sun",
+                    "switch"
+                  ],
+                  "exclude": [],
+                  "sort_by": [
+                    "state",
+                    "relative-time"
+                  ],
+                  "display_options": {
+                    "primary_info": "{entity}: {action}",
+                    "secondary_info": [
+                      "relative-time"
+                    ],
+                    "icon": "action"
+                  },
+                  "title": "Scheduler",
+                  "tags": [
+                    "ac"
+                  ]
+                },
+                {
+                  "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "input_number.temp2previuous",
-                      "name": "Mandata (6h)"
-                    },
-                    {
-                      "entity": "input_number.temp1previous",
-                      "name": "Ritorno (6h)"
+                      "entity": "climate.ac_sala_wifi"
                     }
                   ],
-                  "hours_to_show": 6,
-                  "points_per_hour": 12,
-                  "line_width": 3,
-                  "font_size": 100,
-                  "animate": true,
-                  "cache": true,
-                  "show": {
-                    "name": true,
-                    "icon": false,
-                    "state": false,
-                    "legend": true,
-                    "fill": "fade",
-                    "extrema": true
-                  }
+                  "title": "AC",
+                  "hours_to_show": 12
                 }
               ]
             },
             {
               "type": "vertical-stack",
-              "title": "Charts 2",
+              "title": "Charts 24h",
               "cards": [
-                {
-                  "type": "custom:vertical-stack-in-card",
-                  "cards": [
-                    {
-                      "type": "custom:mini-graph-card",
-                      "entities": [
-                        {
-                          "entity": "sensor.shelly_h_t_floor01_temperature_2",
-                          "name": "Home"
-                        }
-                      ],
-                      "hours_to_show": 24,
-                      "points_per_hour": 2,
-                      "line_width": 3,
-                      "font_size": 100,
-                      "animate": true,
-                      "cache": true,
-                      "color_thresholds": [
-                        {
-                          "value": 18,
-                          "color": "#395ce6"
-                        },
-                        {
-                          "color": "#cce639"
-                        },
-                        {
-                          "value": 23,
-                          "color": "#ff0000"
-                        }
-                      ],
-                      "show": {
-                        "name": true,
-                        "icon": false,
-                        "state": false,
-                        "legend": false,
-                        "fill": "fade",
-                        "extrema": true
-                      }
-                    }
-                  ]
-                },
                 {
                   "type": "custom:mini-graph-card",
                   "entities": [
                     {
                       "entity": "sensor.acsala_current",
                       "name": "Current"
+                    },
+                    {
+                      "entity": "sensor.acscala_current",
+                      "name": "Scala",
+                      "color": "green"
                     }
                   ],
-                  "hours_to_show": 12,
+                  "hours_to_show": 24,
                   "points_per_hour": 12,
                   "line_width": 3,
                   "font_size": 100,
@@ -1683,9 +1651,14 @@
                     {
                       "entity": "sensor.acsala_voltage",
                       "name": "Voltage"
+                    },
+                    {
+                      "entity": "sensor.acscala_voltage",
+                      "name": "Scala",
+                      "color": "green"
                     }
                   ],
-                  "hours_to_show": 12,
+                  "hours_to_show": 24,
                   "points_per_hour": 12,
                   "line_width": 3,
                   "font_size": 100,
@@ -1719,9 +1692,13 @@
                     {
                       "entity": "sensor.acsala_device_temperature",
                       "name": "Device Temp"
+                    },
+                    {
+                      "entity": "sensor.acscala_device_temperature",
+                      "name": "Scala"
                     }
                   ],
-                  "hours_to_show": 12,
+                  "hours_to_show": 24,
                   "points_per_hour": 12,
                   "line_width": 3,
                   "font_size": 100,
@@ -1828,28 +1805,6 @@
                   ]
                 },
                 {
-                  "chart_type": "bar",
-                  "period": "day",
-                  "type": "statistics-graph",
-                  "entities": [
-                    {
-                      "entity": "sensor.ac_sala_on_duration",
-                      "name": "Sala"
-                    },
-                    {
-                      "entity": "sensor.ac_scala_on_duration",
-                      "name": "Scala"
-                    }
-                  ],
-                  "hide_legend": false,
-                  "days_to_show": 30,
-                  "title": "AC Time",
-                  "stat_types": [
-                    "max"
-                  ],
-                  "logarithmic_scale": false
-                },
-                {
                   "square": false,
                   "title": "Battery Energy",
                   "type": "grid",
@@ -1925,6 +1880,42 @@
                       "stat_type": "change",
                       "name": "Month",
                       "icon": "mdi:battery-positive"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.battery_net_energy_integral",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Day",
+                      "icon": "mdi:battery"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.battery_net_energy_integral",
+                      "period": {
+                        "calendar": {
+                          "period": "week"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Week",
+                      "icon": "mdi:battery"
+                    },
+                    {
+                      "type": "statistic",
+                      "period": {
+                        "calendar": {
+                          "period": "month"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Month",
+                      "icon": "mdi:battery",
+                      "entity": "sensor.battery_net_energy_integral"
                     }
                   ],
                   "columns": 3
@@ -2765,8 +2756,10 @@
                       "name": "Battery In"
                     },
                     {
-                      "entity": "switch.switch",
-                      "name": "Swtich AC"
+                      "entity": "switch.sw1"
+                    },
+                    {
+                      "entity": "switch.sw2"
                     }
                   ],
                   "hours_to_show": 12
@@ -2833,6 +2826,18 @@
                       },
                       "stat_type": "change",
                       "name": "Out"
+                    },
+                    {
+                      "type": "statistic",
+                      "entity": "sensor.battery_net_energy_integral",
+                      "icon": "mdi:battery",
+                      "period": {
+                        "calendar": {
+                          "period": "day"
+                        }
+                      },
+                      "stat_type": "change",
+                      "name": "Net"
                     }
                   ]
                 },
@@ -2901,7 +2906,8 @@
                           "primary_info": "state",
                           "secondary_info": "name",
                           "name": "Home",
-                          "icon_color": "purple"
+                          "icon_color": "purple",
+                          "layout": "vertical"
                         },
                         {
                           "type": "custom:mushroom-entity-card",
@@ -2909,35 +2915,28 @@
                           "secondary_info": "name",
                           "icon_color": "light-green",
                           "entity": "sensor.hometempderivate",
-                          "name": "Home Der",
-                          "icon": "mdi:math-integral-box"
+                          "name": "Derivata",
+                          "icon": "mdi:math-integral-box",
+                          "layout": "vertical"
                         },
                         {
                           "type": "custom:mushroom-entity-card",
                           "primary_info": "state",
                           "secondary_info": "name",
                           "icon_color": "yellow",
-                          "icon": "mdi:pipe",
-                          "entity": "input_number.temp2previuous",
-                          "name": "Mandata"
+                          "icon": "mdi:temperature-celsius",
+                          "entity": "input_number.temp_out_saved",
+                          "name": "Out",
+                          "layout": "vertical"
                         },
                         {
                           "type": "custom:mushroom-entity-card",
+                          "entity": "sensor.shelly_h_t_floor01_humidity_2",
                           "primary_info": "state",
                           "secondary_info": "name",
-                          "icon_color": "cyan",
-                          "entity": "input_number.temp1previous",
-                          "icon": "mdi:fan-chevron-down",
-                          "name": "Ritorno"
-                        },
-                        {
-                          "type": "custom:mushroom-entity-card",
-                          "primary_info": "state",
-                          "secondary_info": "name",
-                          "icon_color": "deep-orange",
-                          "icon": "mdi:delta",
-                          "entity": "sensor.delta_temp",
-                          "name": "Delta"
+                          "name": "Humidity",
+                          "icon_color": "blue",
+                          "layout": "vertical"
                         }
                       ],
                       "columns": 2
@@ -2982,7 +2981,7 @@
                       "type": "custom:mini-graph-card",
                       "entities": [
                         {
-                          "entity": "input_number.temp2previuous",
+                          "entity": "input_number.temp_out_saved",
                           "name": "Extern"
                         }
                       ],
@@ -3007,45 +3006,6 @@
                           "color": "#ff0000"
                         }
                       ],
-                      "cache": true,
-                      "show": {
-                        "name": true,
-                        "icon": false,
-                        "state": false,
-                        "legend": false,
-                        "fill": "fade",
-                        "extrema": true
-                      }
-                    },
-                    {
-                      "type": "custom:mini-graph-card",
-                      "entities": [
-                        {
-                          "entity": "sensor.delta_temp",
-                          "name": "Delta AC"
-                        }
-                      ],
-                      "hours_to_show": 24,
-                      "points_per_hour": 12,
-                      "color_thresholds": [
-                        {
-                          "value": -2,
-                          "color": "#395ce6"
-                        },
-                        {
-                          "color": "#39e692"
-                        },
-                        {
-                          "color": "#cce639"
-                        },
-                        {
-                          "value": 4,
-                          "color": "#ff0000"
-                        }
-                      ],
-                      "line_width": 3,
-                      "font_size": 100,
-                      "animate": true,
                       "cache": true,
                       "show": {
                         "name": true,
@@ -3133,7 +3093,7 @@
                       "type": "custom:mini-graph-card",
                       "entities": [
                         {
-                          "entity": "input_number.temp2previuous",
+                          "entity": "input_number.temp_out_saved",
                           "name": "Out"
                         }
                       ],
@@ -3206,47 +3166,6 @@
                         "fill": "fade",
                         "extrema": true
                       }
-                    },
-                    {
-                      "type": "custom:mini-graph-card",
-                      "entities": [
-                        {
-                          "entity": "sensor.delta_temp",
-                          "name": "Delta AC History"
-                        }
-                      ],
-                      "hours_to_show": 168,
-                      "points_per_hour": 2,
-                      "group_by": "hour",
-                      "color_thresholds": [
-                        {
-                          "value": -2,
-                          "color": "#395ce6"
-                        },
-                        {
-                          "color": "#39e692"
-                        },
-                        {
-                          "color": "#cce639"
-                        },
-                        {
-                          "value": 4,
-                          "color": "#ff0000"
-                        }
-                      ],
-                      "line_width": 3,
-                      "font_size": 100,
-                      "height": 200,
-                      "animate": true,
-                      "cache": true,
-                      "show": {
-                        "name": true,
-                        "icon": false,
-                        "state": false,
-                        "legend": false,
-                        "fill": "fade",
-                        "extrema": true
-                      }
                     }
                   ]
                 }
@@ -3307,7 +3226,7 @@
                   },
                   "series": [
                     {
-                      "entity": "input_number.temp2previuous",
+                      "entity": "input_number.temp_out_saved",
                       "name": "Today",
                       "group_by": {
                         "func": "avg",
@@ -3318,7 +3237,7 @@
                       }
                     },
                     {
-                      "entity": "input_number.temp2previuous",
+                      "entity": "input_number.temp_out_saved",
                       "offset": "-1d",
                       "name": "Yesterday",
                       "group_by": {
@@ -3330,60 +3249,7 @@
                       }
                     },
                     {
-                      "entity": "input_number.temp2previuous",
-                      "offset": "-2d",
-                      "name": "-2d",
-                      "color": "yellow",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "1h"
-                      },
-                      "show": {
-                        "extremas": true
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "custom:apexcharts-card",
-                  "graph_span": "1d",
-                  "header": {
-                    "show": true,
-                    "title": "Delta Temp",
-                    "show_states": true,
-                    "colorize_states": true
-                  },
-                  "apex_config": {
-                    "legend": {
-                      "show": false
-                    }
-                  },
-                  "series": [
-                    {
-                      "entity": "sensor.delta_temp",
-                      "name": "Today",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "1h"
-                      },
-                      "show": {
-                        "extremas": true
-                      }
-                    },
-                    {
-                      "entity": "sensor.delta_temp",
-                      "offset": "-1d",
-                      "name": "Yesterday",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "1h"
-                      },
-                      "show": {
-                        "extremas": true
-                      }
-                    },
-                    {
-                      "entity": "sensor.delta_temp",
+                      "entity": "input_number.temp_out_saved",
                       "offset": "-2d",
                       "name": "-2d",
                       "color": "yellow",
@@ -3445,48 +3311,8 @@
                       "type": "custom:mini-graph-card",
                       "entities": [
                         {
-                          "entity": "input_number.temp2previuous",
+                          "entity": "input_number.temp_out_saved",
                           "name": "Out History"
-                        }
-                      ],
-                      "hours_to_show": 600,
-                      "line_width": 3,
-                      "font_size": 100,
-                      "group_by": "hour",
-                      "height": 200,
-                      "animate": true,
-                      "cache": true,
-                      "color_thresholds": [
-                        {
-                          "value": 0,
-                          "color": "#395ce6"
-                        },
-                        {
-                          "color": "#39e692"
-                        },
-                        {
-                          "color": "#cce639"
-                        },
-                        {
-                          "value": 25,
-                          "color": "#ff0000"
-                        }
-                      ],
-                      "show": {
-                        "name": true,
-                        "icon": false,
-                        "state": false,
-                        "legend": false,
-                        "fill": "fade",
-                        "extrema": true
-                      }
-                    },
-                    {
-                      "type": "custom:mini-graph-card",
-                      "entities": [
-                        {
-                          "entity": "sensor.delta_temp",
-                          "name": "Delta AC History"
                         }
                       ],
                       "hours_to_show": 600,
@@ -3951,6 +3777,321 @@
           ]
         },
         {
+          "title": "Energy",
+          "path": "energy",
+          "icon": "mdi:home-lightning-bolt-outline",
+          "type": "sidebar",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "energy-distribution",
+                  "link_dashboard": true
+                },
+                {
+                  "type": "energy-devices-graph"
+                },
+                {
+                  "square": true,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "energy-grid-neutrality-gauge"
+                    },
+                    {
+                      "type": "energy-solar-consumed-gauge"
+                    },
+                    {
+                      "type": "energy-self-sufficiency-gauge"
+                    }
+                  ],
+                  "columns": 3
+                },
+                {
+                  "type": "energy-usage-graph"
+                }
+              ],
+              "view_layout": {
+                "position": "sidebar"
+              }
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "vertical-stack",
+                  "title": "Giornaliero",
+                  "cards": [
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.consume_month"
+                      ],
+                      "days_to_show": 30,
+                      "title": "Total Energy",
+                      "hide_legend": true,
+                      "stat_types": [
+                        "change"
+                      ]
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        {
+                          "entity": "sensor.enel_energy",
+                          "name": "Buy"
+                        },
+                        {
+                          "entity": "sensor.enel_energy_returned",
+                          "name": "Sell"
+                        }
+                      ],
+                      "stat_types": [
+                        "change"
+                      ],
+                      "days_to_show": 30,
+                      "title": "Enel",
+                      "hide_legend": false
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        {
+                          "entity": "sensor.solar_energy",
+                          "name": "Solar"
+                        }
+                      ],
+                      "stat_types": [
+                        "change"
+                      ],
+                      "days_to_show": 30,
+                      "title": "Solar",
+                      "hide_legend": true
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.solar_b_energy_daily"
+                      ],
+                      "hide_legend": false,
+                      "days_to_show": 30,
+                      "stat_types": [
+                        "max"
+                      ],
+                      "title": "Solar B"
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.boiler_resistance_duration",
+                        "sensor.boiler_heat_pump_duration",
+                        "sensor.boiler_pump_resistance_duration"
+                      ],
+                      "hide_legend": false,
+                      "days_to_show": 30,
+                      "stat_types": [
+                        "max"
+                      ],
+                      "title": "Duration Boiler"
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.boiler_energy"
+                      ],
+                      "hide_legend": true,
+                      "days_to_show": 30,
+                      "title": "BoilerEnergy",
+                      "stat_types": [
+                        "change"
+                      ]
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.ac_scala_on_duration",
+                        "sensor.ac_sala_on_duration"
+                      ],
+                      "hide_legend": true,
+                      "days_to_show": 30,
+                      "title": "AC time",
+                      "stat_types": [
+                        "max"
+                      ]
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.ac_total_energy"
+                      ],
+                      "hide_legend": true,
+                      "days_to_show": 30,
+                      "title": "AC energy",
+                      "stat_types": [
+                        "change"
+                      ]
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.battery_net_energy_integral"
+                      ],
+                      "hide_legend": true,
+                      "days_to_show": 30,
+                      "title": "Battery energy",
+                      "stat_types": [
+                        "change"
+                      ]
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.1kwsolar_on_duration"
+                      ],
+                      "hide_legend": false,
+                      "days_to_show": 30,
+                      "stat_types": [
+                        "max"
+                      ],
+                      "title": "Duration 1kW"
+                    },
+                    {
+                      "chart_type": "line",
+                      "period": "day",
+                      "type": "statistics-graph",
+                      "entities": [
+                        "sensor.shelly_h_t_floor01_temperature_2"
+                      ],
+                      "hide_legend": true,
+                      "days_to_show": 30,
+                      "stat_types": [
+                        "max",
+                        "min",
+                        "mean"
+                      ],
+                      "title": "Home Temperature"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "vertical-stack",
+                  "title": "Today",
+                  "cards": [
+                    {
+                      "type": "energy-sources-table"
+                    },
+                    {
+                      "type": "entities",
+                      "entities": [
+                        {
+                          "entity": "sensor.consume_day",
+                          "name": "Day"
+                        },
+                        {
+                          "entity": "sensor.consume_week",
+                          "name": "Week"
+                        },
+                        {
+                          "entity": "sensor.consume_month",
+                          "name": "Month"
+                        },
+                        {
+                          "entity": "sensor.consume_quarter",
+                          "name": "Quarter"
+                        },
+                        {
+                          "entity": "sensor.consume_year",
+                          "name": "Year"
+                        }
+                      ],
+                      "title": "Enel consume"
+                    }
+                  ]
+                }
+              ],
+              "view_layout": {
+                "position": "sidebar"
+              }
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "vertical-stack",
+                  "title": "Mensile",
+                  "cards": [
+                    {
+                      "chart_type": "bar",
+                      "period": "month",
+                      "type": "statistics-graph",
+                      "entities": [
+                        {
+                          "entity": "sensor.enel_energy",
+                          "name": "Buy"
+                        },
+                        {
+                          "entity": "sensor.enel_energy_returned",
+                          "name": "Sell"
+                        }
+                      ],
+                      "stat_types": [
+                        "change"
+                      ],
+                      "days_to_show": 365,
+                      "title": "Enel",
+                      "hide_legend": false
+                    },
+                    {
+                      "chart_type": "bar",
+                      "period": "month",
+                      "type": "statistics-graph",
+                      "entities": [
+                        {
+                          "entity": "sensor.solar_energy",
+                          "name": "Solar"
+                        }
+                      ],
+                      "stat_types": [
+                        "change"
+                      ],
+                      "days_to_show": 365,
+                      "title": "Solar",
+                      "hide_legend": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
           "theme": "Backend-selected",
           "title": "Weather",
           "path": "weather",
@@ -3982,15 +4123,11 @@
                 },
                 {
                   "type": "custom:mushroom-entity-card",
-                  "tap_action": {
-                    "action": "url",
-                    "url_path": "https://meteo.search.ch/prognosis.it.html"
-                  },
-                  "name": "Radar",
-                  "entity": "person.marco_selva",
-                  "icon": "mdi:radar",
+                  "icon": "mdi:weather-cloudy-clock",
                   "icon_color": "pink",
-                  "layout": "vertical"
+                  "layout": "vertical",
+                  "entity": "weather.selvahome",
+                  "name": "Meteo"
                 }
               ]
             },
@@ -4014,7 +4151,7 @@
                   },
                   "series": [
                     {
-                      "entity": "input_number.temp2previuous",
+                      "entity": "input_number.temp_out_saved",
                       "name": "Today",
                       "group_by": {
                         "func": "avg",
@@ -4025,7 +4162,7 @@
                       }
                     },
                     {
-                      "entity": "input_number.temp2previuous",
+                      "entity": "input_number.temp_out_saved",
                       "offset": "-1d",
                       "name": "Yesterday",
                       "group_by": {
@@ -4175,9 +4312,9 @@
           ]
         },
         {
-          "title": "Energy",
-          "path": "energy",
-          "icon": "mdi:home-lightning-bolt-outline",
+          "path": "solar",
+          "icon": "mdi:solar-panel-large",
+          "title": "Solar",
           "type": "sidebar",
           "badges": [],
           "cards": [
@@ -4185,276 +4322,1146 @@
               "type": "vertical-stack",
               "cards": [
                 {
-                  "type": "energy-distribution",
-                  "link_dashboard": true
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.solar_power",
+                      "icon": "mdi:solar-power-variant",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "yellow",
+                      "name": "Power",
+                      "layout": "vertical"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.solar_voltage",
+                      "icon": "mdi:current-ac",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "cyan",
+                      "name": "Voltage",
+                      "layout": "vertical"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.solar_energy",
+                      "icon": "mdi:sun-angle",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "green",
+                      "name": "Energy",
+                      "layout": "vertical"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.power_production_now",
+                      "icon": "mdi:solar-power-variant-outline",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "orange",
+                      "name": "Power Est",
+                      "fill_container": true,
+                      "layout": "vertical"
+                    }
+                  ],
+                  "columns": 4
+                }
+              ]
+            },
+            {
+              "type": "custom:apexcharts-card",
+              "experimental": {
+                "color_threshold": true
+              },
+              "header": {
+                "show": true,
+                "title": "Power",
+                "show_states": false,
+                "colorize_states": true
+              },
+              "graph_span": "16h",
+              "stacked": false,
+              "apex_config": {
+                "legend": {
+                  "show": false
+                }
+              },
+              "series": [
+                {
+                  "entity": "sensor.solar_power",
+                  "stroke_width": 5,
+                  "show": {
+                    "extremas": true
+                  },
+                  "color_threshold": [
+                    {
+                      "value": 1500,
+                      "color": "d9fa1b"
+                    },
+                    {
+                      "value": 2500,
+                      "color": "fc6f03"
+                    },
+                    {
+                      "value": 3500,
+                      "color": "fc3103"
+                    }
+                  ],
+                  "name": "Solar",
+                  "type": "line",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "10min"
+                  }
                 },
                 {
-                  "type": "energy-devices-graph"
+                  "entity": "sensor.power_production_now",
+                  "opacity": 0.5,
+                  "stroke_width": 2,
+                  "name": "Est",
+                  "type": "area",
+                  "group_by": {
+                    "func": "avg",
+                    "duration": "1h"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "square": false,
+                  "type": "grid",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.solarderivate",
+                      "icon": "mdi:sun-wireless",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "yellow",
+                      "name": "Solar Derivate"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.selvahome_solar_irradiance_day_0d",
+                      "icon": "mdi:solar-power",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Irradiance",
+                      "icon_color": "green"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.sun_solar_azimuth",
+                      "icon": "mdi:compass",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Azimuth",
+                      "icon_color": "green"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.sun_solar_elevation",
+                      "icon": "mdi:arrow-collapse",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Elevation",
+                      "icon_color": "deep-orange"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.energy_production_today",
+                      "icon": "mdi:elevation-rise",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "name": "Energy Est",
+                      "icon_color": "purple"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.energy_production_today_remaining",
+                      "icon": "mdi:sun-clock",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "blue",
+                      "name": "Energy Remain"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.power_production_now",
+                      "icon": "mdi:solar-power-variant-outline",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "orange",
+                      "name": "Power Est"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.enel_rssi",
+                      "icon": "mdi:wifi",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "yellow",
+                      "name": "WiFi Solar"
+                    }
+                  ],
+                  "columns": 2
                 },
+                {
+                  "type": "energy-solar-graph"
+                }
+              ]
+            },
+            {
+              "square": false,
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Forecast",
+                    "show_states": false,
+                    "colorize_states": true
+                  },
+                  "graph_span": "36h",
+                  "stacked": false,
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "yaxis": [
+                    {
+                      "id": "first",
+                      "decimals": 1,
+                      "apex_config": {
+                        "tickAmount": 6
+                      }
+                    },
+                    {
+                      "id": "second",
+                      "opposite": true,
+                      "decimals": 1,
+                      "apex_config": {
+                        "tickAmount": 6
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "entity": "sensor.energy_current_hour",
+                      "yaxis_id": "second",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "Power",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.energy_production_today",
+                      "yaxis_id": "first",
+                      "opacity": 0.5,
+                      "stroke_width": 2,
+                      "name": "Today",
+                      "type": "area",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    },
+                    {
+                      "entity": "sensor.energy_production_today_remaining",
+                      "yaxis_id": "first",
+                      "opacity": 0.5,
+                      "stroke_width": 2,
+                      "name": "Remain",
+                      "type": "area",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "1h"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Compare Day",
+                    "show_states": false,
+                    "colorize_states": true
+                  },
+                  "graph_span": "24h",
+                  "stacked": false,
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "yaxis": [
+                    {
+                      "min": 0,
+                      "max": 5000,
+                      "decimals": 0,
+                      "apex_config": {
+                        "tickAmount": 5
+                      }
+                    }
+                  ],
+                  "series": [
+                    {
+                      "entity": "sensor.solarpoweravg",
+                      "name": "Now",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "10min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.solarpoweravg",
+                      "offset": "-1d",
+                      "name": "1 Day",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "10min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.solarpoweravg",
+                      "offset": "-2d",
+                      "name": "2 Day",
+                      "type": "line",
+                      "color": "yellow",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "10min"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "columns": 1
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "First Stage",
+                  "entity": "binary_sensor.combo_minus05_enel_plus1_solar",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 24,
+                  "none": "Unknown",
+                  "icon": "mdi:view-grid-compact",
+                  "ko_icon": "mdi:view-grid",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 100
+                },
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "Second Stage",
+                  "entity": "binary_sensor.combo_second_stage",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 24,
+                  "none": "Unknown",
+                  "icon": "mdi:view-grid-compact",
+                  "ko_icon": "mdi:view-grid",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 100
+                },
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "Third Stage",
+                  "entity": "binary_sensor.combo_third_stage",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 24,
+                  "none": "Unknown",
+                  "icon": "mdi:view-grid-compact",
+                  "ko_icon": "mdi:view-grid",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 100
+                }
+              ],
+              "view_layout": {
+                "position": "sidebar"
+              }
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Solar",
+              "cards": [
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "0.5kW",
+                  "entity": "binary_sensor.plus_05_kw_solar",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 24,
+                  "none": "Unknown",
+                  "icon": "mdi:solar-power-variant",
+                  "ko_icon": "mdi:sun-angle-outline",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 100
+                },
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "1kW",
+                  "entity": "binary_sensor.plus_1_kw_solar",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 24,
+                  "none": "Unknown",
+                  "icon": "mdi:solar-power-variant",
+                  "ko_icon": "mdi:sun-angle-outline",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 100
+                },
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "2kW",
+                  "entity": "binary_sensor.plus_2_kw_solar",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 24,
+                  "none": "Unknown",
+                  "icon": "mdi:solar-power-variant",
+                  "ko_icon": "mdi:sun-angle-outline",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 80
+                },
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "3kW",
+                  "entity": "binary_sensor.plus_3_kw_solar",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 24,
+                  "none": "Unknown",
+                  "icon": "mdi:solar-power-variant",
+                  "ko_icon": "mdi:sun-angle-outline",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 80
+                },
+                {
+                  "type": "custom:uptime-card",
+                  "title_template": "4kW",
+                  "entity": "binary_sensor.plus_4_kw_solar",
+                  "ok": "on",
+                  "ko": "off",
+                  "hours_to_show": 24,
+                  "none": "Unknown",
+                  "icon": "mdi:solar-power-variant",
+                  "ko_icon": "mdi:sun-angle-outline",
+                  "title_adaptive_color": true,
+                  "icon_adaptive_color": true,
+                  "status_adaptive_color": true,
+                  "bar": {
+                    "height": 15,
+                    "round": 3,
+                    "spacing": 3,
+                    "amount": 24
+                  },
+                  "init": {},
+                  "color": {
+                    "ko": "grey",
+                    "none": "grey"
+                  },
+                  "severity": 90
+                }
+              ],
+              "view_layout": {
+                "position": "sidebar"
+              }
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Sun",
+              "cards": [
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Sun",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "36h",
+                  "stacked": true,
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.sun_solar_azimuth",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "Azimuth",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    },
+                    {
+                      "entity": "sensor.sun_solar_elevation",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "Elevation",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "experimental": {
+                    "color_threshold": true
+                  },
+                  "header": {
+                    "show": true,
+                    "title": "Solar Derivate",
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "graph_span": "36h",
+                  "stacked": true,
+                  "apex_config": {
+                    "legend": {
+                      "show": true
+                    }
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.solarderivate",
+                      "show": {
+                        "extremas": true
+                      },
+                      "name": "Derivate",
+                      "color": "orange",
+                      "type": "line",
+                      "group_by": {
+                        "func": "avg",
+                        "duration": "15min"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "view_layout": {
+                "position": "sidebar"
+              }
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "square": false,
+                  "type": "grid",
+                  "title": "Enel Time",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.minus3kwenel_on_duration",
+                      "icon": "mdi:transmission-tower-export",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "purple",
+                      "name": "- 3kW"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.minus2kwenel_on_duration",
+                      "icon": "mdi:transmission-tower-export",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "indigo",
+                      "name": "- 2kW"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.minus1kwenel_on_duration",
+                      "icon": "mdi:transmission-tower-export",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "blue",
+                      "name": "- 1 kW"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.minus05kwenel_on_duration",
+                      "icon": "mdi:transmission-tower-export",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "cyan",
+                      "name": "- 0.5 kW "
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.minus00_05kwenel_on_duration",
+                      "icon": "mdi:transmission-tower-export",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "green",
+                      "name": "- 0.0 kW"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.plus_00_05_kw_enel_on_duration_2",
+                      "icon": "mdi:transmission-tower-import",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "light-green",
+                      "name": "+ 0.0 kW"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.plus05kwenel_on_duration",
+                      "icon": "mdi:transmission-tower-import",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "amber",
+                      "name": "+ 0.5kW"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.plus1kwenel_on_duration",
+                      "icon": "mdi:transmission-tower-import",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "orange",
+                      "name": "+ 1kW"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.plus2kwenel_on_duration",
+                      "icon": "mdi:transmission-tower-import",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "red",
+                      "name": "+ 2kW"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.plus3kwenel_on_duration",
+                      "icon": "mdi:transmission-tower-import",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "accent",
+                      "name": "+ 3kW"
+                    }
+                  ],
+                  "columns": 2
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "title": "Solar",
+              "cards": [
+                {
+                  "square": false,
+                  "type": "grid",
+                  "title": "Solar Time",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.05kwsolar_on_duration",
+                      "icon": "mdi:sun-wireless",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "indigo",
+                      "name": "0.5kW duration"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.1kwsolar_on_duration",
+                      "icon": "mdi:sun-wireless",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "light-blue",
+                      "name": "1kW duration"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.2kwsolar_on_duration",
+                      "icon": "mdi:sun-wireless",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "teal",
+                      "name": "2kW duration"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.3kwsolar_on_duration",
+                      "icon": "mdi:sun-wireless",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "yellow",
+                      "name": "3kW duration"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.4kwsolar_on_duration_2",
+                      "icon": "mdi:sun-wireless",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "accent",
+                      "name": "4kW duration"
+                    }
+                  ],
+                  "columns": 2
+                },
+                {
+                  "square": false,
+                  "type": "grid",
+                  "title": "Stage Time",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.4kwsolar_on_duration",
+                      "icon": "mdi:sun-clock-outline",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "yellow",
+                      "name": "firstStage duration"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.combosecondstage_on_duration",
+                      "icon": "mdi:sun-clock-outline",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "blue",
+                      "name": "Second Stage duration"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "sensor.combothirdstage_on_duration",
+                      "icon": "mdi:sun-clock-outline",
+                      "primary_info": "state",
+                      "secondary_info": "name",
+                      "icon_color": "red",
+                      "name": "Third Stage duration"
+                    }
+                  ],
+                  "columns": 3
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
                 {
                   "square": true,
                   "type": "grid",
                   "cards": [
                     {
-                      "type": "energy-grid-neutrality-gauge"
+                      "type": "vertical-stack",
+                      "title": "Enel Buy",
+                      "cards": [
+                        {
+                          "type": "custom:uptime-card",
+                          "title_template": "+0.0 kW Enel",
+                          "entity": "binary_sensor.plus_00_05_kw_enel",
+                          "ok": "on",
+                          "ko": "off",
+                          "hours_to_show": 24,
+                          "none": "Unknown",
+                          "icon": "mdi:solar-power-variant",
+                          "ko_icon": "mdi:sun-angle-outline",
+                          "title_adaptive_color": true,
+                          "icon_adaptive_color": true,
+                          "status_adaptive_color": true,
+                          "bar": {
+                            "height": 15,
+                            "round": 30,
+                            "spacing": 3,
+                            "amount": 24
+                          },
+                          "init": {},
+                          "color": {
+                            "ko": "grey",
+                            "none": "grey"
+                          },
+                          "severity": 80
+                        },
+                        {
+                          "type": "custom:uptime-card",
+                          "title_template": "+0.5kW Enel",
+                          "entity": "binary_sensor.plus_05_kw_enel",
+                          "ok": "on",
+                          "ko": "off",
+                          "hours_to_show": 24,
+                          "none": "Unknown",
+                          "icon": "mdi:solar-power-variant",
+                          "ko_icon": "mdi:sun-angle-outline",
+                          "title_adaptive_color": true,
+                          "icon_adaptive_color": true,
+                          "status_adaptive_color": true,
+                          "bar": {
+                            "height": 15,
+                            "round": 30,
+                            "spacing": 3,
+                            "amount": 24
+                          },
+                          "init": {},
+                          "color": {
+                            "ko": "grey",
+                            "none": "grey"
+                          },
+                          "severity": 100
+                        },
+                        {
+                          "type": "custom:uptime-card",
+                          "title_template": "+1kW Enel",
+                          "entity": "binary_sensor.plus_1_kw_enel",
+                          "ok": "on",
+                          "ko": "off",
+                          "hours_to_show": 24,
+                          "none": "Unknown",
+                          "icon": "mdi:solar-power-variant",
+                          "ko_icon": "mdi:sun-angle-outline",
+                          "title_adaptive_color": true,
+                          "icon_adaptive_color": true,
+                          "status_adaptive_color": true,
+                          "bar": {
+                            "height": 15,
+                            "round": 30,
+                            "spacing": 3,
+                            "amount": 24
+                          },
+                          "init": {},
+                          "color": {
+                            "ko": "grey",
+                            "none": "grey"
+                          },
+                          "severity": 100
+                        },
+                        {
+                          "type": "custom:uptime-card",
+                          "title_template": "+2kW Enel",
+                          "entity": "binary_sensor.plus_2_kw_enel",
+                          "ok": "on",
+                          "ko": "off",
+                          "hours_to_show": 24,
+                          "none": "Unknown",
+                          "icon": "mdi:solar-power-variant",
+                          "ko_icon": "mdi:sun-angle-outline",
+                          "title_adaptive_color": true,
+                          "icon_adaptive_color": true,
+                          "status_adaptive_color": true,
+                          "bar": {
+                            "height": 15,
+                            "round": 30,
+                            "spacing": 3,
+                            "amount": 24
+                          },
+                          "init": {},
+                          "color": {
+                            "ko": "grey",
+                            "none": "grey"
+                          },
+                          "severity": 80
+                        },
+                        {
+                          "type": "custom:uptime-card",
+                          "title_template": "+3kW Enel",
+                          "entity": "binary_sensor.plus_3_kw_enel",
+                          "ok": "on",
+                          "ko": "off",
+                          "hours_to_show": 24,
+                          "none": "Unknown",
+                          "icon": "mdi:solar-power-variant",
+                          "ko_icon": "mdi:sun-angle-outline",
+                          "title_adaptive_color": true,
+                          "icon_adaptive_color": true,
+                          "status_adaptive_color": true,
+                          "bar": {
+                            "height": 15,
+                            "round": 30,
+                            "spacing": 3,
+                            "amount": 24
+                          },
+                          "init": {},
+                          "color": {
+                            "ko": "grey",
+                            "none": "grey"
+                          },
+                          "severity": 80
+                        }
+                      ],
+                      "view_layout": {
+                        "position": "sidebar"
+                      }
                     },
                     {
-                      "type": "energy-solar-consumed-gauge"
-                    },
-                    {
-                      "type": "energy-self-sufficiency-gauge"
+                      "type": "vertical-stack",
+                      "title": "Enel Sell",
+                      "cards": [
+                        {
+                          "type": "custom:uptime-card",
+                          "title_template": "- 0.0 kW Enel",
+                          "entity": "binary_sensor.minus_00_05_kw_enel",
+                          "ok": "on",
+                          "ko": "off",
+                          "hours_to_show": 24,
+                          "none": "Unknown",
+                          "icon": "mdi:solar-power-variant",
+                          "ko_icon": "mdi:sun-angle-outline",
+                          "title_adaptive_color": true,
+                          "icon_adaptive_color": true,
+                          "status_adaptive_color": true,
+                          "bar": {
+                            "height": 15,
+                            "round": 30,
+                            "spacing": 3,
+                            "amount": 24
+                          },
+                          "init": {},
+                          "color": {
+                            "ko": "grey",
+                            "none": "grey"
+                          },
+                          "severity": 80
+                        },
+                        {
+                          "type": "custom:uptime-card",
+                          "title_template": "-0.5kW Enel",
+                          "entity": "binary_sensor.minus_05_kw_enel",
+                          "ok": "on",
+                          "ko": "off",
+                          "hours_to_show": 24,
+                          "none": "Unknown",
+                          "icon": "mdi:solar-power-variant",
+                          "ko_icon": "mdi:sun-angle-outline",
+                          "title_adaptive_color": true,
+                          "icon_adaptive_color": true,
+                          "status_adaptive_color": true,
+                          "bar": {
+                            "height": 15,
+                            "round": 30,
+                            "spacing": 3,
+                            "amount": 24
+                          },
+                          "init": {},
+                          "color": {
+                            "ko": "grey",
+                            "none": "grey"
+                          },
+                          "severity": 100
+                        },
+                        {
+                          "type": "custom:uptime-card",
+                          "title_template": "-1kW Enel",
+                          "entity": "binary_sensor.minus_1_kw_enel",
+                          "ok": "on",
+                          "ko": "off",
+                          "hours_to_show": 24,
+                          "none": "Unknown",
+                          "icon": "mdi:solar-power-variant",
+                          "ko_icon": "mdi:sun-angle-outline",
+                          "title_adaptive_color": true,
+                          "icon_adaptive_color": true,
+                          "status_adaptive_color": true,
+                          "bar": {
+                            "height": 15,
+                            "round": 30,
+                            "spacing": 3,
+                            "amount": 24
+                          },
+                          "init": {},
+                          "color": {
+                            "ko": "grey",
+                            "none": "grey"
+                          },
+                          "severity": 100
+                        },
+                        {
+                          "type": "custom:uptime-card",
+                          "title_template": "-2kW Enel",
+                          "entity": "binary_sensor.minus_2_kw_enel",
+                          "ok": "on",
+                          "ko": "off",
+                          "hours_to_show": 24,
+                          "none": "Unknown",
+                          "icon": "mdi:solar-power-variant",
+                          "ko_icon": "mdi:sun-angle-outline",
+                          "title_adaptive_color": true,
+                          "icon_adaptive_color": true,
+                          "status_adaptive_color": true,
+                          "bar": {
+                            "height": 15,
+                            "round": 30,
+                            "spacing": 3,
+                            "amount": 24
+                          },
+                          "init": {},
+                          "color": {
+                            "ko": "grey",
+                            "none": "grey"
+                          },
+                          "severity": 80
+                        },
+                        {
+                          "type": "custom:uptime-card",
+                          "title_template": "-3kW Enel",
+                          "entity": "binary_sensor.minus_3_kw_enel",
+                          "ok": "on",
+                          "ko": "off",
+                          "hours_to_show": 24,
+                          "none": "Unknown",
+                          "icon": "mdi:solar-power-variant",
+                          "ko_icon": "mdi:sun-angle-outline",
+                          "title_adaptive_color": true,
+                          "icon_adaptive_color": true,
+                          "status_adaptive_color": true,
+                          "bar": {
+                            "height": 15,
+                            "round": 30,
+                            "spacing": 3,
+                            "amount": 24
+                          },
+                          "init": {},
+                          "color": {
+                            "ko": "grey",
+                            "none": "grey"
+                          },
+                          "severity": 80
+                        }
+                      ],
+                      "view_layout": {
+                        "position": "sidebar"
+                      }
                     }
                   ],
-                  "columns": 3
-                },
-                {
-                  "type": "energy-usage-graph"
+                  "columns": 2
                 }
               ],
               "view_layout": {
                 "position": "sidebar"
               }
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "vertical-stack",
-                  "title": "Giornaliero",
-                  "cards": [
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        {
-                          "entity": "sensor.enel_energy",
-                          "name": "Buy"
-                        },
-                        {
-                          "entity": "sensor.enel_energy_returned",
-                          "name": "Sell"
-                        }
-                      ],
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 30,
-                      "title": "Enel",
-                      "hide_legend": false
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        {
-                          "entity": "sensor.solar_energy",
-                          "name": "Solar"
-                        }
-                      ],
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 30,
-                      "title": "Solar",
-                      "hide_legend": true
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.boiler_resistance_duration",
-                        "sensor.boiler_heat_pump_duration",
-                        "sensor.boiler_pump_resistance_duration"
-                      ],
-                      "hide_legend": false,
-                      "days_to_show": 30,
-                      "stat_types": [
-                        "max"
-                      ],
-                      "title": "Duration Boiler"
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.boiler_energy"
-                      ],
-                      "hide_legend": true,
-                      "days_to_show": 30,
-                      "title": "BoilerEnergy",
-                      "stat_types": [
-                        "change"
-                      ]
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.ac_scala_on_duration"
-                      ],
-                      "hide_legend": true,
-                      "days_to_show": 30,
-                      "title": "AC time",
-                      "stat_types": [
-                        "max"
-                      ]
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.ac_total_energy"
-                      ],
-                      "hide_legend": true,
-                      "days_to_show": 30,
-                      "title": "AC energy",
-                      "stat_types": [
-                        "change"
-                      ]
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.battery_net_energy_integral"
-                      ],
-                      "hide_legend": true,
-                      "days_to_show": 30,
-                      "title": "Battery energy",
-                      "stat_types": [
-                        "change"
-                      ]
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.1kwsolar_on_duration"
-                      ],
-                      "hide_legend": false,
-                      "days_to_show": 30,
-                      "stat_types": [
-                        "max"
-                      ],
-                      "title": "Duration 1kW"
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "day",
-                      "type": "statistics-graph",
-                      "entities": [
-                        "sensor.solar_b_energy_daily"
-                      ],
-                      "hide_legend": false,
-                      "days_to_show": 30,
-                      "stat_types": [
-                        "max"
-                      ],
-                      "title": "Solar B"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "vertical-stack",
-                  "title": "Today",
-                  "cards": [
-                    {
-                      "type": "energy-sources-table"
-                    },
-                    {
-                      "type": "entities",
-                      "entities": [
-                        {
-                          "entity": "sensor.consume_day",
-                          "name": "Day"
-                        },
-                        {
-                          "entity": "sensor.consume_week",
-                          "name": "Week"
-                        },
-                        {
-                          "entity": "sensor.consume_month",
-                          "name": "Month"
-                        },
-                        {
-                          "entity": "sensor.consume_quarter",
-                          "name": "Quarter"
-                        },
-                        {
-                          "entity": "sensor.consume_year",
-                          "name": "Year"
-                        }
-                      ],
-                      "title": "Enel consume"
-                    }
-                  ]
-                }
-              ],
-              "view_layout": {
-                "position": "sidebar"
-              }
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "vertical-stack",
-                  "title": "Mensile",
-                  "cards": [
-                    {
-                      "chart_type": "bar",
-                      "period": "month",
-                      "type": "statistics-graph",
-                      "entities": [
-                        {
-                          "entity": "sensor.enel_energy",
-                          "name": "Buy"
-                        },
-                        {
-                          "entity": "sensor.enel_energy_returned",
-                          "name": "Sell"
-                        }
-                      ],
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 365,
-                      "title": "Enel",
-                      "hide_legend": false
-                    },
-                    {
-                      "chart_type": "bar",
-                      "period": "month",
-                      "type": "statistics-graph",
-                      "entities": [
-                        {
-                          "entity": "sensor.solar_energy",
-                          "name": "Solar"
-                        }
-                      ],
-                      "stat_types": [
-                        "change"
-                      ],
-                      "days_to_show": 365,
-                      "title": "Solar",
-                      "hide_legend": true
-                    }
-                  ]
-                }
-              ]
             }
           ]
         },
@@ -5870,1163 +6877,6 @@
           ]
         },
         {
-          "path": "solar",
-          "icon": "mdi:solar-panel-large",
-          "title": "Solar",
-          "type": "sidebar",
-          "badges": [],
-          "cards": [
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "square": false,
-                  "type": "grid",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.solar_power",
-                      "icon": "mdi:solar-power-variant",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "yellow",
-                      "name": "Power",
-                      "layout": "vertical"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.solar_voltage",
-                      "icon": "mdi:current-ac",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "cyan",
-                      "name": "Voltage",
-                      "layout": "vertical"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.solar_energy",
-                      "icon": "mdi:sun-angle",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "green",
-                      "name": "Energy",
-                      "layout": "vertical"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.power_production_now",
-                      "icon": "mdi:solar-power-variant-outline",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "orange",
-                      "name": "Power Est",
-                      "fill_container": true,
-                      "layout": "vertical"
-                    }
-                  ],
-                  "columns": 4
-                }
-              ]
-            },
-            {
-              "type": "custom:apexcharts-card",
-              "experimental": {
-                "color_threshold": true
-              },
-              "header": {
-                "show": true,
-                "title": "Power",
-                "show_states": false,
-                "colorize_states": true
-              },
-              "graph_span": "16h",
-              "stacked": false,
-              "apex_config": {
-                "legend": {
-                  "show": false
-                }
-              },
-              "series": [
-                {
-                  "entity": "sensor.solar_power",
-                  "stroke_width": 5,
-                  "show": {
-                    "extremas": true
-                  },
-                  "color_threshold": [
-                    {
-                      "value": 1500,
-                      "color": "d9fa1b"
-                    },
-                    {
-                      "value": 2500,
-                      "color": "fc6f03"
-                    },
-                    {
-                      "value": 3500,
-                      "color": "fc3103"
-                    }
-                  ],
-                  "name": "Solar",
-                  "type": "line",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "10min"
-                  }
-                },
-                {
-                  "entity": "sensor.power_production_now",
-                  "opacity": 0.5,
-                  "stroke_width": 2,
-                  "name": "Est",
-                  "type": "area",
-                  "group_by": {
-                    "func": "avg",
-                    "duration": "1h"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "square": false,
-                  "type": "grid",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.solarderivate",
-                      "icon": "mdi:sun-wireless",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "yellow",
-                      "name": "Solar Derivate"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.selvahome_solar_irradiance_day_0d",
-                      "icon": "mdi:solar-power",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "name": "Irradiance",
-                      "icon_color": "green"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.sun_solar_azimuth",
-                      "icon": "mdi:compass",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "name": "Azimuth",
-                      "icon_color": "green"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.sun_solar_elevation",
-                      "icon": "mdi:arrow-collapse",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "name": "Elevation",
-                      "icon_color": "deep-orange"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.energy_production_today",
-                      "icon": "mdi:elevation-rise",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "name": "Energy Est",
-                      "icon_color": "purple"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.energy_production_today_remaining",
-                      "icon": "mdi:sun-clock",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "blue",
-                      "name": "Energy Remain"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.power_production_now",
-                      "icon": "mdi:solar-power-variant-outline",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "orange",
-                      "name": "Power Est"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.enel_rssi",
-                      "icon": "mdi:wifi",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "yellow",
-                      "name": "WiFi Solar"
-                    }
-                  ],
-                  "columns": 2
-                },
-                {
-                  "type": "energy-solar-graph"
-                }
-              ]
-            },
-            {
-              "square": false,
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "custom:apexcharts-card",
-                  "experimental": {
-                    "color_threshold": true
-                  },
-                  "header": {
-                    "show": true,
-                    "title": "Forecast",
-                    "show_states": false,
-                    "colorize_states": true
-                  },
-                  "graph_span": "36h",
-                  "stacked": false,
-                  "apex_config": {
-                    "legend": {
-                      "show": false
-                    }
-                  },
-                  "yaxis": [
-                    {
-                      "id": "first",
-                      "decimals": 1,
-                      "apex_config": {
-                        "tickAmount": 6
-                      }
-                    },
-                    {
-                      "id": "second",
-                      "opposite": true,
-                      "decimals": 1,
-                      "apex_config": {
-                        "tickAmount": 6
-                      }
-                    }
-                  ],
-                  "series": [
-                    {
-                      "entity": "sensor.energy_current_hour",
-                      "yaxis_id": "second",
-                      "show": {
-                        "extremas": true
-                      },
-                      "name": "Power",
-                      "type": "line",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.energy_production_today",
-                      "yaxis_id": "first",
-                      "opacity": 0.5,
-                      "stroke_width": 2,
-                      "name": "Today",
-                      "type": "area",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "1h"
-                      }
-                    },
-                    {
-                      "entity": "sensor.energy_production_today_remaining",
-                      "yaxis_id": "first",
-                      "opacity": 0.5,
-                      "stroke_width": 2,
-                      "name": "Remain",
-                      "type": "area",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "1h"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "custom:apexcharts-card",
-                  "experimental": {
-                    "color_threshold": true
-                  },
-                  "header": {
-                    "show": true,
-                    "title": "Compare Day",
-                    "show_states": false,
-                    "colorize_states": true
-                  },
-                  "graph_span": "24h",
-                  "stacked": false,
-                  "apex_config": {
-                    "legend": {
-                      "show": false
-                    }
-                  },
-                  "yaxis": [
-                    {
-                      "min": 0,
-                      "max": 5000,
-                      "decimals": 0,
-                      "apex_config": {
-                        "tickAmount": 5
-                      }
-                    }
-                  ],
-                  "series": [
-                    {
-                      "entity": "sensor.solarpoweravg10min",
-                      "name": "Now",
-                      "type": "line",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "10min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.solarpoweravg10min",
-                      "offset": "-1d",
-                      "name": "1 Day",
-                      "type": "line",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "10min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.solarpoweravg10min",
-                      "offset": "-2d",
-                      "name": "2 Day",
-                      "type": "line",
-                      "color": "yellow",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "10min"
-                      }
-                    }
-                  ]
-                }
-              ],
-              "columns": 2
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "custom:uptime-card",
-                  "title_template": "First Stage",
-                  "entity": "binary_sensor.combo_minus05_enel_plus1_solar",
-                  "ok": "on",
-                  "ko": "off",
-                  "hours_to_show": 24,
-                  "none": "Unknown",
-                  "icon": "mdi:view-grid-compact",
-                  "ko_icon": "mdi:view-grid",
-                  "title_adaptive_color": true,
-                  "icon_adaptive_color": true,
-                  "status_adaptive_color": true,
-                  "bar": {
-                    "height": 15,
-                    "round": 3,
-                    "spacing": 3,
-                    "amount": 24
-                  },
-                  "init": {},
-                  "color": {
-                    "ko": "grey",
-                    "none": "grey"
-                  },
-                  "severity": 100
-                },
-                {
-                  "type": "custom:uptime-card",
-                  "title_template": "Second Stage",
-                  "entity": "binary_sensor.combo_second_stage",
-                  "ok": "on",
-                  "ko": "off",
-                  "hours_to_show": 24,
-                  "none": "Unknown",
-                  "icon": "mdi:view-grid-compact",
-                  "ko_icon": "mdi:view-grid",
-                  "title_adaptive_color": true,
-                  "icon_adaptive_color": true,
-                  "status_adaptive_color": true,
-                  "bar": {
-                    "height": 15,
-                    "round": 3,
-                    "spacing": 3,
-                    "amount": 24
-                  },
-                  "init": {},
-                  "color": {
-                    "ko": "grey",
-                    "none": "grey"
-                  },
-                  "severity": 100
-                },
-                {
-                  "type": "custom:uptime-card",
-                  "title_template": "Third Stage",
-                  "entity": "binary_sensor.combo_third_stage",
-                  "ok": "on",
-                  "ko": "off",
-                  "hours_to_show": 24,
-                  "none": "Unknown",
-                  "icon": "mdi:view-grid-compact",
-                  "ko_icon": "mdi:view-grid",
-                  "title_adaptive_color": true,
-                  "icon_adaptive_color": true,
-                  "status_adaptive_color": true,
-                  "bar": {
-                    "height": 15,
-                    "round": 3,
-                    "spacing": 3,
-                    "amount": 24
-                  },
-                  "init": {},
-                  "color": {
-                    "ko": "grey",
-                    "none": "grey"
-                  },
-                  "severity": 100
-                }
-              ],
-              "view_layout": {
-                "position": "sidebar"
-              }
-            },
-            {
-              "type": "vertical-stack",
-              "title": "Solar",
-              "cards": [
-                {
-                  "type": "custom:uptime-card",
-                  "title_template": "0.5kW",
-                  "entity": "binary_sensor.plus_05_kw_solar",
-                  "ok": "on",
-                  "ko": "off",
-                  "hours_to_show": 24,
-                  "none": "Unknown",
-                  "icon": "mdi:solar-power-variant",
-                  "ko_icon": "mdi:sun-angle-outline",
-                  "title_adaptive_color": true,
-                  "icon_adaptive_color": true,
-                  "status_adaptive_color": true,
-                  "bar": {
-                    "height": 15,
-                    "round": 3,
-                    "spacing": 3,
-                    "amount": 24
-                  },
-                  "init": {},
-                  "color": {
-                    "ko": "grey",
-                    "none": "grey"
-                  },
-                  "severity": 100
-                },
-                {
-                  "type": "custom:uptime-card",
-                  "title_template": "1kW",
-                  "entity": "binary_sensor.plus_1_kw_solar",
-                  "ok": "on",
-                  "ko": "off",
-                  "hours_to_show": 24,
-                  "none": "Unknown",
-                  "icon": "mdi:solar-power-variant",
-                  "ko_icon": "mdi:sun-angle-outline",
-                  "title_adaptive_color": true,
-                  "icon_adaptive_color": true,
-                  "status_adaptive_color": true,
-                  "bar": {
-                    "height": 15,
-                    "round": 3,
-                    "spacing": 3,
-                    "amount": 24
-                  },
-                  "init": {},
-                  "color": {
-                    "ko": "grey",
-                    "none": "grey"
-                  },
-                  "severity": 100
-                },
-                {
-                  "type": "custom:uptime-card",
-                  "title_template": "2kW",
-                  "entity": "binary_sensor.plus_2_kw_solar",
-                  "ok": "on",
-                  "ko": "off",
-                  "hours_to_show": 24,
-                  "none": "Unknown",
-                  "icon": "mdi:solar-power-variant",
-                  "ko_icon": "mdi:sun-angle-outline",
-                  "title_adaptive_color": true,
-                  "icon_adaptive_color": true,
-                  "status_adaptive_color": true,
-                  "bar": {
-                    "height": 15,
-                    "round": 3,
-                    "spacing": 3,
-                    "amount": 24
-                  },
-                  "init": {},
-                  "color": {
-                    "ko": "grey",
-                    "none": "grey"
-                  },
-                  "severity": 80
-                },
-                {
-                  "type": "custom:uptime-card",
-                  "title_template": "3kW",
-                  "entity": "binary_sensor.plus_3_kw_solar",
-                  "ok": "on",
-                  "ko": "off",
-                  "hours_to_show": 24,
-                  "none": "Unknown",
-                  "icon": "mdi:solar-power-variant",
-                  "ko_icon": "mdi:sun-angle-outline",
-                  "title_adaptive_color": true,
-                  "icon_adaptive_color": true,
-                  "status_adaptive_color": true,
-                  "bar": {
-                    "height": 15,
-                    "round": 3,
-                    "spacing": 3,
-                    "amount": 24
-                  },
-                  "init": {},
-                  "color": {
-                    "ko": "grey",
-                    "none": "grey"
-                  },
-                  "severity": 80
-                },
-                {
-                  "type": "custom:uptime-card",
-                  "title_template": "4kW",
-                  "entity": "binary_sensor.plus_4_kw_solar",
-                  "ok": "on",
-                  "ko": "off",
-                  "hours_to_show": 24,
-                  "none": "Unknown",
-                  "icon": "mdi:solar-power-variant",
-                  "ko_icon": "mdi:sun-angle-outline",
-                  "title_adaptive_color": true,
-                  "icon_adaptive_color": true,
-                  "status_adaptive_color": true,
-                  "bar": {
-                    "height": 15,
-                    "round": 3,
-                    "spacing": 3,
-                    "amount": 24
-                  },
-                  "init": {},
-                  "color": {
-                    "ko": "grey",
-                    "none": "grey"
-                  },
-                  "severity": 90
-                }
-              ],
-              "view_layout": {
-                "position": "sidebar"
-              }
-            },
-            {
-              "type": "vertical-stack",
-              "title": "Sun",
-              "cards": [
-                {
-                  "type": "custom:apexcharts-card",
-                  "experimental": {
-                    "color_threshold": true
-                  },
-                  "header": {
-                    "show": true,
-                    "title": "Sun",
-                    "show_states": true,
-                    "colorize_states": true
-                  },
-                  "graph_span": "36h",
-                  "stacked": true,
-                  "apex_config": {
-                    "legend": {
-                      "show": false
-                    }
-                  },
-                  "series": [
-                    {
-                      "entity": "sensor.sun_solar_azimuth",
-                      "show": {
-                        "extremas": true
-                      },
-                      "name": "Azimuth",
-                      "type": "line",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    },
-                    {
-                      "entity": "sensor.sun_solar_elevation",
-                      "show": {
-                        "extremas": true
-                      },
-                      "name": "Elevation",
-                      "type": "line",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "custom:apexcharts-card",
-                  "experimental": {
-                    "color_threshold": true
-                  },
-                  "header": {
-                    "show": true,
-                    "title": "Solar Derivate",
-                    "show_states": true,
-                    "colorize_states": true
-                  },
-                  "graph_span": "36h",
-                  "stacked": true,
-                  "apex_config": {
-                    "legend": {
-                      "show": true
-                    }
-                  },
-                  "series": [
-                    {
-                      "entity": "sensor.solarderivate",
-                      "show": {
-                        "extremas": true
-                      },
-                      "name": "Derivate",
-                      "color": "orange",
-                      "type": "line",
-                      "group_by": {
-                        "func": "avg",
-                        "duration": "15min"
-                      }
-                    }
-                  ]
-                }
-              ],
-              "view_layout": {
-                "position": "sidebar"
-              }
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "square": false,
-                  "type": "grid",
-                  "title": "Enel Time",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.minus3kwenel_on_duration",
-                      "icon": "mdi:transmission-tower-export",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "purple",
-                      "name": "- 3kW"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.minus2kwenel_on_duration",
-                      "icon": "mdi:transmission-tower-export",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "indigo",
-                      "name": "- 2kW"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.minus1kwenel_on_duration",
-                      "icon": "mdi:transmission-tower-export",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "blue",
-                      "name": "- 1 kW"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.minus05kwenel_on_duration",
-                      "icon": "mdi:transmission-tower-export",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "cyan",
-                      "name": "- 0.5 kW "
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.minus00_05kwenel_on_duration",
-                      "icon": "mdi:transmission-tower-export",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "green",
-                      "name": "- 0.0 kW"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.plus_00_05_kw_enel_on_duration_2",
-                      "icon": "mdi:transmission-tower-import",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "light-green",
-                      "name": "+ 0.0 kW"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.plus05kwenel_on_duration",
-                      "icon": "mdi:transmission-tower-import",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "amber",
-                      "name": "+ 0.5kW"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.plus1kwenel_on_duration",
-                      "icon": "mdi:transmission-tower-import",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "orange",
-                      "name": "+ 1kW"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.plus2kwenel_on_duration",
-                      "icon": "mdi:transmission-tower-import",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "red",
-                      "name": "+ 2kW"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.plus3kwenel_on_duration",
-                      "icon": "mdi:transmission-tower-import",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "accent",
-                      "name": "+ 3kW"
-                    }
-                  ],
-                  "columns": 2
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "title": "Solar",
-              "cards": [
-                {
-                  "type": "energy-usage-graph"
-                },
-                {
-                  "square": false,
-                  "type": "grid",
-                  "title": "Solar Time",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.05kwsolar_on_duration",
-                      "icon": "mdi:sun-wireless",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "indigo",
-                      "name": "0.5kW duration"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.1kwsolar_on_duration",
-                      "icon": "mdi:sun-wireless",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "light-blue",
-                      "name": "1kW duration"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.2kwsolar_on_duration",
-                      "icon": "mdi:sun-wireless",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "teal",
-                      "name": "2kW duration"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.3kwsolar_on_duration",
-                      "icon": "mdi:sun-wireless",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "yellow",
-                      "name": "3kW duration"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.4kwsolar_on_duration_2",
-                      "icon": "mdi:sun-wireless",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "accent",
-                      "name": "4kW duration"
-                    }
-                  ],
-                  "columns": 2
-                },
-                {
-                  "square": false,
-                  "type": "grid",
-                  "title": "Stage Time",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.4kwsolar_on_duration",
-                      "icon": "mdi:sun-clock-outline",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "yellow",
-                      "name": "firstStage duration"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.combosecondstage_on_duration",
-                      "icon": "mdi:sun-clock-outline",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "blue",
-                      "name": "Second Stage duration"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "sensor.combothirdstage_on_duration",
-                      "icon": "mdi:sun-clock-outline",
-                      "primary_info": "state",
-                      "secondary_info": "name",
-                      "icon_color": "red",
-                      "name": "Third Stage duration"
-                    }
-                  ],
-                  "columns": 3
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "square": true,
-                  "type": "grid",
-                  "cards": [
-                    {
-                      "type": "vertical-stack",
-                      "title": "Enel Buy",
-                      "cards": [
-                        {
-                          "type": "custom:uptime-card",
-                          "title_template": "+0.0 kW Enel",
-                          "entity": "binary_sensor.plus_00_05_kw_enel",
-                          "ok": "on",
-                          "ko": "off",
-                          "hours_to_show": 24,
-                          "none": "Unknown",
-                          "icon": "mdi:solar-power-variant",
-                          "ko_icon": "mdi:sun-angle-outline",
-                          "title_adaptive_color": true,
-                          "icon_adaptive_color": true,
-                          "status_adaptive_color": true,
-                          "bar": {
-                            "height": 15,
-                            "round": 30,
-                            "spacing": 3,
-                            "amount": 24
-                          },
-                          "init": {},
-                          "color": {
-                            "ko": "grey",
-                            "none": "grey"
-                          },
-                          "severity": 80
-                        },
-                        {
-                          "type": "custom:uptime-card",
-                          "title_template": "+0.5kW Enel",
-                          "entity": "binary_sensor.plus_05_kw_enel",
-                          "ok": "on",
-                          "ko": "off",
-                          "hours_to_show": 24,
-                          "none": "Unknown",
-                          "icon": "mdi:solar-power-variant",
-                          "ko_icon": "mdi:sun-angle-outline",
-                          "title_adaptive_color": true,
-                          "icon_adaptive_color": true,
-                          "status_adaptive_color": true,
-                          "bar": {
-                            "height": 15,
-                            "round": 30,
-                            "spacing": 3,
-                            "amount": 24
-                          },
-                          "init": {},
-                          "color": {
-                            "ko": "grey",
-                            "none": "grey"
-                          },
-                          "severity": 100
-                        },
-                        {
-                          "type": "custom:uptime-card",
-                          "title_template": "+1kW Enel",
-                          "entity": "binary_sensor.plus_1_kw_enel",
-                          "ok": "on",
-                          "ko": "off",
-                          "hours_to_show": 24,
-                          "none": "Unknown",
-                          "icon": "mdi:solar-power-variant",
-                          "ko_icon": "mdi:sun-angle-outline",
-                          "title_adaptive_color": true,
-                          "icon_adaptive_color": true,
-                          "status_adaptive_color": true,
-                          "bar": {
-                            "height": 15,
-                            "round": 30,
-                            "spacing": 3,
-                            "amount": 24
-                          },
-                          "init": {},
-                          "color": {
-                            "ko": "grey",
-                            "none": "grey"
-                          },
-                          "severity": 100
-                        },
-                        {
-                          "type": "custom:uptime-card",
-                          "title_template": "+2kW Enel",
-                          "entity": "binary_sensor.plus_2_kw_enel",
-                          "ok": "on",
-                          "ko": "off",
-                          "hours_to_show": 24,
-                          "none": "Unknown",
-                          "icon": "mdi:solar-power-variant",
-                          "ko_icon": "mdi:sun-angle-outline",
-                          "title_adaptive_color": true,
-                          "icon_adaptive_color": true,
-                          "status_adaptive_color": true,
-                          "bar": {
-                            "height": 15,
-                            "round": 30,
-                            "spacing": 3,
-                            "amount": 24
-                          },
-                          "init": {},
-                          "color": {
-                            "ko": "grey",
-                            "none": "grey"
-                          },
-                          "severity": 80
-                        },
-                        {
-                          "type": "custom:uptime-card",
-                          "title_template": "+3kW Enel",
-                          "entity": "binary_sensor.plus_3_kw_enel",
-                          "ok": "on",
-                          "ko": "off",
-                          "hours_to_show": 24,
-                          "none": "Unknown",
-                          "icon": "mdi:solar-power-variant",
-                          "ko_icon": "mdi:sun-angle-outline",
-                          "title_adaptive_color": true,
-                          "icon_adaptive_color": true,
-                          "status_adaptive_color": true,
-                          "bar": {
-                            "height": 15,
-                            "round": 30,
-                            "spacing": 3,
-                            "amount": 24
-                          },
-                          "init": {},
-                          "color": {
-                            "ko": "grey",
-                            "none": "grey"
-                          },
-                          "severity": 80
-                        }
-                      ],
-                      "view_layout": {
-                        "position": "sidebar"
-                      }
-                    },
-                    {
-                      "type": "vertical-stack",
-                      "title": "Enel Sell",
-                      "cards": [
-                        {
-                          "type": "custom:uptime-card",
-                          "title_template": "- 0.0 kW Enel",
-                          "entity": "binary_sensor.minus_00_05_kw_enel",
-                          "ok": "on",
-                          "ko": "off",
-                          "hours_to_show": 24,
-                          "none": "Unknown",
-                          "icon": "mdi:solar-power-variant",
-                          "ko_icon": "mdi:sun-angle-outline",
-                          "title_adaptive_color": true,
-                          "icon_adaptive_color": true,
-                          "status_adaptive_color": true,
-                          "bar": {
-                            "height": 15,
-                            "round": 30,
-                            "spacing": 3,
-                            "amount": 24
-                          },
-                          "init": {},
-                          "color": {
-                            "ko": "grey",
-                            "none": "grey"
-                          },
-                          "severity": 80
-                        },
-                        {
-                          "type": "custom:uptime-card",
-                          "title_template": "-0.5kW Enel",
-                          "entity": "binary_sensor.minus_05_kw_enel",
-                          "ok": "on",
-                          "ko": "off",
-                          "hours_to_show": 24,
-                          "none": "Unknown",
-                          "icon": "mdi:solar-power-variant",
-                          "ko_icon": "mdi:sun-angle-outline",
-                          "title_adaptive_color": true,
-                          "icon_adaptive_color": true,
-                          "status_adaptive_color": true,
-                          "bar": {
-                            "height": 15,
-                            "round": 30,
-                            "spacing": 3,
-                            "amount": 24
-                          },
-                          "init": {},
-                          "color": {
-                            "ko": "grey",
-                            "none": "grey"
-                          },
-                          "severity": 100
-                        },
-                        {
-                          "type": "custom:uptime-card",
-                          "title_template": "-1kW Enel",
-                          "entity": "binary_sensor.minus_1_kw_enel",
-                          "ok": "on",
-                          "ko": "off",
-                          "hours_to_show": 24,
-                          "none": "Unknown",
-                          "icon": "mdi:solar-power-variant",
-                          "ko_icon": "mdi:sun-angle-outline",
-                          "title_adaptive_color": true,
-                          "icon_adaptive_color": true,
-                          "status_adaptive_color": true,
-                          "bar": {
-                            "height": 15,
-                            "round": 30,
-                            "spacing": 3,
-                            "amount": 24
-                          },
-                          "init": {},
-                          "color": {
-                            "ko": "grey",
-                            "none": "grey"
-                          },
-                          "severity": 100
-                        },
-                        {
-                          "type": "custom:uptime-card",
-                          "title_template": "-2kW Enel",
-                          "entity": "binary_sensor.minus_2_kw_enel",
-                          "ok": "on",
-                          "ko": "off",
-                          "hours_to_show": 24,
-                          "none": "Unknown",
-                          "icon": "mdi:solar-power-variant",
-                          "ko_icon": "mdi:sun-angle-outline",
-                          "title_adaptive_color": true,
-                          "icon_adaptive_color": true,
-                          "status_adaptive_color": true,
-                          "bar": {
-                            "height": 15,
-                            "round": 30,
-                            "spacing": 3,
-                            "amount": 24
-                          },
-                          "init": {},
-                          "color": {
-                            "ko": "grey",
-                            "none": "grey"
-                          },
-                          "severity": 80
-                        },
-                        {
-                          "type": "custom:uptime-card",
-                          "title_template": "-3kW Enel",
-                          "entity": "binary_sensor.minus_3_kw_enel",
-                          "ok": "on",
-                          "ko": "off",
-                          "hours_to_show": 24,
-                          "none": "Unknown",
-                          "icon": "mdi:solar-power-variant",
-                          "ko_icon": "mdi:sun-angle-outline",
-                          "title_adaptive_color": true,
-                          "icon_adaptive_color": true,
-                          "status_adaptive_color": true,
-                          "bar": {
-                            "height": 15,
-                            "round": 30,
-                            "spacing": 3,
-                            "amount": 24
-                          },
-                          "init": {},
-                          "color": {
-                            "ko": "grey",
-                            "none": "grey"
-                          },
-                          "severity": 80
-                        }
-                      ],
-                      "view_layout": {
-                        "position": "sidebar"
-                      }
-                    }
-                  ],
-                  "columns": 2
-                }
-              ],
-              "view_layout": {
-                "position": "sidebar"
-              }
-            }
-          ]
-        },
-        {
           "title": "Shelly Tables",
           "path": "shelly-tables",
           "icon": "mdi:file-table-box-multiple-outline",
@@ -7306,6 +7156,67 @@
                     "method": "last_changed",
                     "reverse": true
                   }
+                },
+                {
+                  "type": "custom:auto-entities",
+                  "filter": {
+                    "include": [
+                      {
+                        "entity_id": "/sensor.*current(_[0-9]+)?/"
+                      }
+                    ],
+                    "exclude": [
+                      {
+                        "entity_id": "/sensor.SelvaHome*/"
+                      }
+                    ]
+                  },
+                  "sort": {
+                    "method": "state",
+                    "reverse": true,
+                    "numeric": true
+                  },
+                  "show_empty": true,
+                  "card": {
+                    "type": "custom:bar-card",
+                    "style": "bar-card-value {\n  font-size: 15px;\n  font-weight: bold;\n  text-shadow: 1px 1px #0005;\n}",
+                    "positions": {
+                      "indicator": "outside",
+                      "icon": false,
+                      "name": "inside"
+                    },
+                    "max": 60,
+                    "animation": {
+                      "state": "true",
+                      "speed": 3
+                    },
+                    "severity": [
+                      {
+                        "color": "Red",
+                        "from": 50
+                      },
+                      {
+                        "color": "Orange",
+                        "from": 40,
+                        "to": 50
+                      },
+                      {
+                        "color": "Blue",
+                        "from": 30,
+                        "to": 40
+                      },
+                      {
+                        "color": "Green",
+                        "from": 10,
+                        "to": 30
+                      },
+                      {
+                        "hide": null,
+                        "from": -5,
+                        "to": 5
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -7440,13 +7351,6 @@
           "icon": "mdi:tools",
           "badges": [],
           "cards": [
-            {
-              "type": "entities",
-              "entities": [
-                "counter.a"
-              ],
-              "state_color": true
-            },
             {
               "type": "custom:scheduler-card",
               "include": [
@@ -10481,6 +10385,24 @@
                     }
                   ],
                   "state_color": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Charts",
+          "path": "charts",
+          "type": "sidebar",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "iframe",
+                  "url": "https://xc5oo1paki2zabddex3se0s8lcrq40ho.ui.nabu.casa/api/hassio_ingress/LqZQqOeRvONR5er7QUBOmaKYB7LbR0kSAZTm3FHvzhc/d/bc96a81f-f808-41b7-ae66-287d4c0c6e9a/ac-dashboard?orgId=1&from=1704151912488&to=1704756712488&viewPanel=11",
+                  "aspect_ratio": "100%"
                 }
               ]
             }

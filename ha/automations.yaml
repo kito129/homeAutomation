@@ -13,8 +13,11 @@
       seconds: 0
   condition:
   - condition: state
-    entity_id: input_boolean.manualboiler
+    entity_id: input_boolean.sunny_day
+    state: 'on'
+  - condition: state
     state: 'off'
+    entity_id: input_boolean.manualboiler
   action:
   - type: turn_on
     device_id: 3ad97e1daf95913698b7b1acb69a32d8
@@ -32,12 +35,15 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 20
+      minutes: 45
       seconds: 0
   condition:
   - condition: state
     entity_id: input_boolean.manualboiler
     state: 'off'
+  - condition: state
+    entity_id: input_boolean.sunny_day
+    state: 'on'
   action:
   - type: turn_off
     device_id: 3ad97e1daf95913698b7b1acb69a32d8
@@ -54,10 +60,10 @@
     event: enter
   condition: []
   action:
-  - device_id: 69087beaa9402f84b5280c5a705f7621
+  - device_id: d249ac2f4ec0a0c31d54c400d8a07c82
     domain: mobile_app
     type: notify
-    message: Mum enter home
+    message: Mum
   - device_id: ca685c3b3eef896822f021d3153787f6
     domain: mobile_app
     type: notify
@@ -73,11 +79,10 @@
     event: enter
   condition: []
   action:
-  - device_id: 69087beaa9402f84b5280c5a705f7621
+  - device_id: d249ac2f4ec0a0c31d54c400d8a07c82
     domain: mobile_app
     type: notify
-    message: Dad enter home
-    title: Dad
+    message: Dad
   - device_id: ca685c3b3eef896822f021d3153787f6
     domain: mobile_app
     type: notify
@@ -147,33 +152,23 @@
       minutes: 0
       seconds: 1
     above: 0
+  - platform: numeric_state
+    entity_id:
+    - sensor.entrance_person_count
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    above: 0
   condition:
   - condition: state
     entity_id: input_boolean.person_notification
     state: 'on'
-  - condition: and
-    conditions:
-    - condition: device
-      device_id: 69087beaa9402f84b5280c5a705f7621
-      domain: device_tracker
-      entity_id: a8a9b6ef0ada0f9b06fd36d970d4f3db
-      type: is_not_home
-    - condition: device
-      device_id: f93e1ea2da204f999e9e38af4b77782b
-      domain: device_tracker
-      entity_id: 9c0c263dfc385d9cb344db0356665a30
-      type: is_not_home
-    - condition: device
-      device_id: 3985d73a7a80bc86bc18415055134bf0
-      domain: device_tracker
-      entity_id: 795fcdd36be70af583a8e8329f6b3343
-      type: is_not_home
   action:
-  - device_id: 69087beaa9402f84b5280c5a705f7621
+  - device_id: d249ac2f4ec0a0c31d54c400d8a07c82
     domain: mobile_app
     type: notify
-    message: Cameras
-    title: Person detect
+    message: 'Camera '
   mode: single
 - id: '1692972394716'
   alias: frigateEntranceKito
@@ -188,7 +183,7 @@
       attachment: snapshot
       cooldown: 185
       tap_action: '{{base_url}}/api/frigate/notifications/{{id}}/{{camera}}/clip.mp4'
-      notify_device: 69087beaa9402f84b5280c5a705f7621
+      notify_device: d249ac2f4ec0a0c31d54c400d8a07c82
       silence_timer: 8
       disable_times:
       - '7'
@@ -317,8 +312,8 @@
     entity_id: switch.sw2
     state: 'off'
   - condition: state
-    entity_id: input_boolean.ininverter_manual
-    state: 'off'
+    entity_id: input_boolean.sunny_day
+    state: 'on'
   action:
   - type: turn_on
     device_id: 5ba4557ff747bdc01d9581d5c8f35b5e
@@ -340,8 +335,8 @@
       seconds: 0
   condition:
   - condition: state
-    entity_id: input_boolean.ininverter_manual
-    state: 'off'
+    entity_id: input_boolean.sunny_day
+    state: 'on'
   action:
   - type: turn_off
     device_id: 5ba4557ff747bdc01d9581d5c8f35b5e
@@ -426,4 +421,27 @@
       value: '{{ states(''sensor.temperature1'') }}'
     target:
       entity_id: input_number.temp1previous
+  mode: single
+- id: '1703958932352'
+  alias: fix_temperature3
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.temperatureout
+  condition:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: sensor.temperatureout
+      state: unavailable
+    - condition: state
+      entity_id: sensor.temperatureout
+      state: '-127'
+  action:
+  - service: input_number.set_value
+    data:
+      value: '{{ states(''sensor.temperatureout'') }}'
+    target:
+      entity_id: input_number.temp_out_saved
   mode: single

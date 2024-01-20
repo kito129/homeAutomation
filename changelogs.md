@@ -1,5 +1,22 @@
 # changelogs.md
 
+## v2024.1.1
+### 2023/12/20
+
+- sunny_day toggle to automate inverter and boiler
+- boiler auto now works with sunny_day
+- temp3 sensor as temp_out via MQTT
+- new integration for AC toshiba
+- lovelace major update for AC, now works scala too.
+- minor fix in dashboard
+- grafana improvement
+- switch box v3 compete and switch A and B for ac works
+- update to     
+    - Core    2024.1.3
+    - Supervisor  2023.12.1
+    - Operating System    11.4
+    - Frontend    20240104.0
+
 ## v2023.12.0.3
 ### 2023/12/20
 
