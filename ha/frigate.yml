@@ -155,3 +155,31 @@ cameras:
       events:
         retain:
           default: 7
+  garage:
+      enabled: True
+      ffmpeg:
+        inputs:
+          - path: ---
+            roles:
+              - detect
+              - record
+              - rtmp
+      snapshots:
+        enabled: True
+        clean_copy: True
+        timestamp: True
+        bounding_box: True
+        crop: False
+        retain:
+          default: 10
+      detect:
+        width: 1920
+        height: 1080
+        fps: 25
+      record:
+        enabled: True
+        retain:
+          days: 2
+        events:
+          retain:
+            default: 5

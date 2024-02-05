@@ -445,3 +445,133 @@
     target:
       entity_id: input_number.temp_out_saved
   mode: single
+- id: '1705791658846'
+  alias: Sw1 lock
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
+    domain: switch
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  condition: []
+  action:
+  - type: turn_off
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: b07c904f35dccea5a9282516ef5ba4e5
+    domain: switch
+  mode: single
+- id: '1705791700776'
+  alias: Sw2 lock
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: b07c904f35dccea5a9282516ef5ba4e5
+    domain: switch
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  condition: []
+  action:
+  - type: turn_off
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
+    domain: switch
+  mode: single
+- id: '1705869478933'
+  alias: SalaOnNorification
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.ac_sala_function
+    from: 'on'
+    to:
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  condition: []
+  action:
+  - device_id: d249ac2f4ec0a0c31d54c400d8a07c82
+    domain: mobile_app
+    type: notify
+    message: Sala OFF
+  mode: single
+- id: '1706191197961'
+  alias: ScalaOFF
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.ac_scala_function
+    from: 'on'
+    to:
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  condition: []
+  action:
+  - device_id: d249ac2f4ec0a0c31d54c400d8a07c82
+    domain: mobile_app
+    type: notify
+    message: Scala OFF
+  mode: single
+- &id001
+  id: '1707138230175'
+  alias: fanEnelON
+  description: ''
+  trigger:
+  - type: turned_on
+    platform: device
+    device_id: 8a585a7681c4f281e2d461365c509654
+    entity_id: b2edf97604ce18c942118213573eadb3
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 1ca0200ea5167c03991934fb8e457480
+    entity_id: 7dece757f3e7794530b55a103dd4c7a2
+    domain: switch
+  - device_id: d249ac2f4ec0a0c31d54c400d8a07c82
+    domain: mobile_app
+    type: notify
+    message: Fan ON
+  mode: single
+- id: '1707138266244'
+  alias: fanEnelOFF
+  description: ''
+  trigger:
+  - type: turned_on
+    platform: device
+    device_id: 8a585a7681c4f281e2d461365c509654
+    entity_id: da79df00c68011fe7de1557d6046adc0
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 1ca0200ea5167c03991934fb8e457480
+    entity_id: 7dece757f3e7794530b55a103dd4c7a2
+    domain: switch
+  - device_id: d249ac2f4ec0a0c31d54c400d8a07c82
+    domain: mobile_app
+    type: notify
+    message: Fan OFF
+  mode: single
+- *id001
