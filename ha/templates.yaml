@@ -33,15 +33,15 @@
       icon: mdi:meter-electric
       state: >-
         {% if is_state('switch.sw1', "on") and is_state('switch.sw2', "off") -%}
-          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_energy'))  - float(states('sensor.fan_energy')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power')) - float(states('sensor.acscala_power'))    ) | round(2) }}
+          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_power'))  - float(states('sensor.fan_power')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power')) - float(states('sensor.acscala_power'))    ) | round(2) }}
         {%- else -%}
           {% if is_state('switch.sw1', "off") and is_state('switch.sw2', "on") -%}
-          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_energy'))  - float(states('sensor.fan_energy')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power')) - float(states('sensor.acsala_power'))   ) | round(2) }}
+          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_power'))  - float(states('sensor.fan_power')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power')) - float(states('sensor.acsala_power'))   ) | round(2) }}
           {%- else -%}
             {% if is_state('switch.sw1', "on") and is_state('switch.sw2', "on") -%}
-          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_energy'))  - float(states('sensor.fan_energy')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power'))  ) | round(2) }}
+          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_power'))  - float(states('sensor.fan_power')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power'))  ) | round(2) }}
             {%- else -%}
-              {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_energy'))  - float(states('sensor.fan_energy')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power')) - float(states('sensor.acsala_power')) - float(states('sensor.acscala_power'))  ) | round(2) }}
+              {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_power'))  - float(states('sensor.fan_power')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power')) - float(states('sensor.acsala_power')) - float(states('sensor.acscala_power'))  ) | round(2) }}
             {%- endif %}
           {%- endif %}
         {%- endif %}

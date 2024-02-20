@@ -160,6 +160,14 @@
       minutes: 0
       seconds: 1
     above: 0
+  - platform: numeric_state
+    entity_id:
+    - sensor.garage_person_count
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+    above: 0
   condition:
   - condition: state
     entity_id: input_boolean.person_notification
@@ -545,10 +553,6 @@
     device_id: 1ca0200ea5167c03991934fb8e457480
     entity_id: 7dece757f3e7794530b55a103dd4c7a2
     domain: switch
-  - device_id: d249ac2f4ec0a0c31d54c400d8a07c82
-    domain: mobile_app
-    type: notify
-    message: Fan ON
   mode: single
 - id: '1707138266244'
   alias: fanEnelOFF
@@ -561,17 +565,18 @@
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 5
+      minutes: 3
       seconds: 0
-  condition: []
+  condition:
+  - condition: device
+    type: is_on
+    device_id: 1ca0200ea5167c03991934fb8e457480
+    entity_id: 7dece757f3e7794530b55a103dd4c7a2
+    domain: switch
   action:
   - type: turn_off
     device_id: 1ca0200ea5167c03991934fb8e457480
     entity_id: 7dece757f3e7794530b55a103dd4c7a2
     domain: switch
-  - device_id: d249ac2f4ec0a0c31d54c400d8a07c82
-    domain: mobile_app
-    type: notify
-    message: Fan OFF
   mode: single
 - *id001

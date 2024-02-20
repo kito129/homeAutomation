@@ -1,6 +1,16 @@
 # SENSORS.YAML
 # AUTHOR: kito129
 
+
+# *** WIREGUARD ***
+- platform: rest
+  name: WireGuard peers status API
+  resource: http://a0d7b954-wireguard
+  value_template: "OK"
+  json_attributes:
+    - peer00
+    - peer01
+
 # *** SYSTEM MONITOR ***
 - platform: systemmonitor
   resources:
@@ -47,7 +57,6 @@
     - "date_time_iso"
     - "time_date"
     - "time_utc"
-    - "beat"
 
 # **** INTEGRATION ****
 
@@ -338,6 +347,16 @@
   name: forno_on_duration
   unique_id: "0a7476cc-d6c1-40ba-8ae1-174741"
   entity_id: binary_sensor.fornostate
+  state: "on"
+  type: time
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# fan_on_duration
+- platform: history_stats
+  name: fan_on_duration
+  unique_id: "0a7476cc-d6c1-40ba-8ae1-28248545"
+  entity_id: switch.fan
   state: "on"
   type: time
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"

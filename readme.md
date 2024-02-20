@@ -1,8 +1,8 @@
 # homeAutomation project
     author: kito129
     date: 2023/03/01
-    last update: 2024/02/05
-    version: v2024.1.5
+    last update: 2024/02/20
+    version: v2024.2.1
 
 
 ## Change Log:
@@ -24,10 +24,10 @@ My current setup is:
 Versioning is based on the Home Assistant updates.
 
 ### Code Base
-    Core    2024.1.5
-    Supervisor  2023.12.1
-    Operating System    11.4
-    Frontend    20240104.0
+    Core    2024.2.2
+    Supervisor  2024.01.1
+    Operating System    11.5
+    Frontend    20240207.1
 
 ## Network
 

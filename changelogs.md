@@ -1,5 +1,14 @@
 # changelogs.md
 
+## v2024.2.1
+### 2024/02/20
+
+- improve automations
+- frigate: fix retain day and garage cam
+- sensors: fan_duration new sensor
+- templates: fix energy to power in home calculation
+- add folder for remarkable energy days
+
 ## v2024.1.1
 ### 2023/12/20
 

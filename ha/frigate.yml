@@ -25,6 +25,9 @@ detectors:
     model:
       path: /openvino-model/ssdlite_mobilenet_v2.xml
 
+#ffmpeg:
+#  hwaccel_args: preset-intel-qsv-h265
+
 model:
   width: 300
   height: 300
@@ -47,7 +50,7 @@ cameras:
     enabled: True
     ffmpeg:
       inputs:
-        - path: ---
+        - path: --
           roles:
             - detect
             - record
@@ -59,7 +62,7 @@ cameras:
       bounding_box: True
       crop: False
       retain:
-        default: 10
+        default: 5
     detect:
       width: 1920
       height: 1080
@@ -71,29 +74,31 @@ cameras:
       events:
         retain:
           default: 5
+
+  
   gardenSouth:
     enabled: True
     ffmpeg:
       inputs:
-        - path: ---
+        - path: --
           roles:
             - detect
             - record
             - rtmp
     snapshots:
-      enabled: True
+      enabled: False
       clean_copy: True
       timestamp: True
       bounding_box: True
       crop: False
       retain:
-        default: 10
+        default: 5
     detect:
       width: 1920
       height: 1080
       fps: 25
     record:
-      enabled: True
+      enabled: False
       retain:
         days: 2
       events:
@@ -103,7 +108,7 @@ cameras:
     enabled: True
     ffmpeg:
       inputs:
-        - path: ---
+        - path: --
           roles:
             - detect
             - record
@@ -115,7 +120,7 @@ cameras:
       bounding_box: True
       crop: False
       retain:
-        default: 10
+        default: 5
     detect:
       width: 1920
       height: 1080
@@ -131,7 +136,7 @@ cameras:
     enabled: True
     ffmpeg:
       inputs:
-        - path: ---
+        - path: --
           roles:
             - detect
             - record
@@ -143,7 +148,7 @@ cameras:
       bounding_box: True
       crop: False
       retain:
-        default: 10
+        default: 5
     detect:
       width: 1920
       height: 1080
@@ -156,30 +161,30 @@ cameras:
         retain:
           default: 7
   garage:
+    enabled: True
+    ffmpeg:
+      inputs:
+        - path: --
+          roles:
+            - detect
+            - record
+            - rtmp
+    snapshots:
       enabled: True
-      ffmpeg:
-        inputs:
-          - path: ---
-            roles:
-              - detect
-              - record
-              - rtmp
-      snapshots:
-        enabled: True
-        clean_copy: True
-        timestamp: True
-        bounding_box: True
-        crop: False
+      clean_copy: True
+      timestamp: True
+      bounding_box: True
+      crop: False
+      retain:
+        default: 5
+    detect:
+      width: 1280
+      height: 720
+      fps: 25
+    record:
+      enabled: True
+      retain:
+        days: 2
+      events:
         retain:
-          default: 10
-      detect:
-        width: 1920
-        height: 1080
-        fps: 25
-      record:
-        enabled: True
-        retain:
-          days: 2
-        events:
-          retain:
-            default: 5
+          default: 5
