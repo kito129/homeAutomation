@@ -103,21 +103,14 @@ ios:
 #  login_attempts_threshold: 3
 
 # climate
-climate:
-  - platform: generic_thermostat
-    name: Sala Thermostat
-    heater: input_boolean.thermostat_state
-    target_sensor: sensor.shelly_h_t_floor01_temperature_2
-    min_temp: 16
-    max_temp: 30
-    ac_mode: false
-    target_temp: 17
-    cold_tolerance: 0.3
-    hot_tolerance: 0
-    min_cycle_duration:
-      seconds: 5
-    keep_alive:
-      minutes: 3
-    initial_hvac_mode: "heat"
-    away_temp: 16
-    precision: 0.1
+
+
+# BROADLINK
+
+switch:
+  - platform: broadlink
+    mac: EC:0B:AE:A3:97:E2
+    switches:
+      - name: Ac_Scala_Wifi_command
+        command_on: JgC2AGY2Cw8LKQwODA4MKAwODCgMDgwODCgMKAwpCw8LKQwODCgMKAwoDA4MDgwODA4MKAwpCw8LKQwoDA4MDgwoDA4MDgwoDA4MDgwpCykLDwwoDCgMKAwODCgMDgwoDCkLKQsPDA4MKAwODCgMDgwODA4MKAwoDCkLKQsPDCgMKAwoDA4MDgwODA4MKAwPCw8LDwspDCgMKAwODA4MKAwoDCgMDgwPCw8LKQspDA4MDgwODCgMAA0FAAA=
+        command_off: JgC2AGc1DA4MKAwODA4MKQsPCykMDgwODCgMKAwoDA4MKAwODCkLKQspDA4MDgwODA4MKAwoDA4MKAwpCw8LDwspDA4MDgwoDA4MDgwoDCgMDgwpCykLKQwODCgMDgwoDCgMKAwODA4MKQsPCykLDwwODA4MKAwoDCgMKAwODCkLKQspDA4MDgwODA4MKAwODA4MDgwoDCgMKQsPCykMKAwoDCgMDgwODA4MKAwODA8LDwsPCykMAA0FAAA=
