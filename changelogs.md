@@ -1,7 +1,27 @@
 # changelogs.md
 
+## v2024.3.0
+
+ONE YEAR OF HOME AUTOMATION!
+
+- TODO: check for influx and DB registration for more than one year
+- update core and supervisor, to     
+    - Core    2024.3.0
+    - Supervisor  2024.02.1
+    - Operating System    12.0
+    - Frontend    20240303.0
+- configuration.yaml
+  - fix homeOtherLoads formula
+- frigate 
+  - restart DB
+  - fix configuration
+- fix change log
+- minor fix in dashboard
+- energy new charts
+- goo count, 100 chrome
+
+
 ## v2024.2.1
-### 2024/02/20
 
 - improve automations
 - frigate: fix retain day and garage cam
@@ -10,7 +30,6 @@
 - add folder for remarkable energy days
 
 ## v2024.1.1
-### 2023/12/20
 
 - sunny_day toggle to automate inverter and boiler
 - boiler auto now works with sunny_day
@@ -27,7 +46,6 @@
     - Frontend    20240104.0
 
 ## v2023.12.0.3
-### 2023/12/20
 
 - update core and supervisor and all addons
 - removed unused automation, the ones with time trigger
@@ -50,25 +68,21 @@
 
 
 ## v2023.12.0.1
-### 2023/12/19
 
 - remove AC and prepare for new shelly and AC command
 - minor fix in dashboard
 - update
 
 ## v2023.11.0.2
-### 2023/11/22
 
 - minor update in dashboard
 
 ## v2023.11.0.2
-### 2023/11/20
 
 - minor dashboard fix and update
 - new shelly PLUS 2PM floor00: 1-ledSala 2-ledEntrata
 
 ## v2023.11.0.2
-### 2023/11/16
 
 - update sensor for forno and frigo
 - improve dashboard main with power bar-card
@@ -80,7 +94,6 @@
 
 
 ## v2023.11.0.1
-### 2023/11/10
 
 - update core system
 - minor dashboard fix
@@ -89,7 +102,6 @@
 - boiler new states and sensors
 
 ## v2023.11.0.0
-### 2023/11/03
 
 - fix temp bug for -127 temperature
 - update CORE 2023.11.0 and OS 10.5
@@ -97,7 +109,6 @@
 
 
 ## v2023.10.0.2
-### 2023/10/28
 
 - update os and core to 
 
@@ -108,7 +119,6 @@
 - battery fix
 
 ## v2023.10.0.1
-### 2023/10/17
 
 - Update core and supervisor
 - Update automations
@@ -125,7 +135,6 @@
 
 
 ## v2023.8.0.2
-### 2023/08/03
 
 - Update appliances card and network card
 - Uptime card install and extensive use
@@ -137,7 +146,6 @@
 
 
 ## v2023.8.0.2
-### 2023/08/02
 
 - Update core and supervisor
 - update dashboard lovelace and add file in repo
@@ -146,8 +154,6 @@
 - some minor fix @ template ane sensor
 - upload new images in readme
 
-#### Changed
-
 - 3 camera installation
 - Frigate Installation and configuration
     - Recordings and Detection
@@ -155,9 +161,6 @@
 
 
 ## v2023.8.0.1
-### 2023/08/01
-
-#### Changed
 
 - 3 camera installation
 - Frigate Installation and configuration
@@ -165,9 +168,6 @@
     - Notifications to TODO
 
 ## v2023.7.1.0
-### 2023/07/20
-
-#### Changed
 
 - Update dashboard
 - HACS update

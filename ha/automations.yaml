@@ -9,7 +9,7 @@
     to: 'on'
     for:
       hours: 0
-      minutes: 10
+      minutes: 15
       seconds: 0
   condition:
   - condition: state
@@ -34,8 +34,8 @@
     from: 'on'
     to: 'off'
     for:
-      hours: 0
-      minutes: 45
+      hours: 1
+      minutes: 0
       seconds: 0
   condition:
   - condition: state
@@ -545,7 +545,7 @@
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 1
+      minutes: 3
       seconds: 0
   condition: []
   action:
@@ -565,7 +565,7 @@
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 3
+      minutes: 2
       seconds: 0
   condition:
   - condition: device

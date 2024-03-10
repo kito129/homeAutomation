@@ -38,19 +38,12 @@ model:
 objects:
   track:
     - person
-  #mask: stops all objects from being tracked here
-  filters:
-    person:
-      min_area: 7000
-      min_score: 0.6
-      threshold: 0.8
-
 cameras:
   entrance:
     enabled: True
     ffmpeg:
       inputs:
-        - path: --
+        - path: rtsp://admin:Adriano11@192.168.0.100:554/1
           roles:
             - detect
             - record
@@ -62,7 +55,7 @@ cameras:
       bounding_box: True
       crop: False
       retain:
-        default: 5
+        default: 3
     detect:
       width: 1920
       height: 1080
@@ -73,42 +66,42 @@ cameras:
         days: 2
       events:
         retain:
-          default: 5
+          default: 3
 
   
   gardenSouth:
     enabled: True
     ffmpeg:
       inputs:
-        - path: --
+        - path: 
           roles:
             - detect
             - record
             - rtmp
     snapshots:
-      enabled: False
+      enabled: True
       clean_copy: True
       timestamp: True
       bounding_box: True
       crop: False
       retain:
-        default: 5
+        default: 3
     detect:
       width: 1920
       height: 1080
       fps: 25
     record:
-      enabled: False
+      enabled: True
       retain:
         days: 2
       events:
         retain:
-          default: 5
+          default: 3
   back:
     enabled: True
     ffmpeg:
       inputs:
-        - path: --
+        - path: 
           roles:
             - detect
             - record
@@ -120,7 +113,7 @@ cameras:
       bounding_box: True
       crop: False
       retain:
-        default: 5
+        default: 3
     detect:
       width: 1920
       height: 1080
@@ -131,12 +124,12 @@ cameras:
         days: 2
       events:
         retain:
-          default: 5
+          default: 3
   garden:
     enabled: True
     ffmpeg:
       inputs:
-        - path: --
+        - path: 
           roles:
             - detect
             - record
@@ -148,7 +141,7 @@ cameras:
       bounding_box: True
       crop: False
       retain:
-        default: 5
+        default: 3
     detect:
       width: 1920
       height: 1080
@@ -159,12 +152,12 @@ cameras:
         days: 2
       events:
         retain:
-          default: 7
+          default: 3
   garage:
     enabled: True
     ffmpeg:
       inputs:
-        - path: --
+        - path: 
           roles:
             - detect
             - record
@@ -176,10 +169,10 @@ cameras:
       bounding_box: True
       crop: False
       retain:
-        default: 5
+        default: 3
     detect:
-      width: 1280
-      height: 720
+      width: 1920
+      height: 1080
       fps: 25
     record:
       enabled: True
@@ -187,4 +180,4 @@ cameras:
         days: 2
       events:
         retain:
-          default: 5
+          default: 3

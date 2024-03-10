@@ -32,19 +32,17 @@
       unit_of_measurement: "W"
       icon: mdi:meter-electric
       state: >-
-        {% if is_state('switch.sw1', "on") and is_state('switch.sw2', "off") -%}
-          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_power'))  - float(states('sensor.fan_power')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power')) - float(states('sensor.acscala_power'))    ) | round(2) }}
-        {%- else -%}
-          {% if is_state('switch.sw1', "off") and is_state('switch.sw2', "on") -%}
-          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_power'))  - float(states('sensor.fan_power')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power')) - float(states('sensor.acsala_power'))   ) | round(2) }}
-          {%- else -%}
-            {% if is_state('switch.sw1', "on") and is_state('switch.sw2', "on") -%}
-          {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_power'))  - float(states('sensor.fan_power')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power'))  ) | round(2) }}
-            {%- else -%}
-              {{ ( float(states('sensor.home_power')) - float(states('sensor.kitchen_power')) - float(states('sensor.dcpower_power'))  - float(states('sensor.fan_power')) - float(states('sensor.monitor_power')) - float(states('sensor.ininverter_power')) - float(states('sensor.acsala_power')) - float(states('sensor.acscala_power'))  ) | round(2) }}
-            {%- endif %}
-          {%- endif %}
-        {%- endif %}
+        {% set home_power = states('sensor.home_power') | float %}
+        {% set sensor_power = [
+            states('sensor.kitchen_power'),
+            states('sensor.dcpower_power'),
+            states('sensor.fan_power'),
+            states('sensor.monitor_power'),
+            states('sensor.ininverter_power'),
+            states('sensor.acsala_power') if is_state('switch.sw1', 'off') else 0,
+            states('sensor.acscala_power') if is_state('switch.sw2', 'off') else 0
+          ] | map('float', 0) | sum %}
+        {{ (home_power - sensor_power) | round(2) }}
 
 
     ## ENEL
