@@ -5,7 +5,7 @@ database:
   path: /media/frigate/frigate.db
 
 mqtt:
-  host: 192.168.0.14
+  host: 192.168.0.13
   port: 1883
   topic_prefix: frigate
   user: "kito"
@@ -15,8 +15,20 @@ birdseye:
   enabled: True
   mode: continuous
 
-rtmp:
-  enabled: True
+ffmpeg:
+  hwaccel_args: preset-rpi-64-h264
+  input_args:
+    - -avoid_negative_ts
+    - make_zero
+  output_args:
+    record: 
+      - -f segment
+      - -segment_time 10
+      - -segment_format mp4
+      - -reset_timestamps 1
+      - -strftime 1
+      - -c:v copy
+      - -an # Disable audio
 
 detectors:
   ov:
@@ -24,9 +36,6 @@ detectors:
     device: AUTO
     model:
       path: /openvino-model/ssdlite_mobilenet_v2.xml
-
-#ffmpeg:
-#  hwaccel_args: preset-intel-qsv-h265
 
 model:
   width: 300
@@ -38,146 +47,78 @@ model:
 objects:
   track:
     - person
+  filters:
+    person:
+      min_score: 0.5
+      threshold: 0.80
+
+snapshots:
+  enabled: True
+  clean_copy: True
+  timestamp: True
+  bounding_box: True
+  crop: False
+  retain:
+    default: 5
+
+detect:
+  width: 1280
+  height: 720
+  fps: 25
+
+record:
+  enabled: True
+  retain:
+    days: 4
+  events:
+    pre_capture: 5
+    post_capture: 10
+    retain:
+      default: 4
+
 cameras:
   entrance:
     enabled: True
     ffmpeg:
       inputs:
-        - path: rtsp://admin:Adriano11@192.168.0.100:554/1
+        - path: rtsp://admin:Adriano11@192.168.0.105:554/1
+          roles:
+            - record
+        - path: rtsp://admin:Adriano11@192.168.0.105:554/2
           roles:
             - detect
-            - record
-            - rtmp
-    snapshots:
-      enabled: True
-      clean_copy: True
-      timestamp: True
-      bounding_box: True
-      crop: False
-      retain:
-        default: 3
-    detect:
-      width: 1920
-      height: 1080
-      fps: 25
-    record:
-      enabled: True
-      retain:
-        days: 2
-      events:
-        retain:
-          default: 3
-
-  
-  gardenSouth:
-    enabled: True
-    ffmpeg:
-      inputs:
-        - path: 
-          roles:
-            - detect
-            - record
-            - rtmp
-    snapshots:
-      enabled: True
-      clean_copy: True
-      timestamp: True
-      bounding_box: True
-      crop: False
-      retain:
-        default: 3
-    detect:
-      width: 1920
-      height: 1080
-      fps: 25
-    record:
-      enabled: True
-      retain:
-        days: 2
-      events:
-        retain:
-          default: 3
   back:
     enabled: True
     ffmpeg:
       inputs:
-        - path: 
+        - path: rtsp://admin:Adriano11@192.168.0.102:554/1
+          roles:
+            - record
+        - path: rtsp://admin:Adriano11@192.168.0.102:554/2
           roles:
             - detect
-            - record
-            - rtmp
-    snapshots:
-      enabled: True
-      clean_copy: True
-      timestamp: True
-      bounding_box: True
-      crop: False
-      retain:
-        default: 3
-    detect:
-      width: 1920
-      height: 1080
-      fps: 25
-    record:
-      enabled: True
-      retain:
-        days: 2
-      events:
-        retain:
-          default: 3
+
   garden:
     enabled: True
     ffmpeg:
       inputs:
-        - path: 
+        - path: rtsp://admin:Adriano11@192.168.0.103:554/1
+          roles:
+            - record
+        - path: rtsp://admin:Adriano11@192.168.0.103:554/2
           roles:
             - detect
-            - record
-            - rtmp
-    snapshots:
-      enabled: True
-      clean_copy: True
-      timestamp: True
-      bounding_box: True
-      crop: False
-      retain:
-        default: 3
-    detect:
-      width: 1920
-      height: 1080
-      fps: 25
-    record:
-      enabled: True
-      retain:
-        days: 2
-      events:
-        retain:
-          default: 3
+    motion:
+      mask:
+        - 548,192,464,252,474,360,381,444,272,373,327,210,368,0
+
   garage:
     enabled: True
     ffmpeg:
       inputs:
-        - path: 
+        - path: rtsp://admin:Admin842639@192.168.0.104:554/1
+          roles:
+            - record
+        - path: rtsp://admin:Admin842639@192.168.0.104:554/2
           roles:
             - detect
-            - record
-            - rtmp
-    snapshots:
-      enabled: True
-      clean_copy: True
-      timestamp: True
-      bounding_box: True
-      crop: False
-      retain:
-        default: 3
-    detect:
-      width: 1920
-      height: 1080
-      fps: 25
-    record:
-      enabled: True
-      retain:
-        days: 2
-      events:
-        retain:
-          default: 3
