@@ -1,121 +1,128 @@
+# -----------------------------------------------------------------------------
 # FRIGATE.YAML
-# AUTHOR: kito129
+# -----------------------------------------------------------------------------
+mqtt:
+  host: IP_ADDRESS
+  port: PORT
+  topic_prefix: frigate
+  user: user
+  password: "pass"
 
 database:
   path: /media/frigate/frigate.db
 
-mqtt:
-  host: 192.168.0.13
-  port: 1883
-  topic_prefix: frigate
-  user: "kito"
-  password: "65255"
-
 birdseye:
-  enabled: True
+  enabled: false
   mode: continuous
 
 ffmpeg:
   hwaccel_args: preset-rpi-64-h264
   input_args:
+    # Force TCP
+    - -rtsp_transport
+    - tcp
+    # Fix timestamp/dts warnings:
+    - -fflags
+    - +genpts+discardcorrupt
     - -avoid_negative_ts
     - make_zero
-  output_args:
-    record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a aac
-
 
 detectors:
-  ov:
-    type: openvino
-    device: AUTO
-    model:
-      path: /openvino-model/ssdlite_mobilenet_v2.xml
-
-model:
-  width: 300
-  height: 300
-  input_tensor: nhwc
-  input_pixel_format: bgr
-  labelmap_path: /openvino-model/coco_91cl_bkgr.txt
-
+  coral:
+    type: edgetpu
+    device: usb
 
 objects:
   track:
     - person
   filters:
     person:
-      # min_area: 3700
-      min_score: 0.5
-      threshold: 0.80
+      threshold: 0.69
 
 snapshots:
-  enabled: True
-  clean_copy: True
-  timestamp: True
-  bounding_box: True
-  crop: False
+  enabled: true
+  clean_copy: true
+  timestamp: true
+  bounding_box: true
+  quality: 100
+  crop: false
   retain:
-    default: 5
+    default: 10
 
+# Detection parameters
 detect:
-  width: 1280
-  height: 720
-  fps: 25
+  width: 640
+  height: 352
+  fps: 5
 
 record:
-  enabled: True
+  enabled: true
   retain:
-    days: 4
-  events:
-    pre_capture: 5
-    post_capture: 10
-    retain:
-      default: 4
-    
+    days: 10
+
+ui:
+  time_format: 24hour
+  date_style: short
+
+# -----------------------------------------------------------------------------
+# CAMERA DEFINITIONS
+# -----------------------------------------------------------------------------
 cameras:
-  
   entrance:
-    enabled: True
+    enabled: true
     ffmpeg:
       inputs:
-        - path: rtsp://admin:Adriano11@192.168.0.105:554/1
+        - path: rtsp://user:password@IP_ADDRESS:554/2
           roles:
             - record
-        - path: rtsp://admin:Adriano11@192.168.0.105:554/2
-          roles:
-            - detect
-  
-  back:
-    enabled: True
-    ffmpeg:
-      inputs:
-        - path: rtsp://admin:Adriano11@192.168.0.102:554/1
-          roles:
-          - record
-        - path: rtsp://admin:Adriano11@192.168.0.102:554/2
-          roles:
-            - detect
-  garden:
-    enabled: True
-    ffmpeg:
-      inputs:
-        - path: rtsp://admin:Adriano11@192.168.0.103:554/1
-          roles:
-            - record
-        - path: rtsp://admin:Adriano11@192.168.0.103:554/2
-          roles:
             - detect
     motion:
-        mask:
-          - 548,192,464,252,474,360,381,444,272,373,327,210,368,0
-  
-  garage:
-    enabled: True
+      mask: 0.002,0.233,0,0.591,0.145,0.617,0.35,0.308,0.487,0.109,0.649,0.114,0.756,0.046,1,0.045,1,0,0.288,0.001,0.126,0.002,0.002,0,0.002,0.032,0.002,0.163
+      threshold: 25
+      contour_area: 10
+      improve_contrast: "true"
+    objects:
+      filters:
+        person:
+          mask: 0,0.001,0,0.584,0.143,0.614,0.321,0.336,0.509,0.001,0.216,0.001
+  garden:
+    enabled: true
     ffmpeg:
       inputs:
-        - path: rtsp://admin:Admin842639@192.168.0.104:554/1
+        - path: rtsp://user:password@IP_ADDRESS:554/2
           roles:
             - record
-        - path: rtsp://admin:Admin842639@192.168.0.104:554/2
-          roles:
             - detect
+    motion:
+      improve_contrast: "true"
+      mask: 0.166,0.173,0.152,0.295,0.152,0.298,0.155,0.311,0.176,0.315,0.193,0.308,0.201,0.253,0.202,0.234,0.191,0.182,0.181,0.16,0.185,0.164,0.174,0.156
+  back:
+    enabled: true
+    ffmpeg:
+      inputs:
+        - path: rtsp://user:password@IP_ADDRESS:554/2
+          roles:
+            - record
+            - detect
+    motion:
+      improve_contrast: "true"
+  garage:
+    enabled: true
+    ffmpeg:
+      inputs:
+        - path: rtsp://user:password@IP_ADDRESS:554/2
+          roles:
+            - record
+            - detect
+    motion:
+      improve_contrast: "true"
+
+camera_groups:
+  Home:
+    order: 1
+    icon: LuHome
+    cameras:
+      - back
+      - entrance
+      - garden
+version: 0.14
