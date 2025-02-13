@@ -1,5 +1,16 @@
 # changelogs.md
 
+## v2025.2.0
+
+- frigate update config to 0.14
+- wireguard setup on kit0 workstation
+- update core and supervisor
+- update lovelace dashboard
+    - inverter
+    - pop up card and buuble are the game changer
+    - shelly improvements
+        - garage: UNI + PRO + PRO25
+
 ## v2024.3.0
 
 ONE YEAR OF HOME AUTOMATION!
