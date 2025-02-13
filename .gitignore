@@ -1,2 +1,4 @@
 ha/secrets.yaml
 /ssl
+
+/wireguard
