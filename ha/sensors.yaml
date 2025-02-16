@@ -6,10 +6,6 @@
 - platform: rest
   name: WireGuard peers status API
   resource: http://a0d7b954-wireguard
-  value_template: "OK"
-  json_attributes:
-    - peer00
-    - peer01
 
 # *** SYSTEM MONITOR ***
 - platform: systemmonitor
@@ -61,6 +57,17 @@
 # **** INTEGRATION ****
 
 ## INTEGRATION ENERGY SENSORS
+
+
+# inverter_nord_to_home_energy
+- platform: integration
+  unique_id: "0a7476cc-245654-2456-8ae1-98298149"
+  method: "left"
+  source: sensor.inverter_nord_to_home_power
+  name: inverter_nord_to_home_energy
+  unit_prefix: k
+  unit_time: h
+  round: 2
 
 # frigo_forno_energy
 - platform: integration

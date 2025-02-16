@@ -12,7 +12,7 @@
       unit_of_measurement: "W"
       icon: mdi:lightning-bolt
       state: >-
-        {{ ( float(states('sensor.enel_power')) + float(states('sensor.solar_power'))) | round(2) }}
+        {{ ( float(states('sensor.enel_power')) + float(states('sensor.solar_power')) +  states('sensor.solarman_internal_ct_l1_power') | float |abs ) | round(2) }}
 
     # homeTotalEnergy
     - name: "home_total_energy"
@@ -22,7 +22,7 @@
       unit_of_measurement: "kWh"
       icon: mdi:home-lightning-bolt-outline
       state: >-
-        {{ ( float(states('sensor.enel_energy')) + float(states('sensor.solar_energy')) - float(states('sensor.enel_energy_returned'))) | round(2) }}
+        {{ ( float(states('sensor.enel_energy')) + float(states('sensor.solar_energy')) - float(states('sensor.enel_energy_returned')) + float(states('sensor.solarman_daily_total_energy')) ) | round(2) }}
 
     # homeOtherLoads
     - name: "home_other_loads_power"
@@ -40,9 +40,57 @@
             states('sensor.monitor_power'),
             states('sensor.ininverter_power'),
             states('sensor.acsala_power') if is_state('switch.sw1', 'off') else 0,
-            states('sensor.acscala_power') if is_state('switch.sw2', 'off') else 0
+            states('sensor.acscala_power') if is_state('switch.sw2', 'off') else 0,
+            states('sensor.solarman_internal_ct_l1_power') if is_state('switch.ininverter', 'on') else 0,
           ] | map('float', 0) | sum %}
         {{ (home_power - sensor_power) | round(2) }}
+
+    ## INVERTER NORD
+    
+    # inverterNordToHomePower
+    - name: "inverter_nord_to_home_power"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-606518c3497b"
+      device_class: power
+      state_class: measurement
+      unit_of_measurement: "W"
+      icon: mdi:amplifier
+      state: >-
+        {% if is_state('switch.ininverter', "on") -%}
+          {{ states('sensor.solarman_internal_ct_l1_power') | float | abs }}
+        {%- else -%}
+          {{ ( float(0) | round(2)) }}
+        {%- endif %}
+        
+    # inverterNordOutPower
+    - name: "inverter_nord_out_power"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-606518c7777"
+      device_class: power
+      state_class: measurement
+      unit_of_measurement: "W"
+      icon: mdi:amplifier
+      state: >-
+        {{ ( float(states('sensor.inverter_nord_to_home_power')) + float(states('sensor.battery_out_power')) ) | round(2) }}
+        
+    # inverterNordSellAndBatteryEnergy
+    - name: "solarman_daily_total_consumption"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-60651899999"
+      device_class: energy
+      state_class: measurement
+      unit_of_measurement: "kWh"
+      icon: mdi:amplifier
+      state: >-
+        {{ ( float(states('sensor.solarman_daily_load_consumption')) - float(states('sensor.solarman_daily_energy_bought')) - float(states('sensor.solarman_daily_battery_discharge'))  ) | round(2) }}
+
+
+    # inverterTotalSell
+    - name: "solarman_daily_total_energy"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-606518587545"
+      device_class: energy
+      state_class: measurement
+      unit_of_measurement: "kWh"
+      icon: mdi:amplifier
+      state: >-
+        {{ ( float(states('sensor.solarman_daily_total_consumption')) + float(states('sensor.solarman_daily_battery_discharge'))) | round(2) }}
 
 
     ## ENEL
@@ -116,6 +164,16 @@
       state: >-
         {{ ( float(states('sensor.battery_in_power')) - float(states('sensor.battery_out_power')) ) | round(2) }}
 
+    # battery_self_used_percent
+    - name: "battery_self_used_percent"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-818498547"
+      device_class: battery
+      state_class: measurement
+      unit_of_measurement: "percent"
+      icon: mdi:battery
+      state: >-
+        {{ ( float(states('sensor.solarman_daily_battery_discharge')) / float(states('sensor.solarman_daily_battery_charge')) *100 ) | round(2) }}
+
     ## BOILER ROOM
 
     # boilerRoom Power
@@ -168,7 +226,7 @@
       unit_of_measurement: "W"
       icon: mdi:dishwasher
       state: >-
-        {% if is_state('sensor.dishwasher_operation_state', "Run") -%}
+        {% if is_state('switch.dishwasher_power', "on") -%}
           {{ ( float(states('sensor.kitchen_power'))) | round(2) }}
         {%- else -%}
           {{ ( float(0) | round(2)) }}
@@ -223,7 +281,6 @@
         {{ ( float(states('sensor.backled_power')) + float(states('sensor.ledentrata_power')) + float(states('sensor.ledswitchnorth_power')) 
         + float(states('sensor.lampadeout_power')) + float(states('sensor.salafloor00_power'))  ) | round(2) }}
 
-
     # SOLAR B
 
     # lights_total_power
@@ -235,7 +292,6 @@
       icon: mdi:solar
       state: >-
         {{ ( float(states('input_number.solar_b_daily_production')) ) | round(2) }}
-
 
     # TIME AND DURATION
 
@@ -306,7 +362,7 @@
       icon: mdi:home-lightning-bolt-outline
       state: >-
         {{ ( float(states('sensor.acsala_med_power_duration')) / float(states('sensor.ac_sala_on_duration')) *100 ) | round(2) }}
-    
+
     # ac_high_power_percent
     - name: "ac_high_power_percent"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-818454884"
@@ -316,7 +372,7 @@
       icon: mdi:home-lightning-bolt-outline
       state: >-
         {{ ( float(states('sensor.acsala_high_power_duration')) / float(states('sensor.ac_sala_on_duration')) *100 ) | round(2) }}
-    
+
     # SCALA
 
     # acScala_low_power_percent
@@ -328,7 +384,7 @@
       icon: mdi:home-lightning-bolt-outline
       state: >-
         {{ ( float(states('sensor.acscala_low_power_duration')) / float(states('sensor.ac_scala_on_duration')) *100 ) | round(2) }}
-    
+
     # acScala_med_power_percent
     - name: "acScala_med_power_percent"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-818454886"
@@ -338,7 +394,7 @@
       icon: mdi:home-lightning-bolt-outline
       state: >-
         {{ ( float(states('sensor.acscala_med_power_duration')) / float(states('sensor.ac_scala_on_duration')) *100 ) | round(2) }}
-    
+
     # acScala_high_power_percent
     - name: "acScala_high_power_percent"
       unique_id: "0a7476cc-d6c1-40ba-8ae1-818454887"
@@ -348,8 +404,6 @@
       icon: mdi:home-lightning-bolt-outline
       state: >-
         {{ ( float(states('sensor.acscala_high_power_duration')) / float(states('sensor.ac_scala_on_duration')) *100 ) | round(2) }}
-
-
 
 #BINARY SENSORS
 - binary_sensor:
@@ -397,8 +451,3 @@
         {%- else -%}
           {{ "off" }}
         {%- endif -%}
-
-
-
-
-

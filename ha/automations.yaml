@@ -15,9 +15,13 @@
   - condition: state
     entity_id: input_boolean.sunny_day
     state: 'on'
+    enabled: false
   - condition: state
     state: 'off'
     entity_id: input_boolean.manualboiler
+    enabled: false
+  - condition: time
+    before: '18:00:00'
   action:
   - type: turn_on
     device_id: 3ad97e1daf95913698b7b1acb69a32d8
@@ -27,24 +31,25 @@
 - id: '1689597312837'
   alias: boilerFirstStageOFF
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.combo_minus05_enel_plus1_solar
     from: 'on'
     to: 'off'
     for:
-      hours: 1
-      minutes: 0
+      hours: 0
+      minutes: 45
       seconds: 0
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: input_boolean.manualboiler
     state: 'off'
+    enabled: true
   - condition: state
     entity_id: input_boolean.sunny_day
     state: 'on'
-  action:
+  actions:
   - type: turn_off
     device_id: 3ad97e1daf95913698b7b1acb69a32d8
     entity_id: switch.boiler
@@ -130,53 +135,52 @@
 - id: '1692911680530'
   alias: camerasDetectionNotification
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.garden_person_count
+  triggers:
+  - entity_id: sensor.garden_person_count
     for:
       hours: 0
       minutes: 0
       seconds: 1
     above: 0
-  - platform: numeric_state
-    entity_id: sensor.back_person_count
+    trigger: numeric_state
+  - entity_id: sensor.back_person_count
     for:
       hours: 0
       minutes: 0
       seconds: 1
     above: 0
-  - platform: numeric_state
-    entity_id: sensor.gardensouth_person_count
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 1
-    above: 0
-  - platform: numeric_state
-    entity_id:
+    trigger: numeric_state
+  - entity_id:
     - sensor.entrance_person_count
     for:
       hours: 0
       minutes: 0
       seconds: 1
     above: 0
-  - platform: numeric_state
-    entity_id:
+    trigger: numeric_state
+  - entity_id:
     - sensor.garage_person_count
     for:
       hours: 0
       minutes: 0
       seconds: 1
     above: 0
-  condition:
+    enabled: false
+    trigger: numeric_state
+  conditions:
   - condition: state
     entity_id: input_boolean.person_notification
     state: 'on'
-  action:
+  actions:
   - device_id: d249ac2f4ec0a0c31d54c400d8a07c82
     domain: mobile_app
     type: notify
     message: 'Camera '
+  - device_id: 167f1b3221e3a54a5b1f25f9a4894266
+    domain: mobile_app
+    type: notify
+    message: Persona
+    title: Persona rilevata a casa
   mode: single
 - id: '1692972394716'
   alias: frigateEntranceKito
@@ -193,19 +197,7 @@
       tap_action: '{{base_url}}/api/frigate/notifications/{{id}}/{{camera}}/clip.mp4'
       notify_device: d249ac2f4ec0a0c31d54c400d8a07c82
       silence_timer: 8
-      disable_times:
-      - '7'
-      - '8'
-      - '9'
-      - '10'
-      - '11'
-      - '12'
-      - '13'
-      - '14'
-      - '15'
-      - '16'
-      - '17'
-      - '18'
+      disable_times: []
 - id: '1694008677172'
   alias: frigateEntranceDad
   description: ''
@@ -246,54 +238,28 @@
 
     for turn off now wait the trigger below1 person for 3.14 min, so if person reappen,
     it restart the counter of 3.14 min, '
-  trigger:
+  triggers:
   - type: value
-    platform: device
-    device_id: 7f18cc52a1f0db774bdf1ab808e3d624
-    entity_id: 6d80ff481151fab8778752679f4a3d9a
+    device_id: 36ddd5a5027f5f40530cc019f2bf9b4e
+    entity_id: 9d7ec0f440fce37b2d2152bf783d54f9
     domain: sensor
+    trigger: device
     above: 0
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-  condition:
+  conditions:
   - condition: sun
-    before: sunrise
     after: sunset
-    after_offset: 0:30
-    before_offset: 0:40
-  action:
-  - type: turn_on
-    device_id: 66672ab969f60c7ed08377fb6389511e
-    entity_id: 047e93f56340f6def908aa6764919315
-    domain: switch
-    enabled: false
+  - condition: time
+    before: '23:59:00'
+  actions:
   - type: turn_on
     device_id: c2080a4515fda07919d6eb7f4723eddd
     entity_id: 7af0d52f2f672ccab6a06f04edbc3436
     domain: switch
-  - wait_for_trigger:
-    - type: value
-      platform: device
-      device_id: 7f18cc52a1f0db774bdf1ab808e3d624
-      entity_id: 6d80ff481151fab8778752679f4a3d9a
-      domain: sensor
-      below: 1
-      for:
-        hours: 0
-        minutes: 3
-        seconds: 14
-    timeout:
+  - delay:
       hours: 0
       minutes: 3
       seconds: 14
       milliseconds: 0
-  - type: turn_off
-    device_id: 66672ab969f60c7ed08377fb6389511e
-    entity_id: 047e93f56340f6def908aa6764919315
-    domain: switch
-    enabled: false
   - type: turn_off
     device_id: c2080a4515fda07919d6eb7f4723eddd
     entity_id: 7af0d52f2f672ccab6a06f04edbc3436
@@ -309,8 +275,8 @@
     from: 'off'
     to: 'on'
     for:
-      hours: 0
-      minutes: 10
+      hours: 1
+      minutes: 0
       seconds: 0
   condition:
   - condition: state
@@ -339,7 +305,7 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 15
+      minutes: 10
       seconds: 0
   condition:
   - condition: state
@@ -355,12 +321,15 @@
   alias: ledBackCameraBackDetect
   description: ''
   trigger:
-  - type: value
+  - type: occupied
     platform: device
-    device_id: d616f14b47ba4ebec4d453f5e8934b99
-    entity_id: 4abfcb69e2524780628c72669905cd2c
-    domain: sensor
-    above: 0
+    device_id: d2f688a642b2e872765f935d23d88916
+    entity_id: f48cdc90e8ec9e7cca8121455a3e3280
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
   condition:
   - condition: sun
     before: sunrise
@@ -456,9 +425,8 @@
 - id: '1705791658846'
   alias: Sw1 lock
   description: ''
-  trigger:
-  - platform: device
-    type: turned_on
+  triggers:
+  - type: turned_on
     device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
     entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
     domain: switch
@@ -466,19 +434,23 @@
       hours: 0
       minutes: 0
       seconds: 10
-  condition: []
-  action:
+    trigger: device
+  conditions: []
+  actions:
   - type: turn_off
     device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
     entity_id: b07c904f35dccea5a9282516ef5ba4e5
+    domain: switch
+  - type: turn_off
+    device_id: 5ba4557ff747bdc01d9581d5c8f35b5e
+    entity_id: 99dba97e96242c48f2adcb0b7e1ba24f
     domain: switch
   mode: single
 - id: '1705791700776'
   alias: Sw2 lock
   description: ''
-  trigger:
-  - platform: device
-    type: turned_on
+  triggers:
+  - type: turned_on
     device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
     entity_id: b07c904f35dccea5a9282516ef5ba4e5
     domain: switch
@@ -486,11 +458,16 @@
       hours: 0
       minutes: 0
       seconds: 10
-  condition: []
-  action:
+    trigger: device
+  conditions: []
+  actions:
   - type: turn_off
     device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
     entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
+    domain: switch
+  - type: turn_off
+    device_id: 5ba4557ff747bdc01d9581d5c8f35b5e
+    entity_id: 99dba97e96242c48f2adcb0b7e1ba24f
     domain: switch
   mode: single
 - id: '1705869478933'
@@ -537,18 +514,21 @@
   id: '1707138230175'
   alias: fanEnelON
   description: ''
-  trigger:
+  triggers:
   - type: turned_on
-    platform: device
     device_id: 8a585a7681c4f281e2d461365c509654
     entity_id: b2edf97604ce18c942118213573eadb3
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 3
+      minutes: 25
       seconds: 0
-  condition: []
-  action:
+    trigger: device
+  conditions:
+  - condition: state
+    entity_id: input_boolean.sunny_day
+    state: 'on'
+  actions:
   - type: turn_on
     device_id: 1ca0200ea5167c03991934fb8e457480
     entity_id: 7dece757f3e7794530b55a103dd4c7a2
@@ -557,26 +537,351 @@
 - id: '1707138266244'
   alias: fanEnelOFF
   description: ''
-  trigger:
+  triggers:
   - type: turned_on
-    platform: device
     device_id: 8a585a7681c4f281e2d461365c509654
     entity_id: da79df00c68011fe7de1557d6046adc0
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 2
+      minutes: 15
       seconds: 0
-  condition:
+    trigger: device
+  conditions:
   - condition: device
     type: is_on
     device_id: 1ca0200ea5167c03991934fb8e457480
     entity_id: 7dece757f3e7794530b55a103dd4c7a2
     domain: switch
-  action:
+  - condition: state
+    entity_id: input_boolean.sunny_day
+    state: 'on'
+  - condition: time
+    before: '18:00:00'
+  actions:
   - type: turn_off
     device_id: 1ca0200ea5167c03991934fb8e457480
     entity_id: 7dece757f3e7794530b55a103dd4c7a2
     domain: switch
   mode: single
 - *id001
+- id: '1729330938002'
+  alias: Boiler cut on NOT sunny day
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: 3ad97e1daf95913698b7b1acb69a32d8
+    entity_id: 6d639a2b5323a1c379eea2cd11937537
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: state
+    entity_id: input_boolean.sunny_day
+    state: 'off'
+  actions:
+  - type: turn_off
+    device_id: 3ad97e1daf95913698b7b1acb69a32d8
+    entity_id: 7e1ce512abce822af70d47565be29b12
+    domain: switch
+  mode: single
+- id: '1730156543715'
+  alias: auto1-timer-bagno
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - timer.bagno_timer
+    to: active
+    from:
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  conditions: []
+  actions:
+  - if: []
+    then: []
+  - type: turn_on
+    device_id: 1ca0200ea5167c03991934fb8e457480
+    entity_id: 7dece757f3e7794530b55a103dd4c7a2
+    domain: switch
+  - wait_for_trigger:
+    - trigger: state
+      entity_id:
+      - timer.bagno_timer
+      from: active
+      to: idle
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 5
+  - type: turn_off
+    device_id: 1ca0200ea5167c03991934fb8e457480
+    entity_id: 7dece757f3e7794530b55a103dd4c7a2
+    domain: switch
+  mode: single
+- id: '1736270600184'
+  alias: Battery ON 60%
+  description: ''
+  triggers:
+  - type: battery_level
+    device_id: c3419f549af4efad2ae85a2d5410c213
+    entity_id: 8e905f99d9eb8b3fb771b112e02e4db9
+    domain: sensor
+    trigger: device
+    above: 60
+  - trigger: sun
+    event: sunset
+    offset: 00:30:00
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
+    domain: switch
+  mode: single
+- id: '1736270657054'
+  alias: Battery OFF at Voltage level
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.solarman_battery_voltage
+    below: input_number.battery_cut_off
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  conditions:
+  - condition: device
+    type: is_on
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
+    domain: switch
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  actions:
+  - type: turn_off
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
+    domain: switch
+  mode: single
+- id: '1736271424039'
+  alias: Battery Cut ON
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    seconds: '15'
+  conditions:
+  - condition: numeric_state
+    entity_id: sensor.solarman_battery_voltage
+    above: input_number.battery_cut_on
+  - condition: sun
+    after: sunset
+    after_offset: 00:30:00
+  - type: is_energy
+    condition: device
+    device_id: c3419f549af4efad2ae85a2d5410c213
+    entity_id: c1dbb062701392421b641aced3e739ee
+    domain: sensor
+    above: 1
+  - condition: device
+    type: is_off
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
+    domain: switch
+  - condition: device
+    type: is_off
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: b07c904f35dccea5a9282516ef5ba4e5
+    domain: switch
+  actions:
+  - type: turn_on
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
+    domain: switch
+  mode: single
+- id: '1736286593562'
+  alias: Battery autoconsumo
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.battery_self_used_percent
+    above: input_number.autoconsumo_cut_off
+  conditions:
+  - condition: sun
+    after: sunset
+  - condition: device
+    type: is_on
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
+    domain: switch
+  actions:
+  - type: turn_off
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
+    domain: switch
+  mode: single
+- id: '1736335495505'
+  alias: Accendi se caricato X
+  description: ''
+  triggers:
+  - trigger: sun
+    event: sunset
+    offset: -01:00:00
+  conditions:
+  - condition: numeric_state
+    entity_id: sensor.solarman_daily_battery_charge
+    above: input_number.kwh_to_turn_on_switch
+  - condition: device
+    type: is_off
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
+    domain: switch
+  - condition: device
+    type: is_off
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: b07c904f35dccea5a9282516ef5ba4e5
+    domain: switch
+  actions:
+  - type: turn_on
+    device_id: e7b926b9a39fd75d06fd1e9ac4f3e53b
+    entity_id: e8c6b1cf6e1e2ff49b7adfccf9018ae0
+    domain: switch
+  mode: single
+- id: '1736900374257'
+  alias: Restart DC power when 3h same
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.temperatureout
+    for:
+      hours: 3
+      minutes: 0
+      seconds: 0
+    from:
+    to:
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 35266dbd54cd05706885160a06fa6aa9
+    entity_id: 632f0d312346864a5e8bdd7d39a0e965
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  - type: turn_on
+    device_id: 35266dbd54cd05706885160a06fa6aa9
+    entity_id: 632f0d312346864a5e8bdd7d39a0e965
+    domain: switch
+  mode: single
+- id: '1739031334309'
+  alias: Casa Nonna Tensione OFF
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.batterie_garage_voltmeter
+    below: input_number.garage_battery_tensione_cut_off
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  conditions:
+  - condition: device
+    type: is_on
+    device_id: 9007422018e75a61c7dabc9f915317e3
+    entity_id: cf6762f2d629232af6cb5acf0a2e7bfa
+    domain: switch
+  actions:
+  - type: turn_off
+    device_id: 9007422018e75a61c7dabc9f915317e3
+    entity_id: cf6762f2d629232af6cb5acf0a2e7bfa
+    domain: switch
+  mode: single
+- id: '1739031425095'
+  alias: Casa Nonna ON Solar
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.solar_power
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    above: input_number.casa_nonna_power_on
+  conditions:
+  - condition: device
+    type: is_off
+    device_id: 9007422018e75a61c7dabc9f915317e3
+    entity_id: cf6762f2d629232af6cb5acf0a2e7bfa
+    domain: switch
+  actions:
+  - type: turn_on
+    device_id: 9007422018e75a61c7dabc9f915317e3
+    entity_id: cf6762f2d629232af6cb5acf0a2e7bfa
+    domain: switch
+  mode: single
+- id: '1739031517207'
+  alias: Casa Nonna Solar OFF
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.solar_power
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+    below: input_number.casa_nonna_power_on
+  conditions:
+  - condition: device
+    type: is_on
+    device_id: 9007422018e75a61c7dabc9f915317e3
+    entity_id: cf6762f2d629232af6cb5acf0a2e7bfa
+    domain: switch
+  actions:
+  - type: turn_off
+    device_id: 9007422018e75a61c7dabc9f915317e3
+    entity_id: cf6762f2d629232af6cb5acf0a2e7bfa
+    domain: switch
+  mode: single
+- id: '1739225431048'
+  alias: Garage on tensione
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.batterie_garage_voltmeter
+    for:
+      hours: 0
+      minutes: 6
+      seconds: 0
+    below: input_number.garage_battery_voltage_on
+  conditions:
+  - condition: device
+    type: is_off
+    device_id: 9007422018e75a61c7dabc9f915317e3
+    entity_id: cf6762f2d629232af6cb5acf0a2e7bfa
+    domain: switch
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - condition: sun
+    after: sunrise
+    before: sunset
+    before_offset: '-1:40:00'
+    after_offset: '1:00:00'
+  actions:
+  - type: turn_on
+    device_id: 9007422018e75a61c7dabc9f915317e3
+    entity_id: cf6762f2d629232af6cb5acf0a2e7bfa
+    domain: switch
+  mode: single
