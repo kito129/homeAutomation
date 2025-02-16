@@ -1,0 +1,18 @@
+Status,Type,Device,Name,MAC,IP,RSSI (dBm),Cloud (En/Con),MQTT (En/Con),Uptime,Temp
+on line,Shelly EM,shellyem-A4E57CBAC7C4,enel,A4E57CBAC7C4,192.168.0.30,-72,✓ ✓,✗ ✗,41632,
+on line,Shelly 1PM,shelly1pm-34945476576C,inInverter,34945476576C,192.168.0.36,-60,✓ ✓,✗ ✗,41632,104.97
+on line,Shelly 1PM,shelly1pm-349454765500,generaleSwitch,349454765500,192.168.0.38,-66,✓ ✓,✗ ✗,41486,105.10
+on line,PlugS,shellyplug-s-80646F81599C,bagno,80646F81599C,192.168.0.40,-66,✓ ✓,✗ ✗,41633,79.14
+on line,Shelly Pro 2PM,shellypro2pm-ec6260910710,boilerRoom,EC6260910710,192.168.0.46,-62,✓ ✓,✓ ✓,41633,104.18
+on line,Shelly EM,shellyem-485519D7901B,home,485519D7901B,192.168.0.47,-48,✓ ✓,✗ ✗,41632,
+on line,Shelly +2PM,shellyplus2pm-b8d61a8ad4fc,DCbox,B8D61A8AD4FC,192.168.0.58,-57,✓ ✓,✓ ✓,41679,73.22
+on line,Shelly +2PM,shellyplus2pm-c049ef8661ac,backDerivazione,C049EF8661AC,192.168.0.59,-61,✓ ✓,✓ ✓,41679,58.28
+on line,Shelly +2PM,shellyplus2pm-c049ef884708,switchLoads,C049EF884708,192.168.0.60,-62,✓ ✓,✓ ✓,41666,87.62
+on line,Shelly +2PM,shellyplus2pm-c049ef8661a4,floor00Led,C049EF8661A4,192.168.0.61,-51,✓ ✓,✓ ✓,41674,73.58
+on line,Shelly +2PM,shellyplus2pm-90380c357da0,rack,90380C357DA0,192.168.0.62,-47,✓ ✓,✓ ✓,41669,103.82
+on line,Shelly Pro 2PM,shellypro2pm-ec62609220c0,acSala,EC62609220C0,192.168.0.65,-74,✓ ✓,✓ ✓,41501,107.60
+on line,Shelly Pro 2PM,shellypro2pm-ec62608c8774,acScala,EC62608C8774,192.168.0.66,-37,✓ ✓,✓ ✓,41633,96.44
+on line,Shelly +UNI,shellyplusuni-cc7b5c0a0248,uni-garage,CC7B5C0A0248,192.168.0.80,-56,✓ ✓,✓ ✓,41531,
+on line,Shelly Pro 2PM,shellypro2pm-ec62608bb500,garage,EC62608BB500,192.168.0.81,-48,✓ ✓,✓ ✓,41631,99.68
+on line,PlugS,shellyplug-s-80646F810815,pi-5,80646F810815,192.168.0.82,-60,✓ ✓,✗ ✗,41633,91.54
+on line,Shelly 2.5,shellyswitch25-C82B96116215,,C82B96116215,192.168.0.85,-65,✓ ✓,✗ ✗,13393,164.26
