@@ -1,0 +1,18 @@
+Status,Type,Device,Name,IP,RSSI (dBm),Cloud (En/Con),MQTT (En/Con),Uptime,Temp,Measures,Source,Command
+on line,Shelly 1PM,shelly1pm-34945476576C,inInverter,192.168.0.36,-89,✓ ✓,✗ ✗,473,44.99,P 0.00W,input,inInverter
+on line,Generic (PlugAZ),shellyazplug-b08184ed50ac,,192.168.0.6,-76,✓ ✓,✓ ✓,613,,,,
+on line,Shelly EM,shellyem-A4E57CBAC7C4,enel,192.168.0.30,-72,✓ ✓,✗ ✗,1877946,,enel P -36.13W Q 309.61VAR pf -0.12 V 240.9V + solar P 183.50W Q 168.65VAR pf 0.74 V 240.9V,input,1.em.7ca_1
+on line,Shelly Pro 2PM,shellypro2pm-ec6260910710,boilerRoom,192.168.0.46,-69,✓ ✓,✓ ✓,280,42.3,P 1.00W pf 0.00 V 238.7V I 0.02A + P 1.40W pf 0.13 V 238.7V I 0.05A,init + init,boiler + washmachine
+on line,PlugS,shellyplug-s-80646F81599C,bagno,192.168.0.40,-62,✓ ✓,✗ ✗,294358,36.26,P 0.00W,http,bagno
+on line,Shelly +2PM,shellyplus2pm-c049ef8661ac,backDerivazione,192.168.0.59,-60,✓ ✓,✓ ✓,767,31.1,P 0.00W pf 0.00 V 238.5V I 0.00A + P 0.00W pf 0.00 V 238.5V I 0.00A,init + init,backLed + lampadeOut
+on line,Shelly Pro 2PM,shellypro2pm-ec62608bb500,garage,192.168.0.81,-55,✓ ✓,✓ ✓,768,44.3,P 2.40W pf 0.26 V 230.4V I 0.04A + P 0.00W pf 0.00 V 230.4V I 0.00A,init + WS_in,dc-garage + casa-nonna
+on line,PlugS,shellyplug-s-80646F810815,pi-5,192.168.0.82,-53,✓ ✓,✗ ✗,17597015,42.02,P 5.50W,timer,pi-5
+on line,Shelly +2PM,shellyplus2pm-c049ef8661a4,floor00Led,192.168.0.61,-50,✓ ✓,✓ ✓,299,40.9,P 0.00W pf 0.00 V 238.3V I 0.00A + P 0.00W pf 0.00 V 238.4V I 0.00A,init + init,salaFloor00 + ledEntrata
+on line,Shelly EM,shellyem-485519D7901B,home,192.168.0.47,-50,✓ ✓,✗ ✗,1877957,,kitchen P 3.28W Q 0.00VAR pf 0.00 V 240.5V + home P 133.97W Q -153.07VAR pf -0.66 V 240.5V,input,home
+on line,Shelly +UNI,shellyplusuni-cc7b5c0a0248,uni-garage,192.168.0.80,-48,✓ ✓,✓ ✓,777,, N 0 f 0.0Hz + V (batterie-garage) 24.4V,init + init,uni-garage + uni-garage
+on line,Shelly +2PM,shellyplus2pm-90380c357da0,rack,192.168.0.62,-47,✓ ✓,✓ ✓,301,53.1,P 0.00W pf 0.00 V 238.7V I 0.00A + P 29.80W pf 0.70 V 238.8V I 0.18A + T (redTemp ) 22.7°C T (rackTemp ) 24.6°C,init + init,rackLed + rackPower
+on line,Shelly Pro 2PM,shellypro2pm-ec62608c8774,acScala,192.168.0.66,-42,✓ ✓,✓ ✓,757,44.0,P 1.10W pf 0.12 V 238.9V I 0.02A + P 0.00W pf 0.00 V 1.8V I 0.00A,init + init,acScala + 747_empty
+on line,Shelly Pro 2PM,shellypro2pm-ec62609220c0,acSala,192.168.0.65,-36,✓ ✓,✓ ✓,756,44.6,P 1.20W pf 0.03 V 238.8V I 0.18A + P 0.00W pf 0.00 V 1.7V I 0.00A,init + init,acSala + 0C0_empty
+on line,Shelly 1PM,shelly1pm-349454765500,generaleSwitch,192.168.0.38,-34,✓ ✓,✗ ✗,20008,53.69,P 1.66W,input,generaleSwitch
+on line,Shelly +2PM,shellyplus2pm-b8d61a8ad4fc,DCbox,192.168.0.58,-33,✓ ✓,✓ ✓,769,38.0,P 8.70W pf 0.67 V 238.7V I 0.07A + P 0.00W pf 0.00 V 238.8V I 0.00A,init + init,DCpower + ledSwitchNorth
+on line,Shelly +2PM,shellyplus2pm-c049ef884708,switchLoads,192.168.0.60,-25,✓ ✓,✓ ✓,761,37.2,P 0.00W pf 0.00 V 238.5V I 0.00A + P 0.00W pf 0.00 V 238.6V I 0.00A,init + init,sw1 + sw2
