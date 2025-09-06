@@ -1,8 +1,10 @@
 # -----------------------------------------------------------------------------
 # FRIGATE.YAML
+# version; 2025.9.1
 # -----------------------------------------------------------------------------
+
 mqtt:
-  host: mqtt_host
+  host: 192.168.0.13
   port: 1883
   topic_prefix: frigate
   user: mqtt_user
@@ -15,30 +17,56 @@ birdseye:
   enabled: false
   mode: continuous
 
+# Optimized FFmpeg configuration for Pi5 + stability improvements
 ffmpeg:
   hwaccel_args: preset-rpi-64-h264
-#  input_args:
-#    # Force TCP
-#    - -rtsp_transport
-#    - tcp
-#    # Fix timestamp/dts warnings:
-#    - -fflags
-#    - +genpts+discardcorrupt
-#    - -avoid_negative_ts
-#    - make_zero
+  input_args:
+    # Force TCP for better stability
+    - -rtsp_transport
+    - tcp
+    # Fix timestamp/dts warnings and improve stability
+    - -fflags
+    - +genpts+discardcorrupt
+    - -avoid_negative_ts
+    - make_zero
+    # Reduce timeout issues
+    - -timeout
+    - "5000000"
+    # Buffer settings for better streaming
+    - -buffer_size
+    - "512000"
 
+# Multiple detector processes to handle 4 cameras better
 detectors:
-  coral:
+  coral_main:
     type: edgetpu
     device: usb
 
+# Object detection configuration with minimum size filter
 objects:
   track:
     - person
+    - car
   filters:
     person:
-      threshold: 0.69
+      min_score: 0.5
+      threshold: 0.7
+      # Minimum recognition size of 200 pixels
+      min_area: 200
+      # Reasonable size limits for person detection
+      max_area: 100000
+      # Aspect ratio limits to reduce false positives
+      min_ratio: 0.2
+      max_ratio: 3.0
+    car:
+      min_score: 0.5
+      threshold: 0.7
+      min_area: 200
+      max_area: 100000
+      min_ratio: 0.3
+      max_ratio: 5.0
 
+# Optimized snapshots configuration
 snapshots:
   enabled: true
   clean_copy: true
@@ -49,16 +77,36 @@ snapshots:
   retain:
     default: 10
 
-# Detection parameters
+# Global detection parameters
 detect:
-  width: 1280
-  height: 720
+  width: 640
+  height: 480
   fps: 5
+  enabled: true
 
+# Optimized recording configuration
 record:
   enabled: true
   retain:
     days: 4
+    mode: all
+  alerts:
+    retain:
+      days: 7
+      mode: motion
+  detections:
+    retain:
+      days: 7
+      mode: motion
+
+# Review configuration for better alert/detection management
+review:
+  alerts:
+    labels:
+      - person
+  detections:
+    labels:
+      - person
 
 ui:
   time_format: 24hour
@@ -68,37 +116,75 @@ ui:
 # CAMERA DEFINITIONS
 # -----------------------------------------------------------------------------
 cameras:
+  # ENTRANCE CAMERA
   entrance:
     enabled: true
     ffmpeg:
       inputs:
-        - path: rtsp://user:pass@ip_address
+        - path: rtsp://USER:PASS
+          roles:
+            - detect
+        - path: rtsp://USER:PASS
           roles:
             - record
-            - detect
+    detect:
+      width: 640
+      height: 480
+      fps: 5
     motion:
       mask:
         - 0.002,0.233,0,0.632,0.145,0.617,0.268,0.69,0.306,0.661,0.28,0.458,0.35,0.308,0.493,0.287,0.649,0.114,0.756,0.046,1,0.045,1,0,0.288,0.001,0.126,0.002,0.002,0,0.002,0.032,0.002,0.163
         - 0.608,0.114,0.605,0.45,0.637,0.438,0.647,0.114
         - 0,0.8,0.026,0.764,0.056,0.799,0.029,0.849,0.058,0.814,0.074,0.822,0.072,0.832,0.081,0.845,0.087,0.866,0.095,0.881,0.105,0.888,0.121,0.893,0.131,0.89,0.147,0.888,0.152,0.911,0.147,0.934,0.136,0.945,0.146,0.958,0.154,1,0,1
         - 0.646,0.173,0.868,0.104,0.871,0.048,0.758,0.043,0.646,0.114
-      threshold: 25
-      contour_area: 10
-      improve_contrast: 'true'
+      threshold: 35
+      contour_area: 15
+      improve_contrast: true
     objects:
       filters:
         person:
           mask: 0,0.001,0,0.584,0.143,0.614,0.321,0.336,0.509,0.001,0.216,0.001
+          min_area: 200
+          threshold: 0.65
+
+  garage:
+    enabled: true
+    ffmpeg:
+      inputs:
+        - path: rtsp://USER:PASS
+          roles:
+            - detect
+        - path: rtsp://admUSER:PASS
+          roles:
+            - record
+    motion:
+      improve_contrast: true
+      threshold: 35
+      contour_area: 15
+      mask: 
+        - 0.022,0.357,-0.001,0.361,0,0.003,0.998,0.001,0.997,0.197,0.842,0.158,0.833,0.207,0.767,0.199,0.058,0.203,0.052,0.266,0.035,0.298
+    objects:
+      filters:
+        person:
+          min_area: 200
+          threshold: 0.65
+
   garden:
     enabled: true
     ffmpeg:
       inputs:
-        - path: rtsp://user:pass@ip_address
+        - path: rtsp://USER:PASS
           roles:
-            - record
             - detect
+            - record
+    detect:
+      width: 480
+      height: 360
+      fps: 3
     motion:
-      improve_contrast: 'true'
+      improve_contrast: true
+      threshold: 35
+      contour_area: 20
       mask:
         - 0.166,0.173,0.152,0.295,0.152,0.298,0.155,0.311,0.176,0.315,0.193,0.308,0.201,0.253,0.202,0.234,0.191,0.182,0.181,0.16,0.185,0.164,0.174,0.156
         - 0.394,0,0.421,0.074,0.461,0.074,0.469,0.135,0.531,0.165,0.569,0.167,0.603,0.157,0.647,0.157,0.669,0.162,0.731,0.173,0.768,0.174,0.79,0.16,0.799,0.098,0.81,0.071,0.838,0.059,0.873,0.059,0.883,0.052,0.895,0.073,0.904,0.078,0.918,0.088,0.933,0.098,0.942,0.108,0.951,0.12,0.96,0.126,0.976,0.132,1,0.143,0.998,0.001
@@ -106,38 +192,43 @@ cameras:
     objects:
       filters:
         person:
-          mask: 
-            0.251,0.252,0.231,0.292,0.235,0.328,0.235,0.356,0.246,0.361,0.238,0.381,0.234,0.393,0.237,0.42,0.237,0.448,0.237,0.46,0.252,0.462,0.271,0.462,0.279,0.443,0.284,0.409,0.282,0.375,0.281,0.359,0.272,0.34,0.266,0.32,0.266,0.3,0.261,0.287
+          mask: 0.251,0.252,0.231,0.292,0.235,0.328,0.235,0.356,0.246,0.361,0.238,0.381,0.234,0.393,0.237,0.42,0.237,0.448,0.237,0.46,0.252,0.462,0.271,0.462,0.279,0.443,0.284,0.409,0.282,0.375,0.281,0.359,0.272,0.34,0.266,0.32,0.266,0.3,0.261,0.287
+          min_area: 200
+          threshold: 0.65
+
   back:
     enabled: true
     ffmpeg:
       inputs:
-        - path: rtsp://user:pass@ip_address
+        - path: rtsp://USER:PASS
           roles:
-            - record
             - detect
-    motion:
-      improve_contrast: 'true'
-      mask: 
-        1,0.338,0.885,0.372,0.776,0.407,0.762,0.346,0.694,0.361,0.59,0.231,0.276,0,0.999,0.004
-  garage:
-    enabled: true
-    ffmpeg:
-      inputs:
-        - path: rtsp://user:pass@ip_address
-          roles:
             - record
+    detect:
+      width: 480
+      height: 360
+      fps: 3
     motion:
-      improve_contrast: 'true'
-
+      improve_contrast: true
+      threshold: 35
+      contour_area: 20
       mask: 
-        0.022,0.357,-0.001,0.361,0,0.003,0.998,0.001,0.997,0.197,0.842,0.158,0.833,0.207,0.767,0.199,0.058,0.203,0.052,0.266,0.035,0.298
+        - 1,0.338,0.885,0.372,0.776,0.407,0.762,0.346,0.694,0.361,0.59,0.231,0.276,0,0.999,0.004
+    objects:
+      filters:
+        person:
+          min_area: 200
+          threshold: 0.65
+
+# Camera groups remain the same
 camera_groups:
   Home:
     order: 1
     icon: LuHome
     cameras:
-      - back
       - entrance
+      - garage
       - garden
-version: 0.15-1
+      - back
+
+version: 0.16-0
