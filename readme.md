@@ -1,8 +1,8 @@
 # homeAutomation project
     author: kito129
     date: 2023/03/01
-    last update: 2025/09/06
-    version: v2025.9.1
+    last update: 2025/09/12
+    version: v2025.9.2
 
 
 ## Change Log:
