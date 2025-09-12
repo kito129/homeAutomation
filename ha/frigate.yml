@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------
 # FRIGATE.YAML
-# version; 2025.9.1
+# version 2025.09
 # -----------------------------------------------------------------------------
 
 mqtt:
@@ -31,10 +31,10 @@ ffmpeg:
     - make_zero
     # Reduce timeout issues
     - -timeout
-    - "5000000"
+    - '5000000'
     # Buffer settings for better streaming
     - -buffer_size
-    - "512000"
+    - '512000'
 
 # Multiple detector processes to handle 4 cameras better
 detectors:
@@ -79,7 +79,7 @@ snapshots:
 
 # Global detection parameters
 detect:
-  width: 640
+  width: 720
   height: 480
   fps: 5
   enabled: true
@@ -127,10 +127,6 @@ cameras:
         - path: rtsp://USER:PASS
           roles:
             - record
-    detect:
-      width: 640
-      height: 480
-      fps: 5
     motion:
       mask:
         - 0.002,0.233,0,0.632,0.145,0.617,0.268,0.69,0.306,0.661,0.28,0.458,0.35,0.308,0.493,0.287,0.649,0.114,0.756,0.046,1,0.045,1,0,0.288,0.001,0.126,0.002,0.002,0,0.002,0.032,0.002,0.163
@@ -161,7 +157,7 @@ cameras:
       improve_contrast: true
       threshold: 35
       contour_area: 15
-      mask: 
+      mask:
         - 0.022,0.357,-0.001,0.361,0,0.003,0.998,0.001,0.997,0.197,0.842,0.158,0.833,0.207,0.767,0.199,0.058,0.203,0.052,0.266,0.035,0.298
     objects:
       filters:
@@ -176,10 +172,12 @@ cameras:
         - path: rtsp://USER:PASS
           roles:
             - detect
+        - path: rtsp://USER:PASS
+          roles:
             - record
     detect:
-      width: 480
-      height: 360
+      width: 720
+      height: 480
       fps: 3
     motion:
       improve_contrast: true
@@ -192,7 +190,8 @@ cameras:
     objects:
       filters:
         person:
-          mask: 0.251,0.252,0.231,0.292,0.235,0.328,0.235,0.356,0.246,0.361,0.238,0.381,0.234,0.393,0.237,0.42,0.237,0.448,0.237,0.46,0.252,0.462,0.271,0.462,0.279,0.443,0.284,0.409,0.282,0.375,0.281,0.359,0.272,0.34,0.266,0.32,0.266,0.3,0.261,0.287
+          mask: 
+            0.251,0.252,0.231,0.292,0.235,0.328,0.235,0.356,0.246,0.361,0.238,0.381,0.234,0.393,0.237,0.42,0.237,0.448,0.237,0.46,0.252,0.462,0.271,0.462,0.279,0.443,0.284,0.409,0.282,0.375,0.281,0.359,0.272,0.34,0.266,0.32,0.266,0.3,0.261,0.287
           min_area: 200
           threshold: 0.65
 
@@ -203,16 +202,18 @@ cameras:
         - path: rtsp://USER:PASS
           roles:
             - detect
+        - path: rtsp://USER:PASS
+          roles:
             - record
     detect:
-      width: 480
-      height: 360
+      width: 720
+      height: 480
       fps: 3
     motion:
       improve_contrast: true
       threshold: 35
       contour_area: 20
-      mask: 
+      mask:
         - 1,0.338,0.885,0.372,0.776,0.407,0.762,0.346,0.694,0.361,0.59,0.231,0.276,0,0.999,0.004
     objects:
       filters:
@@ -224,11 +225,9 @@ cameras:
 camera_groups:
   Home:
     order: 1
-    icon: LuHome
+    icon: LuFileHeart
     cameras:
       - entrance
-      - garage
       - garden
       - back
-
 version: 0.16-0
